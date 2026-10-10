@@ -1,0 +1,14 @@
+/* Source Tailwind de PubliEPT.
+   Compilé vers static/css/tailwind.css par la commande :
+     npx @tailwindcss/cli -i static/css/source.css -o static/css/tailwind.css --minify
+*/
+@import "tailwindcss";
+
+/* Les gabarits Django sont la source des classes utilisées. */
+@source "../../templates/**/*.html";
+@source "../js/*.js";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", ui-serif, Georgia, serif;
+}

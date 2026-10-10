@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% load publiept %}
+
+{% block contenu %}
+<div class="max-w-4xl mx-auto py-6 sm:py-12">
+  <div class="grid grid-cols-1 md:grid-cols-2 bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden">
+
+    <div class="bg-gradient-to-br from-blue-950 via-slate-900 to-blue-900 text-white p-8 sm:p-10 flex flex-col justify-between">
+      <div class="space-y-4">
+        <div class="flex items-center gap-2">
+          <div class="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center font-serif text-amber-400 font-bold border border-white/20">P</div>
+          <span class="text-lg font-serif font-bold text-white tracking-tight">Publi<span class="text-amber-400">EPT</span></span>
+        </div>
+
+        <h2 class="text-xl sm:text-2xl font-serif font-bold leading-snug">
+          Portail officiel des publications de l'EPT
+        </h2>
+
+        <p class="text-xs text-slate-300 leading-relaxed">
+          Plateforme unifiée de centralisation, de valorisation et de pilotage statistique des
+          productions scientifiques des enseignants-chercheurs de l'{{ parametres.nom_etablissement }}.
+        </p>
+      </div>
+
+      <div class="pt-8 border-t border-white/10 text-xs text-slate-400 space-y-2">
+        <div class="flex items-center gap-2 text-amber-300 font-semibold">
+          {% icone "book-open" "w-4 h-4" %}<span>Consultation libre</span>
+        </div>
+        <p>
+          La recherche et la consultation des publications ne nécessitent aucun compte.
+          La connexion sert uniquement au dépôt de travaux et à l'administration.
+        </p>
+        <a href="{% url 'catalogue' %}" class="inline-flex items-center gap-1 text-amber-300 hover:text-amber-200 font-semibold pt-2">
+          <span>Accéder au catalogue sans compte</span>{% icone "arrow-right" "w-3.5 h-3.5" %}
+        </a>
+      </div>
+    </div>
+
+    <div class="p-8 sm:p-10 space-y-6">
+      <div>
+        <h3 class="text-lg font-bold text-slate-900 font-serif">Connexion à PubliEPT</h3>
+        <p class="text-xs text-slate-500 mt-0.5">Accédez à vos publications ou au tableau de bord</p>
+      </div>
+
+      <div class="space-y-2">
+        <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400 block">
+          Connexion rapide (mode démonstration)
+        </span>
+        <div class="space-y-2 max-h-64 overflow-y-auto pr-1">
+          {% for compte in comptes_demo %}
+            <form method="post" action="{% url 'connexion_demo' compte.pk %}">
+              {% csrf_token %}
+              <button type="submit"
+                      class="w-full text-left p-3 rounded-xl border border-slate-200 hover:border-blue-900/40 hover:bg-slate-50 transition-all flex items-center justify-between group">
+                <div class="flex items-center gap-2.5">
+                  {% if compte.avatar %}
+                    <img src="{{ compte.avatar_url }}" alt="" class="w-8 h-8 rounded-full object-cover border">
+                  {% else %}
+                    <span class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-400">
+                      {% icone "user" "w-4 h-4" %}
+                    </span>
+                  {% endif %}
+                  <div>
+                    <strong class="text-xs text-slate-900 block group-hover:text-blue-900">
+                      {{ compte.prenom }} {{ compte.nom }}
+                    </strong>
+                    <span class="text-[10px] text-slate-400">
+                      Rôle : <span class="font-bold text-slate-700">{{ compte.libelle_role }}</span>
+                    </span>
+                  </div>
+                </div>
+                {% icone "arrow-right" "w-4 h-4 text-slate-300 group-hover:text-blue-900" %}
+              </button>
+            </form>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="relative flex items-center justify-center my-2">
+        <div class="border-t border-slate-200 w-full"></div>
+        <span class="bg-white px-2 text-[10px] uppercase font-bold text-slate-400 shrink-0">Ou par identifiant EPT</span>
+      </div>
+
+      <form method="post" class="space-y-3.5">
+        {% csrf_token %}
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Adresse email institutionnelle</label>
+          <div class="relative">
+            <input type="text" name="email" required placeholder="prenom.nom@ept.edu.sn"
+                   class="w-full pl-9 pr-3 py-2 text-xs bg-slate-50 border border-slate-300 rounded-lg focus:bg-white text-slate-800">
+            <span class="absolute left-3 top-2.5 text-slate-400">{% icone "mail" "w-4 h-4" %}</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Mot de passe</label>
+          <div class="relative">
+            <input type="password" name="password" required placeholder="••••••••"
+                   class="w-full pl-9 pr-3 py-2 text-xs bg-slate-50 border border-slate-300 rounded-lg focus:bg-white text-slate-800">
+            <span class="absolute left-3 top-2.5 text-slate-400">{% icone "lock" "w-4 h-4" %}</span>
+          </div>
+        </div>
+
+        <button type="submit" class="w-full py-2.5 px-4 text-xs font-bold text-white bg-blue-950 hover:bg-blue-900 rounded-xl transition-colors">
+          Se connecter
+        </button>
+
+        <p class="text-[11px] text-slate-500 text-center pt-1">
+          Pas encore de compte ?
+          <a href="{% url 'inscription' %}" class="text-blue-900 font-semibold hover:underline">Créer un compte chercheur</a>
+        </p>
+        <p class="text-[11px] text-slate-400 text-center">
+          Comptes de démonstration — mot de passe : <span class="font-mono font-bold text-slate-600">{{ mot_de_passe_demo }}</span>
+        </p>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

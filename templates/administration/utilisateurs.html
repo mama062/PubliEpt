@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+{% load publiept %}
+
+{% block contenu %}
+<div class="space-y-6 pb-16">
+
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+    <div>
+      <div class="flex items-center gap-2">
+        <h1 class="text-2xl sm:text-3xl font-serif font-bold text-slate-950">Gestion des comptes utilisateurs</h1>
+        <span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300">
+          Administration
+        </span>
+      </div>
+      <p class="text-xs text-slate-500 mt-1">
+        Contrôle des accès &bull; la consultation du catalogue ne nécessite aucun compte
+      </p>
+    </div>
+
+    <button type="button" onclick="ouvrirModale('compte')"
+            class="inline-flex items-center gap-2 px-4 py-2 text-xs font-bold text-white bg-blue-950 hover:bg-blue-900 rounded-xl transition-colors">
+      {% icone "user-plus" "w-4 h-4 text-amber-400" %}<span>Créer un compte</span>
+    </button>
+  </div>
+
+  <div class="p-4 rounded-2xl bg-blue-50 border border-blue-200 text-xs text-blue-950 flex items-start gap-3">
+    {% icone "shield" "w-5 h-5 text-blue-900 shrink-0 mt-0.5" %}
+    <div>
+      <strong class="block font-bold">Règle d'intégrité et de traçabilité :</strong>
+      <span>
+        Un compte se désactive pour suspendre ses accès, sans altérer l'historique de ses
+        publications scientifiques. Il ne se supprime jamais.
+      </span>
+    </div>
+  </div>
+
+  <form method="get" id="filtres-catalogue"
+        class="bg-white p-4 rounded-2xl border border-slate-200 flex flex-col md:flex-row items-center justify-between gap-3">
+    <div class="relative flex-1 w-full">
+      <input type="text" name="q" value="{{ f.q|default:'' }}" placeholder="Rechercher par nom, prénom ou email…"
+             class="w-full pl-9 pr-4 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg text-slate-800">
+      <span class="absolute left-3 top-2.5 text-slate-400">{% icone "search" "w-4 h-4" %}</span>
+    </div>
+
+    <select name="role" class="p-2 text-xs bg-slate-50 border border-slate-200 rounded-lg text-slate-700 w-full md:w-56">
+      <option value="">Tous les rôles</option>
+      {% for code, libelle in roles %}
+        <option value="{{ code }}" {% if f.role == code %}selected{% endif %}>{{ libelle }}</option>
+      {% endfor %}
+    </select>
+  </form>
+
+  <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="tableau-publiept">
+        <thead>
+          <tr><th>Utilisateur</th><th>Rôle</th><th>Fiche enseignant</th><th>Statut</th><th>Créé le</th><th class="text-right">Actions</th></tr>
+        </thead>
+        <tbody>
+          {% for compte in utilisateurs %}
+            <tr class="{% if not compte.est_actif %}opacity-60 bg-slate-50/50{% endif %}">
+              <td>
+                <div class="flex items-center gap-3">
+                  {% if compte.avatar %}
+                    <img src="{{ compte.avatar_url }}" alt="" class="w-8 h-8 rounded-full object-cover border">
+                  {% else %}
+                    <span class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-400">
+                      {% icone "user" "w-4 h-4" %}
+                    </span>
+                  {% endif %}
+                  <div>
+                    <strong class="text-slate-900 block">{{ compte.nom_complet|default:compte.username }}</strong>
+                    <span class="text-[11px] text-slate-400">{{ compte.email }}</span>
+                  </div>
+                </div>
+              </td>
+
+              <td>
+                <span class="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-bold border
+                  {% if compte.est_administrateur %}bg-amber-100 text-amber-900 border-amber-300
+                  {% else %}bg-blue-100 text-blue-900 border-blue-300{% endif %}">
+                  {{ compte.libelle_role }}
+                </span>
+              </td>
+
+              <td class="text-[11px] text-slate-600">
+                {% if compte.fiche_enseignant %}
+                  <a href="{% url 'profil_enseignant' compte.fiche_enseignant.pk %}" class="text-blue-900 hover:underline font-semibold">
+                    {{ compte.fiche_enseignant.nom_complet }}
+                  </a>
+                {% else %}<span class="text-slate-400">—</span>{% endif %}
+              </td>
+
+              <td>
+                {% if compte.est_actif %}
+                  <span class="inline-flex items-center gap-1 text-[11px] text-emerald-800 font-bold bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full">
+                    {% icone "circle-check-big" "w-3 h-3" %}<span>Actif</span>
+                  </span>
+                {% else %}
+                  <span class="inline-flex items-center gap-1 text-[11px] text-slate-500 font-bold bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-full">
+                    {% icone "circle-x" "w-3 h-3" %}<span>Désactivé</span>
+                  </span>
+                {% endif %}
+              </td>
+
+              <td class="text-slate-500 font-medium whitespace-nowrap">{{ compte.date_creation|date:"d/m/Y" }}</td>
+
+              <td class="text-right whitespace-nowrap">
+                <a href="?modifier={{ compte.pk }}"
+                   class="p-1.5 hover:bg-slate-100 rounded text-slate-600 hover:text-blue-900 inline-block" title="Modifier">
+                  {% icone "pencil" "w-3.5 h-3.5" %}
+                </a>
+                <form method="post" action="{% url 'admin_basculer_compte' compte.pk %}" class="inline">
+                  {% csrf_token %}
+                  <button type="submit"
+                          class="p-1.5 rounded inline-block transition-colors {% if compte.est_actif %}hover:bg-amber-50 text-amber-700{% else %}hover:bg-emerald-50 text-emerald-700{% endif %}"
+                          title="{% if compte.est_actif %}Désactiver le compte{% else %}Activer le compte{% endif %}">
+                    {% icone "power" "w-3.5 h-3.5" %}
+                  </button>
+                </form>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div id="compte" data-modale
+     class="{% if not modification %}hidden {% endif %}fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-xs">
+  <div class="bg-white rounded-2xl p-6 max-w-md w-full shadow-2xl border border-slate-200 space-y-4 max-h-[90vh] overflow-y-auto">
+    <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+      <h3 class="font-serif font-bold text-base text-slate-900">
+        {% if modification %}Modifier le compte{% else %}Créer un compte utilisateur{% endif %}
+      </h3>
+      <a href="{% url 'admin_utilisateurs' %}" class="text-slate-400 hover:text-slate-700">{% icone "x" "w-5 h-5" %}</a>
+    </div>
+
+    <form method="post" class="space-y-3">
+      {% csrf_token %}
+      {% if modification %}<input type="hidden" name="id" value="{{ modification.pk }}">{% endif %}
+
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label for="{{ form.first_name.id_for_label }}" class="block text-xs font-bold text-slate-700 mb-1">Prénom</label>
+          {{ form.first_name }}
+        </div>
+        <div>
+          <label for="{{ form.last_name.id_for_label }}" class="block text-xs font-bold text-slate-700 mb-1">Nom</label>
+          {{ form.last_name }}
+        </div>
+      </div>
+
+      <div>
+        <label for="{{ form.email.id_for_label }}" class="block text-xs font-bold text-slate-700 mb-1">Adresse email</label>
+        {{ form.email }}
+        {% for erreur in form.email.errors %}<p class="text-[11px] text-rose-600 mt-1">{{ erreur }}</p>{% endfor %}
+      </div>
+
+      <div>
+        <label for="{{ form.role.id_for_label }}" class="block text-xs font-bold text-slate-700 mb-1">Rôle de l'utilisateur</label>
+        {{ form.role }}
+      </div>
+
+      <div>
+        <label for="{{ form.fiche_enseignant.id_for_label }}" class="block text-xs font-bold text-slate-700 mb-1">
+          Lier à une fiche enseignant
+        </label>
+        {{ form.fiche_enseignant }}
+      </div>
+
+      <div>
+        <label for="{{ form.telephone.id_for_label }}" class="block text-xs font-bold text-slate-700 mb-1">Téléphone</label>
+        {{ form.telephone }}
+      </div>
+
+      {% if not modification %}
+        <p class="text-[11px] text-slate-500 bg-slate-50 border border-slate-200 rounded-lg p-2.5">
+          Le compte est créé avec le mot de passe de démonstration. L'utilisateur pourra le modifier
+          depuis l'administration technique de Django.
+        </p>
+      {% endif %}
+
+      <div class="flex justify-end gap-2 pt-4 border-t border-slate-100">
+        <a href="{% url 'admin_utilisateurs' %}" class="px-3 py-1.5 text-xs text-slate-700 hover:bg-slate-100 rounded-lg">Annuler</a>
+        <button type="submit" class="px-4 py-2 text-xs font-bold text-white bg-blue-950 hover:bg-blue-900 rounded-xl transition-colors">
+          Enregistrer
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

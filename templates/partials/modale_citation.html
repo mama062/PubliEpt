@@ -1,0 +1,68 @@
+{% load publiept %}
+<div id="citation-{{ publication.pk }}" data-modale
+     class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-xs">
+  <div class="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden">
+
+    <div class="flex items-center justify-between px-6 py-4 bg-blue-950 text-white">
+      <div class="flex items-center gap-2">
+        {% icone "quote" "w-5 h-5 text-amber-400" %}
+        <h3 class="font-serif font-bold text-base">Citer cette publication</h3>
+      </div>
+      <button type="button" onclick="fermerModale('citation-{{ publication.pk }}')"
+              class="text-slate-300 hover:text-white p-1 rounded-md transition-colors">
+        {% icone "x" "w-5 h-5" %}
+      </button>
+    </div>
+
+    <div class="p-6">
+      <div class="mb-4">
+        <h4 class="text-sm font-bold text-slate-900 ligne-2">{{ publication.titre }}</h4>
+        <p class="text-xs text-slate-500 mt-1">
+          {{ publication.annee }} &bull;
+          {% if publication.type_publication == 'PREPRINT' %}Preprint non soumis{% else %}{{ publication.libelle_type }}{% endif %}
+          &bull; EPT Sénégal
+        </p>
+      </div>
+
+      <div class="flex items-center gap-4 border-b border-slate-200 mb-4">
+        <button type="button" data-onglet-citation
+                onclick="choisirFormatCitation('apa-{{ publication.pk }}', this)"
+                class="pb-2 text-xs font-bold border-b-2 border-blue-900 text-blue-900 transition-colors">
+          Format APA (7<sup>e</sup> édition)
+        </button>
+        <button type="button" data-onglet-citation
+                onclick="choisirFormatCitation('bibtex-{{ publication.pk }}', this)"
+                class="pb-2 text-xs font-bold border-b-2 border-transparent text-slate-500 hover:text-slate-800 transition-colors">
+          Format BibTeX (LaTeX)
+        </button>
+      </div>
+
+      <div data-citation="apa-{{ publication.pk }}"
+           class="p-4 rounded-xl bg-slate-50 border border-slate-200 text-slate-800 text-xs font-mono max-h-60 overflow-y-auto leading-relaxed whitespace-pre-wrap select-all">
+        <span id="apa-texte-{{ publication.pk }}">{{ publication.citation_apa }}</span>
+      </div>
+
+      <div data-citation="bibtex-{{ publication.pk }}" class="hidden">
+        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 text-slate-800 text-xs font-mono max-h-60 overflow-y-auto leading-relaxed whitespace-pre-wrap select-all">
+          <span id="bibtex-texte-{{ publication.pk }}">{{ publication.citation_bibtex }}</span>
+        </div>
+      </div>
+
+      <div class="mt-6 flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-100">
+        <p class="text-xs text-slate-500">
+          Format prêt à insérer dans vos bibliographies académiques.
+        </p>
+        <div class="flex items-center gap-2">
+          <a href="{% url 'export_publication_bibtex' publication.pk %}"
+             class="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg border border-slate-300 transition-colors">
+            {% icone "download" "w-3.5 h-3.5" %}<span>Télécharger .bib</span>
+          </a>
+          <button type="button" onclick="copierTexte('apa-texte-{{ publication.pk }}', this)"
+                  class="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold text-white bg-blue-950 hover:bg-blue-900 rounded-lg transition-colors">
+            {% icone "copy" "w-4 h-4" %}<span>Copier la citation</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

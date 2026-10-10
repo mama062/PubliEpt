@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% load publiept %}
+
+{% block contenu %}
+<div class="space-y-8 pb-12">
+
+  <a href="{% url 'annuaire' %}" class="inline-flex items-center gap-1.5 text-xs font-bold text-slate-600 hover:text-blue-950 transition-colors">
+    {% icone "arrow-left" "w-4 h-4" %}<span>Retour à l'annuaire des chercheurs</span>
+  </a>
+
+  <div class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8">
+    <div class="flex flex-col md:flex-row gap-6 items-start">
+      {% if enseignant.photo %}
+        <img src="{{ enseignant.photo_url }}" alt=""
+             class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl object-cover border-2 border-slate-200 shrink-0 ring-4 ring-slate-50">
+      {% else %}
+        <span class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-blue-950 flex items-center justify-center text-2xl font-serif font-bold text-amber-300 shrink-0 ring-4 ring-slate-50"
+              title="Aucune photographie fournie">{{ enseignant.initiales }}</span>
+      {% endif %}
+
+      <div class="flex-1 space-y-3 min-w-0">
+        <div>
+          <span class="text-xs font-bold text-amber-700 uppercase tracking-wide">{{ enseignant.grade }}</span>
+          <h1 class="text-2xl sm:text-3xl font-serif font-bold text-slate-950">{{ enseignant.nom_complet }}</h1>
+          <a href="{% url 'specialite_detail' enseignant.specialite.pk %}"
+             class="inline-flex items-center gap-1 mt-1 text-xs font-bold text-blue-900 hover:text-amber-600">
+            {% icone "compass" "w-3.5 h-3.5" %}
+            <span>Spécialité : {{ enseignant.specialite.code }} – {{ enseignant.specialite.libelle }}</span>
+          </a>
+        </div>
+
+        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-3xl">
+          {{ enseignant.biographie|default:"Enseignant-chercheur à l'École Polytechnique de Thiès (Sénégal)." }}
+        </p>
+
+        <div class="flex flex-wrap items-center gap-3 pt-2 text-xs text-slate-600">
+          <span class="flex items-center gap-1">
+            {% icone "mail" "w-3.5 h-3.5 text-slate-400" %}
+            <a href="mailto:{{ enseignant.email }}" class="text-blue-900 font-medium hover:underline">{{ enseignant.email }}</a>
+          </span>
+          {% if enseignant.telephone %}
+            <span class="flex items-center gap-1">{% icone "phone" "w-3.5 h-3.5 text-slate-400" %}<span>{{ enseignant.telephone }}</span></span>
+          {% endif %}
+          {% if enseignant.bureau %}
+            <span class="flex items-center gap-1">{% icone "building" "w-3.5 h-3.5 text-slate-400" %}<span>{{ enseignant.bureau }}</span></span>
+          {% endif %}
+          {% if enseignant.orcid %}
+            <a href="https://orcid.org/{{ enseignant.orcid }}" target="_blank" rel="noreferrer"
+               class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded bg-emerald-50 text-emerald-800 border border-emerald-200 font-mono text-[11px] font-semibold hover:bg-emerald-100">
+              <span>ORCID : {{ enseignant.orcid }}</span>{% icone "external-link" "w-3 h-3" %}
+            </a>
+          {% endif %}
+          {% if enseignant.google_scholar %}
+            <a href="{{ enseignant.google_scholar }}" target="_blank" rel="noreferrer"
+               class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded bg-blue-50 text-blue-900 border border-blue-200 text-[11px] font-semibold hover:bg-blue-100">
+              <span>Google Scholar</span>{% icone "external-link" "w-3 h-3" %}
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6 pt-6 border-t border-slate-100 text-center">
+      <div class="bg-slate-50 p-3 rounded-xl">
+        <span class="text-slate-500 text-xs block">Publications</span>
+        <strong class="text-lg text-slate-900 font-bold">{{ publications|length }}</strong>
+      </div>
+      <div class="bg-slate-50 p-3 rounded-xl">
+        <span class="text-slate-500 text-xs block">Citations totales</span>
+        <strong class="text-lg text-emerald-700 font-bold">{{ total_citations }}</strong>
+      </div>
+      <div class="bg-slate-50 p-3 rounded-xl">
+        <span class="text-slate-500 text-xs block">Indice h</span>
+        <strong class="text-lg text-blue-900 font-bold">{{ enseignant.h_index }}</strong>
+      </div>
+      <div class="bg-slate-50 p-3 rounded-xl">
+        <span class="text-slate-500 text-xs block">Projets financés</span>
+        <strong class="text-lg text-amber-700 font-bold">{{ nb_financees }}</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="space-y-4">
+    <div class="flex items-center justify-between">
+      <h2 class="text-lg font-serif font-bold text-slate-950">
+        Travaux et publications ({{ publications|length }})
+      </h2>
+      {% if publications %}
+        <a href="{% url 'export_enseignant_bibtex' enseignant.pk %}"
+           class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 rounded-lg transition-colors">
+          {% icone "download" "w-3.5 h-3.5 text-blue-900" %}<span>Exporter en BibTeX</span>
+        </a>
+      {% endif %}
+    </div>
+
+    {% if not publications %}
+      <div class="bg-white p-12 text-center rounded-2xl border border-slate-200 text-xs text-slate-500">
+        Aucune publication enregistrée pour cet enseignant pour le moment.
+      </div>
+    {% else %}
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {% for publication in publications %}
+          {% include "partials/carte_publication.html" %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

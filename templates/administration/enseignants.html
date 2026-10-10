@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+{% load publiept %}
+
+{% block contenu %}
+<div class="space-y-6 pb-16">
+
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+    <div>
+      <div class="flex items-center gap-2">
+        <h1 class="text-2xl sm:text-3xl font-serif font-bold text-slate-950">Gestion des enseignants-chercheurs</h1>
+        <span class="text-xs font-bold px-2 py-0.5 rounded bg-blue-100 text-blue-900">
+          {{ enseignants|length }} fiche{{ enseignants|length|pluriel }}
+        </span>
+      </div>
+      <p class="text-xs text-slate-500 mt-1">
+        Fiche chercheur, grade académique et rattachement exclusif à une spécialité d'ingénierie
+      </p>
+    </div>
+
+    <a href="?nouveau=1" onclick="ouvrirModale('fiche-enseignant'); return false;"
+       class="inline-flex items-center gap-2 px-4 py-2 text-xs font-bold text-white bg-blue-950 hover:bg-blue-900 rounded-xl transition-colors">
+      {% icone "plus" "w-4 h-4 text-amber-400" %}<span>Ajouter un enseignant</span>
+    </a>
+  </div>
+
+  <form method="get" id="filtres-catalogue" class="bg-white p-4 rounded-2xl border border-slate-200">
+    <div class="relative">
+      <input type="text" name="q" value="{{ f.q|default:'' }}" placeholder="Rechercher par nom, prénom ou grade…"
+             class="w-full pl-9 pr-4 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg text-slate-800">
+      <span class="absolute left-3 top-2.5 text-slate-400">{% icone "search" "w-4 h-4" %}</span>
+    </div>
+  </form>
+
+  <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="tableau-publiept">
+        <thead>
+          <tr>
+            <th>Enseignant</th><th>Grade</th><th>Spécialité</th><th>Identifiants</th>
+            <th class="text-center">Publications</th><th class="text-right">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for enseignant in enseignants %}
+            <tr>
+              <td>
+                <div class="flex items-center gap-3">
+                  {% if enseignant.photo %}
+                    <img src="{{ enseignant.photo_url }}" alt="" class="w-8 h-8 rounded-full object-cover border">
+                  {% else %}
+                    <span class="w-8 h-8 rounded-full bg-blue-950 flex items-center justify-center text-[10px] font-bold text-amber-300">{{ enseignant.initiales }}</span>
+                  {% endif %}
+                  <div>
+                    <strong class="text-slate-900 block">{{ enseignant.nom_complet }}</strong>
+                    <span class="text-[11px] text-slate-400">{{ enseignant.email }}</span>
+                  </div>
+                </div>
+              </td>
+              <td class="font-medium">{{ enseignant.grade }}</td>
+              <td class="font-bold text-blue-950">{{ enseignant.specialite.code }} — {{ enseignant.specialite.libelle }}</td>
+              <td class="whitespace-nowrap">
+                {% if enseignant.orcid %}
+                  <span class="font-mono text-[10px] text-emerald-800 bg-emerald-50 px-1.5 py-0.5 rounded">ORCID</span>
+                {% endif %}
+                {% if enseignant.google_scholar %}
+                  <span class="ml-1 text-[10px] text-blue-800 bg-blue-50 px-1.5 py-0.5 rounded">Scholar</span>
+                {% endif %}
+                {% if not enseignant.orcid and not enseignant.google_scholar %}
+                  <span class="text-slate-400">—</span>
+                {% endif %}
+              </td>
+              <td class="text-center font-bold text-slate-900">{{ enseignant.nb_publications }}</td>
+              <td class="text-right">
+                <a href="{% url 'profil_enseignant' enseignant.pk %}"
+                   class="p-1.5 hover:bg-slate-100 rounded text-slate-600 inline-block" title="Voir la fiche publique">
+                  {% icone "external-link" "w-3.5 h-3.5" %}
+                </a>
+                <a href="?modifier={{ enseignant.pk }}"
+                   class="p-1.5 hover:bg-blue-50 rounded text-blue-900 inline-block" title="Modifier la fiche">
+                  {% icone "pencil" "w-3.5 h-3.5" %}
+                </a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div id="fiche-enseignant" data-modale
+     class="{% if not modification %}hidden {% endif %}fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-xs">
+  <div class="bg-white rounded-2xl p-6 max-w-lg w-full shadow-2xl border border-slate-200 space-y-4 max-h-[90vh] overflow-y-auto">
+    <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+      <h3 class="font-serif font-bold text-base text-slate-900">
+        {% if modification %}Modifier la fiche enseignant{% else %}Ajouter un enseignant-chercheur{% endif %}
+      </h3>
+      <a href="{% url 'admin_enseignants' %}" class="text-slate-400 hover:text-slate-700">{% icone "x" "w-5 h-5" %}</a>
+    </div>
+
+    <form method="post" class="space-y-3">
+      {% csrf_token %}
+      {% if modification %}<input type="hidden" name="id" value="{{ modification.pk }}">{% endif %}
+
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label for="{{ form.prenom.id_for_label }}" class="block text-xs font-bold text-slate-700 mb-1">Prénom</label>
+          {{ form.prenom }}
+        </div>
+        <div>
+          <label for="{{ form.nom.id_for_label }}" class="block text-xs font-bold text-slate-700 mb-1">Nom</label>
+          {{ form.nom }}
+        </div>
+      </div>
+
+      <div>
+        <label for="{{ form.email.id_for_label }}" class="block text-xs font-bold text-slate-700 mb-1">Email institutionnel</label>
+        {{ form.email }}
+        {% for erreur in form.email.errors %}<p class="text-[11px] text-rose-600 mt-1">{{ erreur }}</p>{% endfor %}
+      </div>
+
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label for="{{ form.grade.id_for_label }}" class="block text-xs font-bold text-slate-700 mb-1">Grade</label>
+          {{ form.grade }}
+        </div>
+        <div>
+          <label for="{{ form.specialite.id_for_label }}" class="block text-xs font-bold text-slate-700 mb-1">Spécialité rattachée</label>
+          {{ form.specialite }}
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label for="{{ form.orcid.id_for_label }}" class="block text-xs font-bold text-slate-700 mb-1">ORCID</label>
+          {{ form.orcid }}
+        </div>
+        <div>
+          <label for="{{ form.google_scholar.id_for_label }}" class="block text-xs font-bold text-slate-700 mb-1">Google Scholar</label>
+          {{ form.google_scholar }}
+        </div>
+      </div>
+
+      <div>
+        <label for="{{ form.biographie.id_for_label }}" class="block text-xs font-bold text-slate-700 mb-1">Biographie</label>
+        {{ form.biographie }}
+      </div>
+
+      <div class="flex justify-end gap-2 pt-4 border-t border-slate-100">
+        <a href="{% url 'admin_enseignants' %}" class="px-3 py-1.5 text-xs text-slate-700 hover:bg-slate-100 rounded-lg">Annuler</a>
+        <button type="submit" class="px-4 py-2 text-xs font-bold text-white bg-blue-950 hover:bg-blue-900 rounded-xl transition-colors">
+          Enregistrer
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

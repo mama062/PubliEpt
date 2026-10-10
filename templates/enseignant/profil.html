@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% load publiept %}
+
+{% block contenu %}
+<div class="max-w-3xl mx-auto space-y-6 pb-16">
+
+  <div class="border-b border-slate-200 pb-5">
+    <h1 class="text-2xl sm:text-3xl font-serif font-bold text-slate-950">Mon profil chercheur</h1>
+    <p class="text-xs text-slate-500 mt-1">
+      Mettez à jour vos identifiants académiques, votre affiliation et vos coordonnées publiques
+    </p>
+  </div>
+
+  <form method="post" class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 space-y-6">
+    {% csrf_token %}
+
+    <div class="flex flex-col sm:flex-row items-center gap-5 pb-6 border-b border-slate-100">
+      {% if fiche.photo %}
+        <img src="{{ fiche.photo_url }}" alt="" class="w-20 h-20 rounded-2xl object-cover border-2 border-slate-200 ring-4 ring-slate-50">
+      {% else %}
+        <span class="w-20 h-20 rounded-2xl bg-blue-950 flex items-center justify-center text-xl font-serif font-bold text-amber-300 ring-4 ring-slate-50">{{ fiche.initiales }}</span>
+      {% endif %}
+      <div class="flex-1 w-full space-y-2">
+        <label for="{{ form.photo.id_for_label }}" class="block text-xs font-bold text-slate-700">
+          Photographie de profil
+        </label>
+        {{ form.photo }}
+        <p class="text-[11px] text-slate-500">
+          Adresse d'une image en ligne, ou chemin d'un fichier déposé dans
+          <span class="font-mono">static/img/enseignants/</span>. Laissé vide, le profil
+          affiche vos initiales — aucune image d'illustration n'est ajoutée à votre place.
+        </p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div>
+        <label for="{{ form.prenom.id_for_label }}" class="block text-xs font-bold text-slate-700 mb-1">Prénom</label>
+        {{ form.prenom }}
+      </div>
+      <div>
+        <label for="{{ form.nom.id_for_label }}" class="block text-xs font-bold text-slate-700 mb-1">Nom</label>
+        {{ form.nom }}
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div>
+        <label for="{{ form.grade.id_for_label }}" class="block text-xs font-bold text-slate-700 mb-1">Grade académique</label>
+        {{ form.grade }}
+      </div>
+      <div>
+        <label for="{{ form.specialite.id_for_label }}" class="block text-xs font-bold text-slate-700 mb-1">Spécialité d'ingénieur</label>
+        {{ form.specialite }}
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div>
+        <label for="{{ form.orcid.id_for_label }}" class="block text-xs font-bold text-slate-700 mb-1">Identifiant ORCID</label>
+        {{ form.orcid }}
+      </div>
+      <div>
+        <label for="{{ form.google_scholar.id_for_label }}" class="block text-xs font-bold text-slate-700 mb-1">Profil Google Scholar</label>
+        {{ form.google_scholar }}
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div>
+        <label for="{{ form.email.id_for_label }}" class="block text-xs font-bold text-slate-700 mb-1">Email institutionnel</label>
+        {{ form.email }}
+      </div>
+      <div>
+        <label for="{{ form.telephone.id_for_label }}" class="block text-xs font-bold text-slate-700 mb-1">Téléphone</label>
+        {{ form.telephone }}
+      </div>
+      <div>
+        <label for="{{ form.bureau.id_for_label }}" class="block text-xs font-bold text-slate-700 mb-1">Bureau / laboratoire</label>
+        {{ form.bureau }}
+      </div>
+    </div>
+
+    <div>
+      <label for="{{ form.biographie.id_for_label }}" class="block text-xs font-bold text-slate-700 mb-1">
+        Biographie scientifique et thématiques de recherche
+      </label>
+      {{ form.biographie }}
+    </div>
+
+    {% if form.errors %}
+      <div class="p-3 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-900">
+        {% for champ, erreurs in form.errors.items %}
+          {% for erreur in erreurs %}<div>&bull; {{ erreur }}</div>{% endfor %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <div class="flex items-center justify-between pt-4 border-t border-slate-100">
+      <a href="{% url 'profil_enseignant' fiche.pk %}" class="text-xs font-semibold text-blue-900 hover:underline inline-flex items-center gap-1">
+        {% icone "external-link" "w-3.5 h-3.5" %}<span>Voir ma fiche publique</span>
+      </a>
+      <button type="submit"
+              class="inline-flex items-center gap-2 px-6 py-2.5 text-xs font-bold text-white bg-blue-950 hover:bg-blue-900 rounded-xl transition-colors">
+        {% icone "save" "w-4 h-4 text-amber-400" %}<span>Enregistrer les modifications</span>
+      </button>
+    </div>
+  </form>
+</div>
+{% endblock %}

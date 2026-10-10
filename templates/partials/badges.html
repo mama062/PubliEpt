@@ -1,0 +1,13 @@
+{% load publiept %}
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold border {{ publication.classe_type }}"
+      {% if publication.type_publication == 'PREPRINT' %}title="Article rédigé non encore soumis à une revue"{% endif %}>
+  {% icone publication.icone_type "w-3 h-3" %}
+  <span>{{ publication.libelle_type }}</span>
+</span>
+{% if publication.est_financee %}
+  <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-500/15 text-amber-950 border border-amber-400"
+        title="Financé par : {{ publication.organismes|join:', ' }}">
+    {% icone "circle-dollar-sign" "w-3 h-3 shrink-0" %}
+    <span>Projet financé</span>
+  </span>
+{% endif %}

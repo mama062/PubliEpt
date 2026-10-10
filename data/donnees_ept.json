@@ -1,0 +1,3710 @@
+{
+ "SPECIALITES_INITIAL": [
+  {
+   "id": "spec-tsi",
+   "code": "TSI",
+   "libelle": "Traitement du Signal et de l'Image",
+   "description": "Décomposition modale empirique, décomposition spectrale intrinsèque, analyse d'images tomographiques, traitement des signaux biomédicaux et classification par réseaux de neurones.",
+   "couleur": "#1E3A8A",
+   "icone": "activity"
+  },
+  {
+   "id": "spec-iac",
+   "code": "IAC",
+   "libelle": "Intelligence Artificielle et Ingénierie des Connaissances",
+   "description": "Ontologies et web sémantique, extraction d'information à partir de textes, formalisation de règles métier, aide au diagnostic médical et traitement automatique des langues.",
+   "couleur": "#6D28D9",
+   "icone": "brain"
+  },
+  {
+   "id": "spec-cse",
+   "code": "CSE",
+   "libelle": "Cryptographie et Sécurité des Systèmes",
+   "description": "Cryptographie à courbes elliptiques, protocoles d'authentification légers, accréditations anonymes et sécurité des objets connectés.",
+   "couleur": "#047857",
+   "icone": "shield"
+  },
+  {
+   "id": "spec-mam",
+   "code": "MAM",
+   "libelle": "Mathématiques Appliquées et Modélisation",
+   "description": "Équations aux dérivées partielles, systèmes dynamiques, modélisation épidémiologique et méthodes numériques pour l'ingénieur.",
+   "couleur": "#B45309",
+   "icone": "sigma"
+  },
+  {
+   "id": "spec-gsi",
+   "code": "GSI",
+   "libelle": "Géomatique et Systèmes d'Information",
+   "description": "Systèmes d'information géographique, analyse spatiale multicritère, cartographie de la vulnérabilité urbaine et systèmes d'information territoriaux.",
+   "couleur": "#0D9488",
+   "icone": "map"
+  }
+ ],
+ "SUPPORTS_INITIAL": [
+  {
+   "id": "sup-ieee-spl",
+   "nom": "IEEE Signal Processing Letters",
+   "type": "JOURNAL",
+   "issn_isbn": "1070-9908",
+   "editeur": "IEEE",
+   "est_indexe": true
+  },
+  {
+   "id": "sup-ieee-tsp",
+   "nom": "IEEE Transactions on Signal Processing",
+   "type": "JOURNAL",
+   "issn_isbn": "1053-587X",
+   "editeur": "IEEE",
+   "est_indexe": true
+  },
+  {
+   "id": "sup-ieee-tip",
+   "nom": "IEEE Transactions on Image Processing",
+   "type": "JOURNAL",
+   "issn_isbn": "1057-7149",
+   "editeur": "IEEE",
+   "est_indexe": true
+  },
+  {
+   "id": "sup-ijcsi",
+   "nom": "International Journal of Computer Science Issues (IJCSI)",
+   "type": "JOURNAL",
+   "issn_isbn": "1694-0814",
+   "editeur": "IJCSI",
+   "est_indexe": false
+  },
+  {
+   "id": "sup-isrn-sp",
+   "nom": "ISRN Signal Processing",
+   "type": "JOURNAL",
+   "issn_isbn": "2090-5041",
+   "editeur": "Hindawi",
+   "est_indexe": false
+  },
+  {
+   "id": "sup-jece",
+   "nom": "Journal of Electrical and Computer Engineering",
+   "type": "JOURNAL",
+   "issn_isbn": "2090-0147",
+   "editeur": "Hindawi",
+   "est_indexe": true
+  },
+  {
+   "id": "sup-ijig",
+   "nom": "International Journal of Image and Graphics (IJIG)",
+   "type": "JOURNAL",
+   "issn_isbn": "0219-4678",
+   "editeur": "World Scientific",
+   "est_indexe": true
+  },
+  {
+   "id": "sup-ijcie",
+   "nom": "International Journal of Computer and Information Engineering",
+   "type": "JOURNAL",
+   "issn_isbn": "",
+   "editeur": "WASET",
+   "est_indexe": false
+  },
+  {
+   "id": "sup-cryptography",
+   "nom": "Cryptography",
+   "type": "JOURNAL",
+   "issn_isbn": "2410-387X",
+   "editeur": "MDPI",
+   "est_indexe": true
+  },
+  {
+   "id": "sup-bulag",
+   "nom": "Revue BuLAG",
+   "type": "JOURNAL",
+   "issn_isbn": "978-2-84867-948-8",
+   "editeur": "Presses universitaires de Franche-Comté",
+   "est_indexe": false
+  },
+  {
+   "id": "sup-doc-num",
+   "nom": "Document numérique",
+   "type": "JOURNAL",
+   "issn_isbn": "1279-5127",
+   "editeur": "Hermès Science Publications",
+   "est_indexe": false
+  },
+  {
+   "id": "sup-rnti",
+   "nom": "Revue des Nouvelles Technologies de l'Information (RNTI)",
+   "type": "JOURNAL",
+   "issn_isbn": "1764-1667",
+   "editeur": "Éditions RNTI",
+   "est_indexe": false
+  },
+  {
+   "id": "sup-gretsi",
+   "nom": "Colloque GRETSI",
+   "type": "CONFERENCE",
+   "issn_isbn": "",
+   "editeur": "GRETSI",
+   "est_indexe": false
+  },
+  {
+   "id": "sup-isspa",
+   "nom": "International Symposium on Signal Processing and Its Applications (ISSPA)",
+   "type": "CONFERENCE",
+   "issn_isbn": "978-0-7803-7946-6",
+   "editeur": "IEEE",
+   "est_indexe": true
+  },
+  {
+   "id": "sup-icict",
+   "nom": "International Congress on Information and Communication Technology (ICICT)",
+   "type": "CONFERENCE",
+   "issn_isbn": "978-981-13-1164-2",
+   "editeur": "Springer",
+   "est_indexe": true
+  },
+  {
+   "id": "sup-africomm",
+   "nom": "e-Infrastructure and e-Services for Developing Countries (AFRICOMM)",
+   "type": "CONFERENCE",
+   "issn_isbn": "978-3-030-16041-8",
+   "editeur": "Springer",
+   "est_indexe": true
+  },
+  {
+   "id": "sup-iccsa",
+   "nom": "International Conference on Computational Science and Its Applications (ICCSA)",
+   "type": "CONFERENCE",
+   "issn_isbn": "978-3-030-24307-4",
+   "editeur": "Springer",
+   "est_indexe": true
+  },
+  {
+   "id": "sup-intersol",
+   "nom": "Innovation and Interdisciplinary Solutions for Underserved Areas (InterSol / CNRIA)",
+   "type": "CONFERENCE",
+   "issn_isbn": "978-3-319-72964-0",
+   "editeur": "Springer",
+   "est_indexe": true
+  },
+  {
+   "id": "sup-cari",
+   "nom": "African Conference on Research in Computer Science and Applied Mathematics (CARI)",
+   "type": "CONFERENCE",
+   "issn_isbn": "",
+   "editeur": "CARI",
+   "est_indexe": false
+  },
+  {
+   "id": "sup-csci",
+   "nom": "International Conference on Computational Science and Computational Intelligence (CSCI)",
+   "type": "CONFERENCE",
+   "issn_isbn": "978-1-5386-2652-8",
+   "editeur": "IEEE",
+   "est_indexe": true
+  },
+  {
+   "id": "sup-iccni",
+   "nom": "International Conference on Computing Networking and Informatics (ICCNI)",
+   "type": "CONFERENCE",
+   "issn_isbn": "978-1-5090-4642-3",
+   "editeur": "IEEE",
+   "est_indexe": true
+  },
+  {
+   "id": "sup-sccic",
+   "nom": "International Conference on Smart Cities and Communities (SCCIC)",
+   "type": "CONFERENCE",
+   "issn_isbn": "978-1-5386-6208-3",
+   "editeur": "IEEE",
+   "est_indexe": true
+  },
+  {
+   "id": "sup-ic",
+   "nom": "Journées Francophones d'Ingénierie des Connaissances (IC)",
+   "type": "CONFERENCE",
+   "issn_isbn": "",
+   "editeur": "AFIA",
+   "est_indexe": false
+  },
+  {
+   "id": "sup-worldcist",
+   "nom": "World Conference on Information Systems and Technologies (WorldCIST)",
+   "type": "CONFERENCE",
+   "issn_isbn": "978-3-030-45687-0",
+   "editeur": "Springer",
+   "est_indexe": true
+  },
+  {
+   "id": "sup-mim",
+   "nom": "IFAC Conference on Manufacturing Modelling, Management and Control (MIM)",
+   "type": "CONFERENCE",
+   "issn_isbn": "",
+   "editeur": "IFAC",
+   "est_indexe": true
+  },
+  {
+   "id": "sup-ruleml",
+   "nom": "International Symposium on Rules (RuleML)",
+   "type": "CONFERENCE",
+   "issn_isbn": "978-3-642-32688-2",
+   "editeur": "Springer",
+   "est_indexe": true
+  },
+  {
+   "id": "sup-ictai",
+   "nom": "IEEE International Conference on Tools with Artificial Intelligence (ICTAI)",
+   "type": "CONFERENCE",
+   "issn_isbn": "",
+   "editeur": "IEEE",
+   "est_indexe": true
+  },
+  {
+   "id": "sup-tia",
+   "nom": "Conférence internationale Terminologie et Intelligence Artificielle (TIA)",
+   "type": "CONFERENCE",
+   "issn_isbn": "",
+   "editeur": "TIA",
+   "est_indexe": false
+  },
+  {
+   "id": "sup-ickedm",
+   "nom": "International Conference on Knowledge Engineering and Data Mining (ICKEDM)",
+   "type": "CONFERENCE",
+   "issn_isbn": "",
+   "editeur": "WASET",
+   "est_indexe": false
+  }
+ ],
+ "FINANCEMENTS_INITIAL": [
+  {
+   "id": "fin-1",
+   "organisme": "CEA-MITIC (Banque Mondiale)",
+   "categorie": "MULTILATERAL",
+   "type": "Centre d'Excellence Africain",
+   "reference_projet": "",
+   "annee_debut": null,
+   "annee_fin": null,
+   "description": "Appui à la recherche en mathématiques, informatique et technologies de l'information."
+  },
+  {
+   "id": "fin-2",
+   "organisme": "Union Européenne — Horizon Europe / Erasmus+",
+   "categorie": "MULTILATERAL",
+   "type": "Programme international de coopération",
+   "reference_projet": "",
+   "annee_debut": null,
+   "annee_fin": null,
+   "description": "Programmes européens de recherche et de mobilité académique."
+  },
+  {
+   "id": "fin-3",
+   "organisme": "Agence Universitaire de la Francophonie (AUF)",
+   "categorie": "FRANCOPHONE",
+   "type": "Appui aux projets de recherche-action",
+   "reference_projet": "",
+   "annee_debut": null,
+   "annee_fin": null,
+   "description": "Soutien aux projets de recherche de l'espace francophone."
+  },
+  {
+   "id": "fin-4",
+   "organisme": "Banque Africaine de Développement (BAD)",
+   "categorie": "PANAFRICAIN",
+   "type": "Programme continental de recherche appliquée",
+   "reference_projet": "",
+   "annee_debut": null,
+   "annee_fin": null,
+   "description": "Appui aux infrastructures durables et à la formation d'ingénieurs en Afrique."
+  },
+  {
+   "id": "fin-5",
+   "organisme": "UEMOA — Appui à l'enseignement supérieur",
+   "categorie": "PANAFRICAIN",
+   "type": "Subvention régionale",
+   "reference_projet": "",
+   "annee_debut": null,
+   "annee_fin": null,
+   "description": "Renforcement des capacités de recherche dans l'espace UEMOA."
+  },
+  {
+   "id": "fin-6",
+   "organisme": "USAID PEER Science",
+   "categorie": "BILATERAL",
+   "type": "Coopération bilatérale",
+   "reference_projet": "",
+   "annee_debut": null,
+   "annee_fin": null,
+   "description": "Coopération scientifique bilatérale."
+  },
+  {
+   "id": "fin-7",
+   "organisme": "Coopération allemande (GIZ / DAAD)",
+   "categorie": "BILATERAL",
+   "type": "Coopération scientifique bilatérale",
+   "reference_projet": "",
+   "annee_debut": null,
+   "annee_fin": null,
+   "description": "Partenariats de recherche et mobilité doctorale."
+  },
+  {
+   "id": "fin-8",
+   "organisme": "Fondation privée — organisme à préciser",
+   "categorie": "FONDATION",
+   "type": "Financement sur fonds privés",
+   "reference_projet": "",
+   "annee_debut": null,
+   "annee_fin": null,
+   "description": "Entrée générique : le nom de la fondation reste à renseigner par la direction de la recherche."
+  },
+  {
+   "id": "fin-9",
+   "organisme": "FIRST / MESRI Sénégal",
+   "categorie": "NATIONAL",
+   "type": "Fonds d'Impulsion de la Recherche",
+   "reference_projet": "",
+   "annee_debut": null,
+   "annee_fin": null,
+   "description": "Financement national de projets de recherche innovants."
+  }
+ ],
+ "ENSEIGNANTS_INITIAL": [
+  {
+   "id": "ens-niang",
+   "utilisateurId": "usr-ens-niang",
+   "nom": "Niang",
+   "prenom": "Oumar",
+   "email": "oniang@ept.edu.sn",
+   "specialiteId": "spec-tsi",
+   "grade": "Professeur Titulaire",
+   "orcid": "",
+   "googleScholar": "",
+   "biographie": "Travaux sur la décomposition modale empirique et la décomposition spectrale intrinsèque, avec des applications au traitement du signal, à l'analyse d'images et aux signaux biomédicaux.",
+   "photo": "",
+   "telephone": "",
+   "bureau": "",
+   "citationsTotal": 0,
+   "hIndex": 0
+  },
+  {
+   "id": "ens-ngom",
+   "utilisateurId": "usr-ens-ngom",
+   "nom": "Ngom",
+   "prenom": "Ndèye Fatou",
+   "email": "fngom@ept.edu.sn",
+   "specialiteId": "spec-tsi",
+   "grade": "Professeur Assimilé",
+   "orcid": "",
+   "googleScholar": "",
+   "biographie": "Analyse d'images tomographiques et caractérisation des milieux poreux, classification de signaux biomédicaux et systèmes d'information géographique appliqués à la vulnérabilité urbaine.",
+   "photo": "",
+   "telephone": "+221 77 543 85 24",
+   "bureau": "",
+   "citationsTotal": 0,
+   "hIndex": 0
+  },
+  {
+   "id": "ens-guisse",
+   "utilisateurId": "usr-ens-guisse",
+   "nom": "Guissé",
+   "prenom": "Abdoulaye",
+   "email": "aguisse@ept.edu.sn",
+   "specialiteId": "spec-iac",
+   "grade": "Professeur Assimilé",
+   "orcid": "",
+   "googleScholar": "",
+   "biographie": "Ingénierie des connaissances et web sémantique : ontologies médicales, formalisation de règles métier à partir de textes réglementaires et traitement automatique des langues.",
+   "photo": "img/enseignants/abdoulaye-guisse.jpeg",
+   "telephone": "+221 76 986 43 23",
+   "bureau": "",
+   "citationsTotal": 0,
+   "hIndex": 0
+  },
+  {
+   "id": "ens-ciss",
+   "utilisateurId": "usr-ens-ciss",
+   "nom": "Ciss",
+   "prenom": "Abdoul Aziz",
+   "email": "aaciss@ept.edu.sn",
+   "specialiteId": "spec-cse",
+   "grade": "Professeur Assimilé",
+   "orcid": "",
+   "googleScholar": "",
+   "biographie": "Cryptographie et sécurité des systèmes embarqués : protocoles d'identification légers et accréditations anonymes pour l'internet des objets.",
+   "photo": "img/enseignants/abdoul-aziz-ciss.jpeg",
+   "telephone": "+221 76 431 86 09",
+   "bureau": "",
+   "citationsTotal": 0,
+   "hIndex": 0
+  },
+  {
+   "id": "ens-seydi",
+   "utilisateurId": "usr-ens-seydi",
+   "nom": "Seydi",
+   "prenom": "Ousmane",
+   "email": "fd@ept.edu.sn",
+   "specialiteId": "spec-mam",
+   "grade": "Professeur Assimilé",
+   "orcid": "",
+   "googleScholar": "",
+   "biographie": "Mathématiques appliquées : systèmes dynamiques et modélisation.",
+   "photo": "",
+   "telephone": "+221 78 543 76 34",
+   "bureau": "",
+   "citationsTotal": 0,
+   "hIndex": 0
+  },
+  {
+   "id": "ens-seck",
+   "utilisateurId": "usr-ens-seck",
+   "nom": "Seck",
+   "prenom": "Michel",
+   "email": "mseck@ept.edu.sn",
+   "specialiteId": "spec-cse",
+   "grade": "Maître de Conférences Titulaire",
+   "orcid": "",
+   "googleScholar": "",
+   "biographie": "Cryptographie et sécurité des systèmes d'information.",
+   "photo": "img/enseignants/michel-seck.jpg",
+   "telephone": "+221 77 777 77 77",
+   "bureau": "",
+   "citationsTotal": 0,
+   "hIndex": 0
+  },
+  {
+   "id": "ens-sidibe",
+   "utilisateurId": "usr-ens-sidibe",
+   "nom": "Sidibé",
+   "prenom": "Samba",
+   "email": "ssidibe@ept.edu.sn",
+   "specialiteId": "spec-tsi",
+   "grade": "Maître de Conférences Titulaire",
+   "orcid": "",
+   "googleScholar": "",
+   "biographie": "Décomposition spectrale intrinsèque appliquée à la segmentation de signaux et à la détection de contours dans les images.",
+   "photo": "",
+   "telephone": "+221 77 777 77 77",
+   "bureau": "",
+   "citationsTotal": 0,
+   "hIndex": 0
+  },
+  {
+   "id": "ens-dieye",
+   "utilisateurId": "usr-ens-dieye",
+   "nom": "Dièye",
+   "prenom": "Moustapha",
+   "email": "mdieye@ept.edu.sn",
+   "specialiteId": "spec-mam",
+   "grade": "Maître de Conférences Titulaire",
+   "orcid": "",
+   "googleScholar": "",
+   "biographie": "",
+   "photo": "img/enseignants/moustapha-dieye.jpg",
+   "telephone": "+221 77 777 77 77",
+   "bureau": "",
+   "citationsTotal": 0,
+   "hIndex": 0
+  },
+  {
+   "id": "ens-gueye",
+   "utilisateurId": "usr-ens-gueye",
+   "nom": "Guèye",
+   "prenom": "Ibrahima",
+   "email": "igueye@ept.edu.sn",
+   "specialiteId": "spec-iac",
+   "grade": "Enseignant-Chercheur",
+   "orcid": "",
+   "googleScholar": "",
+   "biographie": "Enseignant-chercheur en informatique.",
+   "photo": "",
+   "telephone": "+221 77 777 77 77",
+   "bureau": "",
+   "citationsTotal": 0,
+   "hIndex": 0
+  },
+  {
+   "id": "ens-wade",
+   "utilisateurId": "usr-ens-wade",
+   "nom": "Wade",
+   "prenom": "Ahmed Mouhamadou",
+   "email": "amwade@ept.edu.sn",
+   "specialiteId": "spec-mam",
+   "grade": "Professeur Titulaire",
+   "orcid": "",
+   "googleScholar": "",
+   "biographie": "",
+   "photo": "",
+   "telephone": "",
+   "bureau": "",
+   "citationsTotal": 0,
+   "hIndex": 0
+  },
+  {
+   "id": "ens-diouf",
+   "utilisateurId": "usr-ens-diouf",
+   "nom": "Diouf",
+   "prenom": "Mamadou Diallo",
+   "email": "mddiouf@ept.edu.sn",
+   "specialiteId": "spec-mam",
+   "grade": "Professeur Titulaire",
+   "orcid": "",
+   "googleScholar": "",
+   "biographie": "",
+   "photo": "",
+   "telephone": "",
+   "bureau": "",
+   "citationsTotal": 0,
+   "hIndex": 0
+  }
+ ],
+ "DEMO_USERS": [
+  {
+   "id": "usr-ens-guisse",
+   "email": "aguisse@ept.edu.sn",
+   "nom": "Guissé",
+   "prenom": "Abdoulaye",
+   "role": "enseignant",
+   "enseignantId": "ens-guisse",
+   "est_actif": true,
+   "dateCreation": "2024-01-10"
+  }
+ ],
+ "PARAMETRES_INITIAL": {
+  "nomEtablissement": "École Polytechnique de Thiès",
+  "sigle": "EPT",
+  "pays": "Sénégal",
+  "ville": "Thiès",
+  "anneeUniversitaireCourante": "2025-2026",
+  "directeurRecherche": "",
+  "contactEmail": "",
+  "siteWeb": "https://ept.edu.sn",
+  "devise": ""
+ },
+ "MOTS_CLES_INITIAL": [
+  {
+   "id": "mc-1",
+   "libelle": "Décomposition modale empirique"
+  },
+  {
+   "id": "mc-2",
+   "libelle": "Traitement du signal"
+  },
+  {
+   "id": "mc-3",
+   "libelle": "Approche spectrale"
+  },
+  {
+   "id": "mc-4",
+   "libelle": "Débruitage"
+  },
+  {
+   "id": "mc-5",
+   "libelle": "Décomposition spectrale intrinsèque"
+  },
+  {
+   "id": "mc-6",
+   "libelle": "Seuillage itératif"
+  },
+  {
+   "id": "mc-7",
+   "libelle": "Équations aux dérivées partielles"
+  },
+  {
+   "id": "mc-8",
+   "libelle": "Analyse d'images"
+  },
+  {
+   "id": "mc-9",
+   "libelle": "Représentation adaptative"
+  },
+  {
+   "id": "mc-10",
+   "libelle": "Interpolation"
+  },
+  {
+   "id": "mc-11",
+   "libelle": "Enveloppe de signal"
+  },
+  {
+   "id": "mc-12",
+   "libelle": "Équations différentielles"
+  },
+  {
+   "id": "mc-13",
+   "libelle": "Orthogonalité"
+  },
+  {
+   "id": "mc-14",
+   "libelle": "Analyse de texture"
+  },
+  {
+   "id": "mc-15",
+   "libelle": "Décomposition modale empirique bidimensionnelle"
+  },
+  {
+   "id": "mc-16",
+   "libelle": "Détection de contours"
+  },
+  {
+   "id": "mc-17",
+   "libelle": "Segmentation de signal"
+  },
+  {
+   "id": "mc-18",
+   "libelle": "Réseaux de neurones"
+  },
+  {
+   "id": "mc-19",
+   "libelle": "Signaux biomédicaux"
+  },
+  {
+   "id": "mc-20",
+   "libelle": "Analyse en composantes principales"
+  },
+  {
+   "id": "mc-21",
+   "libelle": "Électrocardiogramme"
+  },
+  {
+   "id": "mc-22",
+   "libelle": "Régression non linéaire"
+  },
+  {
+   "id": "mc-23",
+   "libelle": "Arythmie cardiaque"
+  },
+  {
+   "id": "mc-24",
+   "libelle": "Perturbation par le bruit"
+  },
+  {
+   "id": "mc-25",
+   "libelle": "Milieux poreux"
+  },
+  {
+   "id": "mc-26",
+   "libelle": "Tomographie"
+  },
+  {
+   "id": "mc-27",
+   "libelle": "Descripteurs de forme"
+  },
+  {
+   "id": "mc-28",
+   "libelle": "Modélisation"
+  },
+  {
+   "id": "mc-29",
+   "libelle": "Système d'information géographique"
+  },
+  {
+   "id": "mc-30",
+   "libelle": "Vulnérabilité urbaine"
+  },
+  {
+   "id": "mc-31",
+   "libelle": "Analyse multicritère"
+  },
+  {
+   "id": "mc-32",
+   "libelle": "Dakar"
+  },
+  {
+   "id": "mc-33",
+   "libelle": "Accréditation anonyme"
+  },
+  {
+   "id": "mc-34",
+   "libelle": "Internet des objets"
+  },
+  {
+   "id": "mc-35",
+   "libelle": "Cryptographie"
+  },
+  {
+   "id": "mc-36",
+   "libelle": "Évaluation de performance"
+  },
+  {
+   "id": "mc-37",
+   "libelle": "Protocole d'identification"
+  },
+  {
+   "id": "mc-38",
+   "libelle": "Systèmes embarqués"
+  },
+  {
+   "id": "mc-39",
+   "libelle": "Ontologies médicales"
+  },
+  {
+   "id": "mc-40",
+   "libelle": "Rapports cliniques"
+  },
+  {
+   "id": "mc-41",
+   "libelle": "Enrichissement sémantique"
+  },
+  {
+   "id": "mc-42",
+   "libelle": "Intégration de connaissances"
+  },
+  {
+   "id": "mc-43",
+   "libelle": "Modélisation des connaissances"
+  },
+  {
+   "id": "mc-44",
+   "libelle": "Intégration d'ontologies"
+  },
+  {
+   "id": "mc-45",
+   "libelle": "Fusion de données"
+  },
+  {
+   "id": "mc-46",
+   "libelle": "Ontologies"
+  },
+  {
+   "id": "mc-47",
+   "libelle": "Aide au diagnostic médical"
+  },
+  {
+   "id": "mc-48",
+   "libelle": "Recherche sémantique"
+  },
+  {
+   "id": "mc-49",
+   "libelle": "Traitement automatique des langues"
+  },
+  {
+   "id": "mc-50",
+   "libelle": "Données personnelles"
+  },
+  {
+   "id": "mc-51",
+   "libelle": "Anonymisation"
+  },
+  {
+   "id": "mc-52",
+   "libelle": "Règles métier"
+  },
+  {
+   "id": "mc-53",
+   "libelle": "Langage naturel"
+  },
+  {
+   "id": "mc-54",
+   "libelle": "Modèle de transformation"
+  },
+  {
+   "id": "mc-55",
+   "libelle": "Textes réglementaires"
+  },
+  {
+   "id": "mc-56",
+   "libelle": "Formalisation"
+  },
+  {
+   "id": "mc-57",
+   "libelle": "Politiques écrites"
+  },
+  {
+   "id": "mc-58",
+   "libelle": "Systèmes de gestion de règles"
+  },
+  {
+   "id": "mc-59",
+   "libelle": "Environnement de gestion"
+  },
+  {
+   "id": "mc-60",
+   "libelle": "Annotation sémantique"
+  },
+  {
+   "id": "mc-61",
+   "libelle": "Indexation"
+  },
+  {
+   "id": "mc-62",
+   "libelle": "Documents numériques"
+  },
+  {
+   "id": "mc-63",
+   "libelle": "Moteur sémantique"
+  },
+  {
+   "id": "mc-64",
+   "libelle": "Classification sémantique"
+  },
+  {
+   "id": "mc-65",
+   "libelle": "Brevets"
+  },
+  {
+   "id": "mc-66",
+   "libelle": "Web sémantique"
+  }
+ ],
+ "PUBLICATIONS_INITIAL": [
+  {
+   "id": "pub-1",
+   "titre": "Empirical mode decomposition: an analytical approach for sifting process",
+   "resume": "",
+   "type": "JOURNAL",
+   "annee": 2005,
+   "volume": "12",
+   "numero": "11",
+   "pages": "764-767",
+   "doi": "",
+   "lien": "https://ieeexplore.ieee.org/document/1518896/",
+   "pdf": "",
+   "pdfNom": "",
+   "pdfTaille": "",
+   "est_financee": false,
+   "date_depot": "2005-07-01T09:00:00Z",
+   "specialiteId": "spec-tsi",
+   "deposantId": "ens-niang",
+   "supportId": "sup-ieee-spl",
+   "motsCles": [
+    "Décomposition modale empirique",
+    "Traitement du signal"
+   ],
+   "citationsCount": 0,
+   "lecturesCount": 0,
+   "auteurs": [
+    {
+     "id": "ap-1-1",
+     "auteurId": "aut-delechelle",
+     "ordre": 1,
+     "est_auteur_correspondant": true,
+     "auteur": {
+      "id": "aut-delechelle",
+      "nom": "Deléchelle",
+      "prenom": "Éric",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-1-2",
+     "auteurId": "aut-lemoine",
+     "ordre": 2,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-lemoine",
+      "nom": "Lemoine",
+      "prenom": "Jacques",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-1-3",
+     "auteurId": "aut-ens-niang",
+     "ordre": 3,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-ens-niang",
+      "nom": "Niang",
+      "prenom": "Oumar",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "oniang@ept.edu.sn",
+      "enseignantId": "ens-niang"
+     }
+    }
+   ],
+   "financements": []
+  },
+  {
+   "id": "pub-2",
+   "titre": "A Spectral Approach for Sifting Process in Empirical Mode Decomposition",
+   "resume": "",
+   "type": "JOURNAL",
+   "annee": 2010,
+   "volume": "58",
+   "numero": "11",
+   "pages": "5612-5623",
+   "doi": "",
+   "lien": "https://ieeexplore.ieee.org/document/5497213/",
+   "pdf": "",
+   "pdfNom": "",
+   "pdfTaille": "",
+   "est_financee": false,
+   "date_depot": "2010-07-01T09:00:00Z",
+   "specialiteId": "spec-tsi",
+   "deposantId": "ens-niang",
+   "supportId": "sup-ieee-tsp",
+   "motsCles": [
+    "Décomposition modale empirique",
+    "Approche spectrale",
+    "Traitement du signal"
+   ],
+   "citationsCount": 0,
+   "lecturesCount": 0,
+   "auteurs": [
+    {
+     "id": "ap-2-1",
+     "auteurId": "aut-ens-niang",
+     "ordre": 1,
+     "est_auteur_correspondant": true,
+     "auteur": {
+      "id": "aut-ens-niang",
+      "nom": "Niang",
+      "prenom": "Oumar",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "oniang@ept.edu.sn",
+      "enseignantId": "ens-niang"
+     }
+    },
+    {
+     "id": "ap-2-2",
+     "auteurId": "aut-delechelle",
+     "ordre": 2,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-delechelle",
+      "nom": "Deléchelle",
+      "prenom": "Éric",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-2-3",
+     "auteurId": "aut-lemoine",
+     "ordre": 3,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-lemoine",
+      "nom": "Lemoine",
+      "prenom": "Jacques",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    }
+   ],
+   "financements": []
+  },
+  {
+   "id": "pub-3",
+   "titre": "A New Signal Denoising Method using Iterative Thresholding of the Spectral Intrinsic Decomposition",
+   "resume": "",
+   "type": "JOURNAL",
+   "annee": 2012,
+   "volume": "9",
+   "numero": "6",
+   "pages": "370-377",
+   "doi": "",
+   "lien": "https://hal.archives-ouvertes.fr/hal-00833561",
+   "pdf": "",
+   "pdfNom": "",
+   "pdfTaille": "",
+   "est_financee": false,
+   "date_depot": "2012-07-01T09:00:00Z",
+   "specialiteId": "spec-tsi",
+   "deposantId": "ens-niang",
+   "supportId": "sup-ijcsi",
+   "motsCles": [
+    "Débruitage",
+    "Décomposition spectrale intrinsèque",
+    "Seuillage itératif"
+   ],
+   "citationsCount": 0,
+   "lecturesCount": 0,
+   "auteurs": [
+    {
+     "id": "ap-3-1",
+     "auteurId": "aut-ens-niang",
+     "ordre": 1,
+     "est_auteur_correspondant": true,
+     "auteur": {
+      "id": "aut-ens-niang",
+      "nom": "Niang",
+      "prenom": "Oumar",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "oniang@ept.edu.sn",
+      "enseignantId": "ens-niang"
+     }
+    },
+    {
+     "id": "ap-3-2",
+     "auteurId": "aut-thioune",
+     "ordre": 2,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-thioune",
+      "nom": "Thioune",
+      "prenom": "Abdoulaye",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-3-3",
+     "auteurId": "aut-guerra",
+     "ordre": 3,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-guerra",
+      "nom": "Guerra",
+      "prenom": "Mouhamed Ould",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-3-4",
+     "auteurId": "aut-delechelle",
+     "ordre": 4,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-delechelle",
+      "nom": "Deléchelle",
+      "prenom": "Éric",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-3-5",
+     "auteurId": "aut-lemoine",
+     "ordre": 5,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-lemoine",
+      "nom": "Lemoine",
+      "prenom": "Jacques",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    }
+   ],
+   "financements": []
+  },
+  {
+   "id": "pub-4",
+   "titre": "Partial Differential Equation-Based Approach for Empirical Mode Decomposition: Application on Image Analysis",
+   "resume": "",
+   "type": "JOURNAL",
+   "annee": 2012,
+   "volume": "21",
+   "numero": "9",
+   "pages": "3991-4001",
+   "doi": "",
+   "lien": "https://ieeexplore.ieee.org/document/6200336/",
+   "pdf": "",
+   "pdfNom": "",
+   "pdfTaille": "",
+   "est_financee": false,
+   "date_depot": "2012-07-01T09:00:00Z",
+   "specialiteId": "spec-tsi",
+   "deposantId": "ens-niang",
+   "supportId": "sup-ieee-tip",
+   "motsCles": [
+    "Équations aux dérivées partielles",
+    "Décomposition modale empirique",
+    "Analyse d'images"
+   ],
+   "citationsCount": 0,
+   "lecturesCount": 0,
+   "auteurs": [
+    {
+     "id": "ap-4-1",
+     "auteurId": "aut-ens-niang",
+     "ordre": 1,
+     "est_auteur_correspondant": true,
+     "auteur": {
+      "id": "aut-ens-niang",
+      "nom": "Niang",
+      "prenom": "Oumar",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "oniang@ept.edu.sn",
+      "enseignantId": "ens-niang"
+     }
+    },
+    {
+     "id": "ap-4-2",
+     "auteurId": "aut-thioune",
+     "ordre": 2,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-thioune",
+      "nom": "Thioune",
+      "prenom": "Abdoulaye",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-4-3",
+     "auteurId": "aut-guerra",
+     "ordre": 3,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-guerra",
+      "nom": "Guerra",
+      "prenom": "Mouhamed Ould",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-4-4",
+     "auteurId": "aut-delechelle",
+     "ordre": 4,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-delechelle",
+      "nom": "Deléchelle",
+      "prenom": "Éric",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-4-5",
+     "auteurId": "aut-lemoine",
+     "ordre": 5,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-lemoine",
+      "nom": "Lemoine",
+      "prenom": "Jacques",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    }
+   ],
+   "financements": []
+  },
+  {
+   "id": "pub-5",
+   "titre": "Spectral Intrinsic Decomposition Method for Adaptive Signal Representation",
+   "resume": "",
+   "type": "JOURNAL",
+   "annee": 2012,
+   "volume": "2012",
+   "numero": "",
+   "pages": "1-10",
+   "doi": "",
+   "lien": "https://www.hindawi.com/archive/2012/457152/",
+   "pdf": "",
+   "pdfNom": "",
+   "pdfTaille": "",
+   "est_financee": false,
+   "date_depot": "2012-07-01T09:00:00Z",
+   "specialiteId": "spec-tsi",
+   "deposantId": "ens-niang",
+   "supportId": "sup-isrn-sp",
+   "motsCles": [
+    "Décomposition spectrale intrinsèque",
+    "Représentation adaptative"
+   ],
+   "citationsCount": 0,
+   "lecturesCount": 0,
+   "auteurs": [
+    {
+     "id": "ap-5-1",
+     "auteurId": "aut-ens-niang",
+     "ordre": 1,
+     "est_auteur_correspondant": true,
+     "auteur": {
+      "id": "aut-ens-niang",
+      "nom": "Niang",
+      "prenom": "Oumar",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "oniang@ept.edu.sn",
+      "enseignantId": "ens-niang"
+     }
+    },
+    {
+     "id": "ap-5-2",
+     "auteurId": "aut-thioune",
+     "ordre": 2,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-thioune",
+      "nom": "Thioune",
+      "prenom": "Abdoulaye",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-5-3",
+     "auteurId": "aut-delechelle",
+     "ordre": 3,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-delechelle",
+      "nom": "Deléchelle",
+      "prenom": "Éric",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-5-4",
+     "auteurId": "aut-lemoine",
+     "ordre": 4,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-lemoine",
+      "nom": "Lemoine",
+      "prenom": "Jacques",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    }
+   ],
+   "financements": []
+  },
+  {
+   "id": "pub-6",
+   "titre": "Differential Equation-Based Interpolator for Signal Envelope Computing: Existence Results and Applications",
+   "resume": "",
+   "type": "JOURNAL",
+   "annee": 2013,
+   "volume": "2013",
+   "numero": "",
+   "pages": "1-18",
+   "doi": "",
+   "lien": "https://www.hindawi.com/archive/2013/605035/",
+   "pdf": "",
+   "pdfNom": "",
+   "pdfTaille": "",
+   "est_financee": false,
+   "date_depot": "2013-07-01T09:00:00Z",
+   "specialiteId": "spec-tsi",
+   "deposantId": "ens-niang",
+   "supportId": "sup-isrn-sp",
+   "motsCles": [
+    "Interpolation",
+    "Enveloppe de signal",
+    "Équations différentielles"
+   ],
+   "citationsCount": 0,
+   "lecturesCount": 0,
+   "auteurs": [
+    {
+     "id": "ap-6-1",
+     "auteurId": "aut-ens-niang",
+     "ordre": 1,
+     "est_auteur_correspondant": true,
+     "auteur": {
+      "id": "aut-ens-niang",
+      "nom": "Niang",
+      "prenom": "Oumar",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "oniang@ept.edu.sn",
+      "enseignantId": "ens-niang"
+     }
+    },
+    {
+     "id": "ap-6-2",
+     "auteurId": "aut-thioune",
+     "ordre": 2,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-thioune",
+      "nom": "Thioune",
+      "prenom": "Abdoulaye",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-6-3",
+     "auteurId": "aut-delechelle",
+     "ordre": 3,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-delechelle",
+      "nom": "Deléchelle",
+      "prenom": "Éric",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-6-4",
+     "auteurId": "aut-lemoine",
+     "ordre": 4,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-lemoine",
+      "nom": "Lemoine",
+      "prenom": "Jacques",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    }
+   ],
+   "financements": []
+  },
+  {
+   "id": "pub-7",
+   "titre": "À propos de l'orthogonalité dans la Décomposition Modale Empirique",
+   "resume": "",
+   "type": "CONFERENCE",
+   "annee": 2011,
+   "volume": "",
+   "numero": "",
+   "pages": "",
+   "doi": "",
+   "lien": "",
+   "pdf": "",
+   "pdfNom": "",
+   "pdfTaille": "",
+   "est_financee": false,
+   "date_depot": "2011-07-01T09:00:00Z",
+   "specialiteId": "spec-tsi",
+   "deposantId": "ens-niang",
+   "supportId": "sup-gretsi",
+   "motsCles": [
+    "Orthogonalité",
+    "Décomposition modale empirique"
+   ],
+   "citationsCount": 0,
+   "lecturesCount": 0,
+   "auteurs": [
+    {
+     "id": "ap-7-1",
+     "auteurId": "aut-ens-niang",
+     "ordre": 1,
+     "est_auteur_correspondant": true,
+     "auteur": {
+      "id": "aut-ens-niang",
+      "nom": "Niang",
+      "prenom": "Oumar",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "oniang@ept.edu.sn",
+      "enseignantId": "ens-niang"
+     }
+    },
+    {
+     "id": "ap-7-2",
+     "auteurId": "aut-guerra",
+     "ordre": 2,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-guerra",
+      "nom": "Guerra",
+      "prenom": "Mouhamed Ould",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-7-3",
+     "auteurId": "aut-thioune",
+     "ordre": 3,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-thioune",
+      "nom": "Thioune",
+      "prenom": "Abdoulaye",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-7-4",
+     "auteurId": "aut-delechelle",
+     "ordre": 4,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-delechelle",
+      "nom": "Deléchelle",
+      "prenom": "Éric",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-7-5",
+     "auteurId": "aut-niane",
+     "ordre": 5,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-niane",
+      "nom": "Niane",
+      "prenom": "Mary Teuw",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-7-6",
+     "auteurId": "aut-lemoine",
+     "ordre": 6,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-lemoine",
+      "nom": "Lemoine",
+      "prenom": "Jacques",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    }
+   ],
+   "financements": []
+  },
+  {
+   "id": "pub-8",
+   "titre": "Texture analysis based on the bidimensional empirical mode decomposition with gray-level co-occurrence models",
+   "resume": "",
+   "type": "CONFERENCE",
+   "annee": 2003,
+   "volume": "2",
+   "numero": "",
+   "pages": "633-635",
+   "doi": "10.1109/ISSPA.2003.1224962",
+   "lien": "https://ieeexplore.ieee.org/document/1224962/",
+   "pdf": "",
+   "pdfNom": "",
+   "pdfTaille": "",
+   "est_financee": false,
+   "date_depot": "2003-07-01T09:00:00Z",
+   "specialiteId": "spec-tsi",
+   "deposantId": "ens-niang",
+   "supportId": "sup-isspa",
+   "motsCles": [
+    "Analyse de texture",
+    "Décomposition modale empirique bidimensionnelle"
+   ],
+   "citationsCount": 0,
+   "lecturesCount": 0,
+   "auteurs": [
+    {
+     "id": "ap-8-1",
+     "auteurId": "aut-nunes",
+     "ordre": 1,
+     "est_auteur_correspondant": true,
+     "auteur": {
+      "id": "aut-nunes",
+      "nom": "Nunes",
+      "prenom": "Jean-Claude",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-8-2",
+     "auteurId": "aut-ens-niang",
+     "ordre": 2,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-ens-niang",
+      "nom": "Niang",
+      "prenom": "Oumar",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "oniang@ept.edu.sn",
+      "enseignantId": "ens-niang"
+     }
+    },
+    {
+     "id": "ap-8-3",
+     "auteurId": "aut-bouaoune",
+     "ordre": 3,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-bouaoune",
+      "nom": "Bouaoune",
+      "prenom": "Yasmina",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-8-4",
+     "auteurId": "aut-delechelle",
+     "ordre": 4,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-delechelle",
+      "nom": "Deléchelle",
+      "prenom": "Éric",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-8-5",
+     "auteurId": "aut-bunel",
+     "ordre": 5,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-bunel",
+      "nom": "Bunel",
+      "prenom": "Philippe",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    }
+   ],
+   "financements": []
+  },
+  {
+   "id": "pub-9",
+   "titre": "The 2D Spectral Intrinsic Decomposition Method Applied to Image Analysis",
+   "resume": "",
+   "type": "JOURNAL",
+   "annee": 2017,
+   "volume": "2017",
+   "numero": "",
+   "pages": "1-6",
+   "doi": "10.1155/2017/7948571",
+   "lien": "https://www.hindawi.com/journals/jece/2017/7948571/",
+   "pdf": "",
+   "pdfNom": "",
+   "pdfTaille": "",
+   "est_financee": false,
+   "date_depot": "2017-07-01T09:00:00Z",
+   "specialiteId": "spec-tsi",
+   "deposantId": "ens-sidibe",
+   "supportId": "sup-jece",
+   "motsCles": [
+    "Décomposition spectrale intrinsèque",
+    "Analyse d'images"
+   ],
+   "citationsCount": 0,
+   "lecturesCount": 0,
+   "auteurs": [
+    {
+     "id": "ap-9-1",
+     "auteurId": "aut-ens-sidibe",
+     "ordre": 1,
+     "est_auteur_correspondant": true,
+     "auteur": {
+      "id": "aut-ens-sidibe",
+      "nom": "Sidibé",
+      "prenom": "Samba",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "ssidibe@ept.edu.sn",
+      "enseignantId": "ens-sidibe"
+     }
+    },
+    {
+     "id": "ap-9-2",
+     "auteurId": "aut-ens-niang",
+     "ordre": 2,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-ens-niang",
+      "nom": "Niang",
+      "prenom": "Oumar",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "oniang@ept.edu.sn",
+      "enseignantId": "ens-niang"
+     }
+    },
+    {
+     "id": "ap-9-3",
+     "auteurId": "aut-thioune",
+     "ordre": 3,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-thioune",
+      "nom": "Thioune",
+      "prenom": "Abdoulaye",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-9-4",
+     "auteurId": "aut-abdou",
+     "ordre": 4,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-abdou",
+      "nom": "Abdou",
+      "prenom": "Adama Dieng",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-9-5",
+     "auteurId": "aut-ens-ngom",
+     "ordre": 5,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-ens-ngom",
+      "nom": "Ngom",
+      "prenom": "Ndèye Fatou",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "fngom@ept.edu.sn",
+      "enseignantId": "ens-ngom"
+     }
+    }
+   ],
+   "financements": []
+  },
+  {
+   "id": "pub-10",
+   "titre": "Edge Detection Using Spectral Intrinsic Decomposition",
+   "resume": "",
+   "type": "CONFERENCE",
+   "annee": 2017,
+   "volume": "",
+   "numero": "",
+   "pages": "505-509",
+   "doi": "10.1109/CSCI.2017.85",
+   "lien": "https://ieeexplore.ieee.org/document/8560842/",
+   "pdf": "",
+   "pdfNom": "",
+   "pdfTaille": "",
+   "est_financee": false,
+   "date_depot": "2017-07-01T09:00:00Z",
+   "specialiteId": "spec-tsi",
+   "deposantId": "ens-sidibe",
+   "supportId": "sup-csci",
+   "motsCles": [
+    "Détection de contours",
+    "Décomposition spectrale intrinsèque"
+   ],
+   "citationsCount": 0,
+   "lecturesCount": 0,
+   "auteurs": [
+    {
+     "id": "ap-10-1",
+     "auteurId": "aut-ens-sidibe",
+     "ordre": 1,
+     "est_auteur_correspondant": true,
+     "auteur": {
+      "id": "aut-ens-sidibe",
+      "nom": "Sidibé",
+      "prenom": "Samba",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "ssidibe@ept.edu.sn",
+      "enseignantId": "ens-sidibe"
+     }
+    },
+    {
+     "id": "ap-10-2",
+     "auteurId": "aut-ens-niang",
+     "ordre": 2,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-ens-niang",
+      "nom": "Niang",
+      "prenom": "Oumar",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "oniang@ept.edu.sn",
+      "enseignantId": "ens-niang"
+     }
+    },
+    {
+     "id": "ap-10-3",
+     "auteurId": "aut-ens-ngom",
+     "ordre": 3,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-ens-ngom",
+      "nom": "Ngom",
+      "prenom": "Ndèye Fatou",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "fngom@ept.edu.sn",
+      "enseignantId": "ens-ngom"
+     }
+    }
+   ],
+   "financements": []
+  },
+  {
+   "id": "pub-11",
+   "titre": "Auto-adaptive Signal Segmentation Using Spectral Intrinsic Decomposition",
+   "resume": "",
+   "type": "CONFERENCE",
+   "annee": 2019,
+   "volume": "797",
+   "numero": "",
+   "pages": "553-561",
+   "doi": "10.1007/978-981-13-1165-9_51",
+   "lien": "https://link.springer.com/chapter/10.1007/978-981-13-1165-9_51",
+   "pdf": "",
+   "pdfNom": "",
+   "pdfTaille": "",
+   "est_financee": false,
+   "date_depot": "2019-07-01T09:00:00Z",
+   "specialiteId": "spec-tsi",
+   "deposantId": "ens-sidibe",
+   "supportId": "sup-icict",
+   "motsCles": [
+    "Segmentation de signal",
+    "Décomposition spectrale intrinsèque"
+   ],
+   "citationsCount": 0,
+   "lecturesCount": 0,
+   "auteurs": [
+    {
+     "id": "ap-11-1",
+     "auteurId": "aut-ens-sidibe",
+     "ordre": 1,
+     "est_auteur_correspondant": true,
+     "auteur": {
+      "id": "aut-ens-sidibe",
+      "nom": "Sidibé",
+      "prenom": "Samba",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "ssidibe@ept.edu.sn",
+      "enseignantId": "ens-sidibe"
+     }
+    },
+    {
+     "id": "ap-11-2",
+     "auteurId": "aut-ens-niang",
+     "ordre": 2,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-ens-niang",
+      "nom": "Niang",
+      "prenom": "Oumar",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "oniang@ept.edu.sn",
+      "enseignantId": "ens-niang"
+     }
+    },
+    {
+     "id": "ap-11-3",
+     "auteurId": "aut-ens-ngom",
+     "ordre": 3,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-ens-ngom",
+      "nom": "Ngom",
+      "prenom": "Ndèye Fatou",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "fngom@ept.edu.sn",
+      "enseignantId": "ens-ngom"
+     }
+    }
+   ],
+   "financements": []
+  },
+  {
+   "id": "pub-12",
+   "titre": "Neural Networks for Biomedical Signals Classification Based on Empirical Mode Decomposition and Principal Component Analysis",
+   "resume": "",
+   "type": "CONFERENCE",
+   "annee": 2018,
+   "volume": "204",
+   "numero": "",
+   "pages": "267-278",
+   "doi": "10.1007/978-3-319-72965-7_25",
+   "lien": "https://link.springer.com/chapter/10.1007/978-3-319-72965-7_25",
+   "pdf": "",
+   "pdfNom": "",
+   "pdfTaille": "",
+   "est_financee": false,
+   "date_depot": "2018-07-01T09:00:00Z",
+   "specialiteId": "spec-tsi",
+   "deposantId": "ens-ngom",
+   "supportId": "sup-intersol",
+   "motsCles": [
+    "Réseaux de neurones",
+    "Signaux biomédicaux",
+    "Analyse en composantes principales"
+   ],
+   "citationsCount": 0,
+   "lecturesCount": 0,
+   "auteurs": [
+    {
+     "id": "ap-12-1",
+     "auteurId": "aut-abdou",
+     "ordre": 1,
+     "est_auteur_correspondant": true,
+     "auteur": {
+      "id": "aut-abdou",
+      "nom": "Abdou",
+      "prenom": "Adama Dieng",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-12-2",
+     "auteurId": "aut-ens-ngom",
+     "ordre": 2,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-ens-ngom",
+      "nom": "Ngom",
+      "prenom": "Ndèye Fatou",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "fngom@ept.edu.sn",
+      "enseignantId": "ens-ngom"
+     }
+    },
+    {
+     "id": "ap-12-3",
+     "auteurId": "aut-ens-sidibe",
+     "ordre": 3,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-ens-sidibe",
+      "nom": "Sidibé",
+      "prenom": "Samba",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "ssidibe@ept.edu.sn",
+      "enseignantId": "ens-sidibe"
+     }
+    },
+    {
+     "id": "ap-12-4",
+     "auteurId": "aut-ens-niang",
+     "ordre": 4,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-ens-niang",
+      "nom": "Niang",
+      "prenom": "Oumar",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "oniang@ept.edu.sn",
+      "enseignantId": "ens-niang"
+     }
+    },
+    {
+     "id": "ap-12-5",
+     "auteurId": "aut-thioune",
+     "ordre": 5,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-thioune",
+      "nom": "Thioune",
+      "prenom": "Abdoulaye",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-12-6",
+     "auteurId": "aut-ndiaye",
+     "ordre": 6,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-ndiaye",
+      "nom": "Ndiaye",
+      "prenom": "Cheikh Hamidou Tidiane Cissé",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    }
+   ],
+   "financements": []
+  },
+  {
+   "id": "pub-13",
+   "titre": "Electrocardiograms patterns analysis using Artificial Neural Network and non-linear regression",
+   "resume": "",
+   "type": "CONFERENCE",
+   "annee": 2018,
+   "volume": "",
+   "numero": "",
+   "pages": "25-32",
+   "doi": "",
+   "lien": "https://www.cari-info.org/Actes-2018/p25-32.pdf",
+   "pdf": "",
+   "pdfNom": "",
+   "pdfTaille": "",
+   "est_financee": false,
+   "date_depot": "2018-07-01T09:00:00Z",
+   "specialiteId": "spec-tsi",
+   "deposantId": "ens-ngom",
+   "supportId": "sup-cari",
+   "motsCles": [
+    "Électrocardiogramme",
+    "Réseaux de neurones",
+    "Régression non linéaire"
+   ],
+   "citationsCount": 0,
+   "lecturesCount": 0,
+   "auteurs": [
+    {
+     "id": "ap-13-1",
+     "auteurId": "aut-abdou",
+     "ordre": 1,
+     "est_auteur_correspondant": true,
+     "auteur": {
+      "id": "aut-abdou",
+      "nom": "Abdou",
+      "prenom": "Adama Dieng",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-13-2",
+     "auteurId": "aut-ens-ngom",
+     "ordre": 2,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-ens-ngom",
+      "nom": "Ngom",
+      "prenom": "Ndèye Fatou",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "fngom@ept.edu.sn",
+      "enseignantId": "ens-ngom"
+     }
+    },
+    {
+     "id": "ap-13-3",
+     "auteurId": "aut-ens-niang",
+     "ordre": 3,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-ens-niang",
+      "nom": "Niang",
+      "prenom": "Oumar",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "oniang@ept.edu.sn",
+      "enseignantId": "ens-niang"
+     }
+    }
+   ],
+   "financements": []
+  },
+  {
+   "id": "pub-14",
+   "titre": "Classification and Prediction of Arrhythmias from Electrocardiograms Patterns Based on Empirical Mode Decomposition and Neural Network",
+   "resume": "",
+   "type": "CONFERENCE",
+   "annee": 2019,
+   "volume": "275",
+   "numero": "",
+   "pages": "174-184",
+   "doi": "10.1007/978-3-030-16042-5_17",
+   "lien": "https://link.springer.com/chapter/10.1007/978-3-030-16042-5_17",
+   "pdf": "",
+   "pdfNom": "",
+   "pdfTaille": "",
+   "est_financee": false,
+   "date_depot": "2019-07-01T09:00:00Z",
+   "specialiteId": "spec-tsi",
+   "deposantId": "ens-ngom",
+   "supportId": "sup-africomm",
+   "motsCles": [
+    "Arythmie cardiaque",
+    "Électrocardiogramme",
+    "Réseaux de neurones"
+   ],
+   "citationsCount": 0,
+   "lecturesCount": 0,
+   "auteurs": [
+    {
+     "id": "ap-14-1",
+     "auteurId": "aut-abdou",
+     "ordre": 1,
+     "est_auteur_correspondant": true,
+     "auteur": {
+      "id": "aut-abdou",
+      "nom": "Abdou",
+      "prenom": "Adama Dieng",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-14-2",
+     "auteurId": "aut-ens-ngom",
+     "ordre": 2,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-ens-ngom",
+      "nom": "Ngom",
+      "prenom": "Ndèye Fatou",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "fngom@ept.edu.sn",
+      "enseignantId": "ens-ngom"
+     }
+    },
+    {
+     "id": "ap-14-3",
+     "auteurId": "aut-ens-niang",
+     "ordre": 3,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-ens-niang",
+      "nom": "Niang",
+      "prenom": "Oumar",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "oniang@ept.edu.sn",
+      "enseignantId": "ens-niang"
+     }
+    }
+   ],
+   "financements": []
+  },
+  {
+   "id": "pub-15",
+   "titre": "Analysis of Noise Perturbation on Neural Network Based ECG Classification",
+   "resume": "",
+   "type": "CONFERENCE",
+   "annee": 2019,
+   "volume": "11623",
+   "numero": "",
+   "pages": "349-358",
+   "doi": "10.1007/978-3-030-24308-1_29",
+   "lien": "https://link.springer.com/chapter/10.1007/978-3-030-24308-1_29",
+   "pdf": "",
+   "pdfNom": "",
+   "pdfTaille": "",
+   "est_financee": false,
+   "date_depot": "2019-07-01T09:00:00Z",
+   "specialiteId": "spec-tsi",
+   "deposantId": "ens-ngom",
+   "supportId": "sup-iccsa",
+   "motsCles": [
+    "Perturbation par le bruit",
+    "Électrocardiogramme",
+    "Réseaux de neurones"
+   ],
+   "citationsCount": 0,
+   "lecturesCount": 0,
+   "auteurs": [
+    {
+     "id": "ap-15-1",
+     "auteurId": "aut-abdou",
+     "ordre": 1,
+     "est_auteur_correspondant": true,
+     "auteur": {
+      "id": "aut-abdou",
+      "nom": "Abdou",
+      "prenom": "Adama Dieng",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-15-2",
+     "auteurId": "aut-ens-ngom",
+     "ordre": 2,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-ens-ngom",
+      "nom": "Ngom",
+      "prenom": "Ndèye Fatou",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "fngom@ept.edu.sn",
+      "enseignantId": "ens-ngom"
+     }
+    },
+    {
+     "id": "ap-15-3",
+     "auteurId": "aut-ens-niang",
+     "ordre": 3,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-ens-niang",
+      "nom": "Niang",
+      "prenom": "Oumar",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "oniang@ept.edu.sn",
+      "enseignantId": "ens-niang"
+     }
+    },
+    {
+     "id": "ap-15-4",
+     "auteurId": "aut-guerra",
+     "ordre": 4,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-guerra",
+      "nom": "Guerra",
+      "prenom": "Mouhamed Ould",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    }
+   ],
+   "financements": []
+  },
+  {
+   "id": "pub-16",
+   "titre": "Shape Descriptors for Porous Media Analysis Using Computed Tomography Images",
+   "resume": "",
+   "type": "JOURNAL",
+   "annee": 2018,
+   "volume": "18",
+   "numero": "2",
+   "pages": "1850011",
+   "doi": "10.1142/S0219467818500110",
+   "lien": "https://www.worldscientific.com/doi/abs/10.1142/S0219467818500110",
+   "pdf": "",
+   "pdfNom": "",
+   "pdfTaille": "",
+   "est_financee": false,
+   "date_depot": "2018-07-01T09:00:00Z",
+   "specialiteId": "spec-tsi",
+   "deposantId": "ens-ngom",
+   "supportId": "sup-ijig",
+   "motsCles": [
+    "Milieux poreux",
+    "Tomographie",
+    "Descripteurs de forme"
+   ],
+   "citationsCount": 0,
+   "lecturesCount": 0,
+   "auteurs": [
+    {
+     "id": "ap-16-1",
+     "auteurId": "aut-ens-ngom",
+     "ordre": 1,
+     "est_auteur_correspondant": true,
+     "auteur": {
+      "id": "aut-ens-ngom",
+      "nom": "Ngom",
+      "prenom": "Ndèye Fatou",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "fngom@ept.edu.sn",
+      "enseignantId": "ens-ngom"
+     }
+    },
+    {
+     "id": "ap-16-2",
+     "auteurId": "aut-ndiaye",
+     "ordre": 2,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-ndiaye",
+      "nom": "Ndiaye",
+      "prenom": "Cheikh Hamidou Tidiane Cissé",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-16-3",
+     "auteurId": "aut-ens-niang",
+     "ordre": 3,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-ens-niang",
+      "nom": "Niang",
+      "prenom": "Oumar",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "oniang@ept.edu.sn",
+      "enseignantId": "ens-niang"
+     }
+    },
+    {
+     "id": "ap-16-4",
+     "auteurId": "aut-ens-sidibe",
+     "ordre": 4,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-ens-sidibe",
+      "nom": "Sidibé",
+      "prenom": "Samba",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "ssidibe@ept.edu.sn",
+      "enseignantId": "ens-sidibe"
+     }
+    }
+   ],
+   "financements": []
+  },
+  {
+   "id": "pub-17",
+   "titre": "Porous media modeling from tubular shapes and computed tomography images",
+   "resume": "",
+   "type": "CONFERENCE",
+   "annee": 2017,
+   "volume": "",
+   "numero": "",
+   "pages": "1-5",
+   "doi": "10.1109/ICCNI.2017.8123778",
+   "lien": "https://ieeexplore.ieee.org/document/8123778/",
+   "pdf": "",
+   "pdfNom": "",
+   "pdfTaille": "",
+   "est_financee": false,
+   "date_depot": "2017-07-01T09:00:00Z",
+   "specialiteId": "spec-tsi",
+   "deposantId": "ens-ngom",
+   "supportId": "sup-iccni",
+   "motsCles": [
+    "Milieux poreux",
+    "Modélisation",
+    "Tomographie"
+   ],
+   "citationsCount": 0,
+   "lecturesCount": 0,
+   "auteurs": [
+    {
+     "id": "ap-17-1",
+     "auteurId": "aut-ens-ngom",
+     "ordre": 1,
+     "est_auteur_correspondant": true,
+     "auteur": {
+      "id": "aut-ens-ngom",
+      "nom": "Ngom",
+      "prenom": "Ndèye Fatou",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "fngom@ept.edu.sn",
+      "enseignantId": "ens-ngom"
+     }
+    },
+    {
+     "id": "ap-17-2",
+     "auteurId": "aut-ndiaye",
+     "ordre": 2,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-ndiaye",
+      "nom": "Ndiaye",
+      "prenom": "Cheikh Hamidou Tidiane Cissé",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-17-3",
+     "auteurId": "aut-ens-niang",
+     "ordre": 3,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-ens-niang",
+      "nom": "Niang",
+      "prenom": "Oumar",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "oniang@ept.edu.sn",
+      "enseignantId": "ens-niang"
+     }
+    },
+    {
+     "id": "ap-17-4",
+     "auteurId": "aut-ens-sidibe",
+     "ordre": 4,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-ens-sidibe",
+      "nom": "Sidibé",
+      "prenom": "Samba",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "ssidibe@ept.edu.sn",
+      "enseignantId": "ens-sidibe"
+     }
+    }
+   ],
+   "financements": []
+  },
+  {
+   "id": "pub-18",
+   "titre": "Web based GIS for multicriteria vulnerability classification and prediction in urban area: the case of Yeumbeul (Dakar)",
+   "resume": "",
+   "type": "CONFERENCE",
+   "annee": 2018,
+   "volume": "",
+   "numero": "",
+   "pages": "1-10",
+   "doi": "10.1109/SCCIC.2018.8584554",
+   "lien": "https://ieeexplore.ieee.org/document/8584554/",
+   "pdf": "",
+   "pdfNom": "",
+   "pdfTaille": "",
+   "est_financee": false,
+   "date_depot": "2018-07-01T09:00:00Z",
+   "specialiteId": "spec-gsi",
+   "deposantId": "ens-ngom",
+   "supportId": "sup-sccic",
+   "motsCles": [
+    "Système d'information géographique",
+    "Vulnérabilité urbaine",
+    "Analyse multicritère",
+    "Dakar"
+   ],
+   "citationsCount": 0,
+   "lecturesCount": 0,
+   "auteurs": [
+    {
+     "id": "ap-18-1",
+     "auteurId": "aut-ndiaye",
+     "ordre": 1,
+     "est_auteur_correspondant": true,
+     "auteur": {
+      "id": "aut-ndiaye",
+      "nom": "Ndiaye",
+      "prenom": "Cheikh Hamidou Tidiane Cissé",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-18-2",
+     "auteurId": "aut-ens-ngom",
+     "ordre": 2,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-ens-ngom",
+      "nom": "Ngom",
+      "prenom": "Ndèye Fatou",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "fngom@ept.edu.sn",
+      "enseignantId": "ens-ngom"
+     }
+    },
+    {
+     "id": "ap-18-3",
+     "auteurId": "aut-ens-niang",
+     "ordre": 3,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-ens-niang",
+      "nom": "Niang",
+      "prenom": "Oumar",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "oniang@ept.edu.sn",
+      "enseignantId": "ens-niang"
+     }
+    },
+    {
+     "id": "ap-18-4",
+     "auteurId": "aut-fall",
+     "ordre": 4,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-fall",
+      "nom": "Fall",
+      "prenom": "Aliou",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    }
+   ],
+   "financements": []
+  },
+  {
+   "id": "pub-19",
+   "titre": "I2PA: An Efficient ABC for IoT",
+   "resume": "",
+   "type": "JOURNAL",
+   "annee": 2019,
+   "volume": "3",
+   "numero": "2",
+   "pages": "16",
+   "doi": "10.3390/cryptography3020016",
+   "lien": "https://www.mdpi.com/2410-387X/3/2/16",
+   "pdf": "",
+   "pdfNom": "",
+   "pdfTaille": "",
+   "est_financee": false,
+   "date_depot": "2019-07-01T09:00:00Z",
+   "specialiteId": "spec-cse",
+   "deposantId": "ens-ciss",
+   "supportId": "sup-cryptography",
+   "motsCles": [
+    "Accréditation anonyme",
+    "Internet des objets",
+    "Cryptographie"
+   ],
+   "citationsCount": 0,
+   "lecturesCount": 0,
+   "auteurs": [
+    {
+     "id": "ap-19-1",
+     "auteurId": "aut-sene",
+     "ordre": 1,
+     "est_auteur_correspondant": true,
+     "auteur": {
+      "id": "aut-sene",
+      "nom": "Sène",
+      "prenom": "Ibou",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-19-2",
+     "auteurId": "aut-ens-ciss",
+     "ordre": 2,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-ens-ciss",
+      "nom": "Ciss",
+      "prenom": "Abdoul Aziz",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "aaciss@ept.edu.sn",
+      "enseignantId": "ens-ciss"
+     }
+    },
+    {
+     "id": "ap-19-3",
+     "auteurId": "aut-ens-niang",
+     "ordre": 3,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-ens-niang",
+      "nom": "Niang",
+      "prenom": "Oumar",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "oniang@ept.edu.sn",
+      "enseignantId": "ens-niang"
+     }
+    }
+   ],
+   "financements": []
+  },
+  {
+   "id": "pub-20",
+   "titre": "I2PA, U-prove, and Idemix: An Evaluation of Memory Usage and Computing Time Efficiency in an IoT Context",
+   "resume": "",
+   "type": "PREPRINT",
+   "annee": 2019,
+   "volume": "",
+   "numero": "",
+   "pages": "",
+   "doi": "",
+   "lien": "https://arxiv.org/abs/1904.08331",
+   "pdf": "",
+   "pdfNom": "",
+   "pdfTaille": "",
+   "est_financee": false,
+   "date_depot": "2019-07-01T09:00:00Z",
+   "specialiteId": "spec-cse",
+   "deposantId": "ens-ciss",
+   "supportId": null,
+   "motsCles": [
+    "Accréditation anonyme",
+    "Internet des objets",
+    "Évaluation de performance"
+   ],
+   "citationsCount": 0,
+   "lecturesCount": 0,
+   "auteurs": [
+    {
+     "id": "ap-20-1",
+     "auteurId": "aut-sene",
+     "ordre": 1,
+     "est_auteur_correspondant": true,
+     "auteur": {
+      "id": "aut-sene",
+      "nom": "Sène",
+      "prenom": "Ibou",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-20-2",
+     "auteurId": "aut-ens-ciss",
+     "ordre": 2,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-ens-ciss",
+      "nom": "Ciss",
+      "prenom": "Abdoul Aziz",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "aaciss@ept.edu.sn",
+      "enseignantId": "ens-ciss"
+     }
+    },
+    {
+     "id": "ap-20-3",
+     "auteurId": "aut-ens-niang",
+     "ordre": 3,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-ens-niang",
+      "nom": "Niang",
+      "prenom": "Oumar",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "oniang@ept.edu.sn",
+      "enseignantId": "ens-niang"
+     }
+    }
+   ],
+   "financements": []
+  },
+  {
+   "id": "pub-21",
+   "titre": "A Lightweight Identification Protocol for Embedded Devices",
+   "resume": "",
+   "type": "PREPRINT",
+   "annee": 2014,
+   "volume": "",
+   "numero": "",
+   "pages": "",
+   "doi": "",
+   "lien": "https://arxiv.org/abs/1408.5945",
+   "pdf": "",
+   "pdfNom": "",
+   "pdfTaille": "",
+   "est_financee": false,
+   "date_depot": "2014-07-01T09:00:00Z",
+   "specialiteId": "spec-cse",
+   "deposantId": "ens-ciss",
+   "supportId": null,
+   "motsCles": [
+    "Protocole d'identification",
+    "Systèmes embarqués",
+    "Cryptographie"
+   ],
+   "citationsCount": 0,
+   "lecturesCount": 0,
+   "auteurs": [
+    {
+     "id": "ap-21-1",
+     "auteurId": "aut-mbaye",
+     "ordre": 1,
+     "est_auteur_correspondant": true,
+     "auteur": {
+      "id": "aut-mbaye",
+      "nom": "Mbaye",
+      "prenom": "Aminata",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-21-2",
+     "auteurId": "aut-ens-ciss",
+     "ordre": 2,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-ens-ciss",
+      "nom": "Ciss",
+      "prenom": "Abdoul Aziz",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "aaciss@ept.edu.sn",
+      "enseignantId": "ens-ciss"
+     }
+    },
+    {
+     "id": "ap-21-3",
+     "auteurId": "aut-ens-niang",
+     "ordre": 3,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-ens-niang",
+      "nom": "Niang",
+      "prenom": "Oumar",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "oniang@ept.edu.sn",
+      "enseignantId": "ens-niang"
+     }
+    }
+   ],
+   "financements": []
+  },
+  {
+   "id": "pub-22",
+   "titre": "Enrichment of Medical Ontologies from Textual Clinical Reports: Towards Improving Linking Human Diseases and Signs",
+   "resume": "",
+   "type": "CONFERENCE",
+   "annee": 2019,
+   "volume": "296",
+   "numero": "",
+   "pages": "104-115",
+   "doi": "10.1007/978-3-030-34863-2_10",
+   "lien": "https://link.springer.com/chapter/10.1007/978-3-030-34863-2_10",
+   "pdf": "",
+   "pdfNom": "",
+   "pdfTaille": "",
+   "est_financee": false,
+   "date_depot": "2019-07-01T09:00:00Z",
+   "specialiteId": "spec-iac",
+   "deposantId": "ens-guisse",
+   "supportId": "sup-intersol",
+   "motsCles": [
+    "Ontologies médicales",
+    "Rapports cliniques",
+    "Enrichissement sémantique"
+   ],
+   "citationsCount": 0,
+   "lecturesCount": 0,
+   "auteurs": [
+    {
+     "id": "ap-22-1",
+     "auteurId": "aut-sow_adama",
+     "ordre": 1,
+     "est_auteur_correspondant": true,
+     "auteur": {
+      "id": "aut-sow_adama",
+      "nom": "Sow",
+      "prenom": "Adama",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-22-2",
+     "auteurId": "aut-ens-guisse",
+     "ordre": 2,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-ens-guisse",
+      "nom": "Guissé",
+      "prenom": "Abdoulaye",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "aguisse@ept.edu.sn",
+      "enseignantId": "ens-guisse"
+     }
+    },
+    {
+     "id": "ap-22-3",
+     "auteurId": "aut-ens-niang",
+     "ordre": 3,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-ens-niang",
+      "nom": "Niang",
+      "prenom": "Oumar",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "oniang@ept.edu.sn",
+      "enseignantId": "ens-niang"
+     }
+    }
+   ],
+   "financements": []
+  },
+  {
+   "id": "pub-23",
+   "titre": "Proposition of an Ontology of Diseases and Their Signs from Medical Ontologies Integration",
+   "resume": "",
+   "type": "JOURNAL",
+   "annee": 2018,
+   "volume": "12",
+   "numero": "6",
+   "pages": "395-400",
+   "doi": "",
+   "lien": "https://publications.waset.org/vol/138",
+   "pdf": "",
+   "pdfNom": "",
+   "pdfTaille": "",
+   "est_financee": false,
+   "date_depot": "2018-07-01T09:00:00Z",
+   "specialiteId": "spec-iac",
+   "deposantId": "ens-guisse",
+   "supportId": "sup-ijcie",
+   "motsCles": [
+    "Ontologies médicales",
+    "Intégration de connaissances"
+   ],
+   "citationsCount": 0,
+   "lecturesCount": 0,
+   "auteurs": [
+    {
+     "id": "ap-23-1",
+     "auteurId": "aut-sow_adama",
+     "ordre": 1,
+     "est_auteur_correspondant": true,
+     "auteur": {
+      "id": "aut-sow_adama",
+      "nom": "Sow",
+      "prenom": "Adama",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-23-2",
+     "auteurId": "aut-ens-guisse",
+     "ordre": 2,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-ens-guisse",
+      "nom": "Guissé",
+      "prenom": "Abdoulaye",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "aguisse@ept.edu.sn",
+      "enseignantId": "ens-guisse"
+     }
+    },
+    {
+     "id": "ap-23-3",
+     "auteurId": "aut-ens-niang",
+     "ordre": 3,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-ens-niang",
+      "nom": "Niang",
+      "prenom": "Oumar",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "oniang@ept.edu.sn",
+      "enseignantId": "ens-niang"
+     }
+    }
+   ],
+   "financements": []
+  },
+  {
+   "id": "pub-24",
+   "titre": "Modélisation de connaissances médicales pour améliorer le descriptif des maladies humaines avec leurs plus pertinents signes caractéristiques",
+   "resume": "",
+   "type": "JOURNAL",
+   "annee": 2018,
+   "volume": "RNTI-B-14",
+   "numero": "",
+   "pages": "105-120",
+   "doi": "",
+   "lien": "http://editions-rnti.fr/?inprocid=1002438",
+   "pdf": "",
+   "pdfNom": "",
+   "pdfTaille": "",
+   "est_financee": false,
+   "date_depot": "2018-07-01T09:00:00Z",
+   "specialiteId": "spec-iac",
+   "deposantId": "ens-guisse",
+   "supportId": "sup-rnti",
+   "motsCles": [
+    "Modélisation des connaissances",
+    "Ontologies médicales"
+   ],
+   "citationsCount": 0,
+   "lecturesCount": 0,
+   "auteurs": [
+    {
+     "id": "ap-24-1",
+     "auteurId": "aut-sow_adama",
+     "ordre": 1,
+     "est_auteur_correspondant": true,
+     "auteur": {
+      "id": "aut-sow_adama",
+      "nom": "Sow",
+      "prenom": "Adama",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-24-2",
+     "auteurId": "aut-ens-guisse",
+     "ordre": 2,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-ens-guisse",
+      "nom": "Guissé",
+      "prenom": "Abdoulaye",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "aguisse@ept.edu.sn",
+      "enseignantId": "ens-guisse"
+     }
+    },
+    {
+     "id": "ap-24-3",
+     "auteurId": "aut-ens-niang",
+     "ordre": 3,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-ens-niang",
+      "nom": "Niang",
+      "prenom": "Oumar",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "oniang@ept.edu.sn",
+      "enseignantId": "ens-niang"
+     }
+    }
+   ],
+   "financements": []
+  },
+  {
+   "id": "pub-25",
+   "titre": "Intégration d'ontologies médicales : amélioration par association des maladies humaines à leurs plus pertinents signes caractéristiques",
+   "resume": "",
+   "type": "CONFERENCE",
+   "annee": 2018,
+   "volume": "",
+   "numero": "",
+   "pages": "261-263",
+   "doi": "",
+   "lien": "https://hal.archives-ouvertes.fr/hal-01839637",
+   "pdf": "",
+   "pdfNom": "",
+   "pdfTaille": "",
+   "est_financee": false,
+   "date_depot": "2018-07-01T09:00:00Z",
+   "specialiteId": "spec-iac",
+   "deposantId": "ens-guisse",
+   "supportId": "sup-ic",
+   "motsCles": [
+    "Intégration d'ontologies",
+    "Ontologies médicales"
+   ],
+   "citationsCount": 0,
+   "lecturesCount": 0,
+   "auteurs": [
+    {
+     "id": "ap-25-1",
+     "auteurId": "aut-sow_adama",
+     "ordre": 1,
+     "est_auteur_correspondant": true,
+     "auteur": {
+      "id": "aut-sow_adama",
+      "nom": "Sow",
+      "prenom": "Adama",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-25-2",
+     "auteurId": "aut-ens-guisse",
+     "ordre": 2,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-ens-guisse",
+      "nom": "Guissé",
+      "prenom": "Abdoulaye",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "aguisse@ept.edu.sn",
+      "enseignantId": "ens-guisse"
+     }
+    },
+    {
+     "id": "ap-25-3",
+     "auteurId": "aut-ens-niang",
+     "ordre": 3,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-ens-niang",
+      "nom": "Niang",
+      "prenom": "Oumar",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "oniang@ept.edu.sn",
+      "enseignantId": "ens-niang"
+     }
+    }
+   ],
+   "financements": []
+  },
+  {
+   "id": "pub-26",
+   "titre": "Data fusion model from coupling ontologies and clinical reports to guide medical diagnosis process",
+   "resume": "",
+   "type": "CONFERENCE",
+   "annee": 2020,
+   "volume": "",
+   "numero": "",
+   "pages": "",
+   "doi": "10.1007/978-3-030-45688-7_25",
+   "lien": "https://link.springer.com/chapter/10.1007/978-3-030-45688-7_25",
+   "pdf": "",
+   "pdfNom": "",
+   "pdfTaille": "",
+   "est_financee": false,
+   "date_depot": "2020-07-01T09:00:00Z",
+   "specialiteId": "spec-iac",
+   "deposantId": "ens-guisse",
+   "supportId": "sup-worldcist",
+   "motsCles": [
+    "Fusion de données",
+    "Ontologies",
+    "Aide au diagnostic médical"
+   ],
+   "citationsCount": 0,
+   "lecturesCount": 0,
+   "auteurs": [
+    {
+     "id": "ap-26-1",
+     "auteurId": "aut-sow_adama",
+     "ordre": 1,
+     "est_auteur_correspondant": true,
+     "auteur": {
+      "id": "aut-sow_adama",
+      "nom": "Sow",
+      "prenom": "Adama",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-26-2",
+     "auteurId": "aut-ens-guisse",
+     "ordre": 2,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-ens-guisse",
+      "nom": "Guissé",
+      "prenom": "Abdoulaye",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "aguisse@ept.edu.sn",
+      "enseignantId": "ens-guisse"
+     }
+    },
+    {
+     "id": "ap-26-3",
+     "auteurId": "aut-ens-niang",
+     "ordre": 3,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-ens-niang",
+      "nom": "Niang",
+      "prenom": "Oumar",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "oniang@ept.edu.sn",
+      "enseignantId": "ens-niang"
+     }
+    }
+   ],
+   "financements": []
+  },
+  {
+   "id": "pub-27",
+   "titre": "Architecture d'un moteur de recherche sémantique pour l'aide au diagnostic médical",
+   "resume": "",
+   "type": "CONFERENCE",
+   "annee": 2014,
+   "volume": "",
+   "numero": "",
+   "pages": "",
+   "doi": "",
+   "lien": "",
+   "pdf": "",
+   "pdfNom": "",
+   "pdfTaille": "",
+   "est_financee": false,
+   "date_depot": "2014-07-01T09:00:00Z",
+   "specialiteId": "spec-iac",
+   "deposantId": "ens-guisse",
+   "supportId": "sup-cari",
+   "motsCles": [
+    "Recherche sémantique",
+    "Aide au diagnostic médical"
+   ],
+   "citationsCount": 0,
+   "lecturesCount": 0,
+   "auteurs": [
+    {
+     "id": "ap-27-1",
+     "auteurId": "aut-sow_adama",
+     "ordre": 1,
+     "est_auteur_correspondant": true,
+     "auteur": {
+      "id": "aut-sow_adama",
+      "nom": "Sow",
+      "prenom": "Adama",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-27-2",
+     "auteurId": "aut-ens-guisse",
+     "ordre": 2,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-ens-guisse",
+      "nom": "Guissé",
+      "prenom": "Abdoulaye",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "aguisse@ept.edu.sn",
+      "enseignantId": "ens-guisse"
+     }
+    },
+    {
+     "id": "ap-27-3",
+     "auteurId": "aut-ens-niang",
+     "ordre": 3,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-ens-niang",
+      "nom": "Niang",
+      "prenom": "Oumar",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "oniang@ept.edu.sn",
+      "enseignantId": "ens-niang"
+     }
+    }
+   ],
+   "financements": []
+  },
+  {
+   "id": "pub-28",
+   "titre": "Noyau informatique CRIPTEX pour le traitement de données personnelles dans les textes",
+   "resume": "",
+   "type": "JOURNAL",
+   "annee": 2022,
+   "volume": "40",
+   "numero": "",
+   "pages": "",
+   "doi": "",
+   "lien": "https://pufc.univ-fcomte.fr/revues/bulag/bulag-40.html",
+   "pdf": "",
+   "pdfNom": "",
+   "pdfTaille": "",
+   "est_financee": false,
+   "date_depot": "2022-07-01T09:00:00Z",
+   "specialiteId": "spec-iac",
+   "deposantId": "ens-guisse",
+   "supportId": "sup-bulag",
+   "motsCles": [
+    "Traitement automatique des langues",
+    "Données personnelles",
+    "Anonymisation"
+   ],
+   "citationsCount": 0,
+   "lecturesCount": 0,
+   "auteurs": [
+    {
+     "id": "ap-28-1",
+     "auteurId": "aut-ens-guisse",
+     "ordre": 1,
+     "est_auteur_correspondant": true,
+     "auteur": {
+      "id": "aut-ens-guisse",
+      "nom": "Guissé",
+      "prenom": "Abdoulaye",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "aguisse@ept.edu.sn",
+      "enseignantId": "ens-guisse"
+     }
+    },
+    {
+     "id": "ap-28-2",
+     "auteurId": "aut-atanassova",
+     "ordre": 2,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-atanassova",
+      "nom": "Atanassova",
+      "prenom": "Iana",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    }
+   ],
+   "financements": []
+  },
+  {
+   "id": "pub-29",
+   "titre": "A Transformation Model to Express Business Rules from Natural Language to Formal Execution: An Application to Nuclear Power Plant",
+   "resume": "",
+   "type": "CONFERENCE",
+   "annee": 2013,
+   "volume": "",
+   "numero": "",
+   "pages": "",
+   "doi": "",
+   "lien": "",
+   "pdf": "",
+   "pdfNom": "",
+   "pdfTaille": "",
+   "est_financee": false,
+   "date_depot": "2013-07-01T09:00:00Z",
+   "specialiteId": "spec-iac",
+   "deposantId": "ens-guisse",
+   "supportId": "sup-mim",
+   "motsCles": [
+    "Règles métier",
+    "Langage naturel",
+    "Modèle de transformation"
+   ],
+   "citationsCount": 0,
+   "lecturesCount": 0,
+   "auteurs": [
+    {
+     "id": "ap-29-1",
+     "auteurId": "aut-fortineau",
+     "ordre": 1,
+     "est_auteur_correspondant": true,
+     "auteur": {
+      "id": "aut-fortineau",
+      "nom": "Fortineau",
+      "prenom": "Virginie",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-29-2",
+     "auteurId": "aut-paviot",
+     "ordre": 2,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-paviot",
+      "nom": "Paviot",
+      "prenom": "Thomas",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-29-3",
+     "auteurId": "aut-ens-guisse",
+     "ordre": 3,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-ens-guisse",
+      "nom": "Guissé",
+      "prenom": "Abdoulaye",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "aguisse@ept.edu.sn",
+      "enseignantId": "ens-guisse"
+     }
+    },
+    {
+     "id": "ap-29-4",
+     "auteurId": "aut-lamouri",
+     "ordre": 4,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-lamouri",
+      "nom": "Lamouri",
+      "prenom": "Samir",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    }
+   ],
+   "financements": []
+  },
+  {
+   "id": "pub-30",
+   "titre": "From regulatory texts to BRMS: how to guide the formalization of business rules?",
+   "resume": "",
+   "type": "CONFERENCE",
+   "annee": 2012,
+   "volume": "7438",
+   "numero": "",
+   "pages": "77-91",
+   "doi": "10.1007/978-3-642-32689-9_7",
+   "lien": "https://link.springer.com/chapter/10.1007/978-3-642-32689-9_7",
+   "pdf": "",
+   "pdfNom": "",
+   "pdfTaille": "",
+   "est_financee": false,
+   "date_depot": "2012-07-01T09:00:00Z",
+   "specialiteId": "spec-iac",
+   "deposantId": "ens-guisse",
+   "supportId": "sup-ruleml",
+   "motsCles": [
+    "Textes réglementaires",
+    "Règles métier",
+    "Formalisation"
+   ],
+   "citationsCount": 0,
+   "lecturesCount": 0,
+   "auteurs": [
+    {
+     "id": "ap-30-1",
+     "auteurId": "aut-ens-guisse",
+     "ordre": 1,
+     "est_auteur_correspondant": true,
+     "auteur": {
+      "id": "aut-ens-guisse",
+      "nom": "Guissé",
+      "prenom": "Abdoulaye",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "aguisse@ept.edu.sn",
+      "enseignantId": "ens-guisse"
+     }
+    },
+    {
+     "id": "ap-30-2",
+     "auteurId": "aut-levy",
+     "ordre": 2,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-levy",
+      "nom": "Lévy",
+      "prenom": "François",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-30-3",
+     "auteurId": "aut-nazarenko",
+     "ordre": 3,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-nazarenko",
+      "nom": "Nazarenko",
+      "prenom": "Adeline",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    }
+   ],
+   "financements": []
+  },
+  {
+   "id": "pub-31",
+   "titre": "Integrating Written Policies in Business Rule Management Systems",
+   "resume": "",
+   "type": "CONFERENCE",
+   "annee": 2011,
+   "volume": "6826",
+   "numero": "",
+   "pages": "99-113",
+   "doi": "10.1007/978-3-642-22546-8_9",
+   "lien": "https://link.springer.com/chapter/10.1007/978-3-642-22546-8_9",
+   "pdf": "",
+   "pdfNom": "",
+   "pdfTaille": "",
+   "est_financee": false,
+   "date_depot": "2011-07-01T09:00:00Z",
+   "specialiteId": "spec-iac",
+   "deposantId": "ens-guisse",
+   "supportId": "sup-ruleml",
+   "motsCles": [
+    "Règles métier",
+    "Politiques écrites",
+    "Systèmes de gestion de règles"
+   ],
+   "citationsCount": 0,
+   "lecturesCount": 0,
+   "auteurs": [
+    {
+     "id": "ap-31-1",
+     "auteurId": "aut-nazarenko",
+     "ordre": 1,
+     "est_auteur_correspondant": true,
+     "auteur": {
+      "id": "aut-nazarenko",
+      "nom": "Nazarenko",
+      "prenom": "Adeline",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-31-2",
+     "auteurId": "aut-ens-guisse",
+     "ordre": 2,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-ens-guisse",
+      "nom": "Guissé",
+      "prenom": "Abdoulaye",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "aguisse@ept.edu.sn",
+      "enseignantId": "ens-guisse"
+     }
+    },
+    {
+     "id": "ap-31-3",
+     "auteurId": "aut-levy",
+     "ordre": 3,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-levy",
+      "nom": "Lévy",
+      "prenom": "François",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-31-4",
+     "auteurId": "aut-omrane",
+     "ordre": 4,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-omrane",
+      "nom": "Omrane",
+      "prenom": "Nouha",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-31-5",
+     "auteurId": "aut-szulman",
+     "ordre": 5,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-szulman",
+      "nom": "Szulman",
+      "prenom": "Sylvie",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    }
+   ],
+   "financements": []
+  },
+  {
+   "id": "pub-32",
+   "titre": "An environment for the joint management of written policies and business rules",
+   "resume": "",
+   "type": "CONFERENCE",
+   "annee": 2010,
+   "volume": "2",
+   "numero": "",
+   "pages": "142-149",
+   "doi": "",
+   "lien": "https://ieeexplore.ieee.org/xpl/mostRecentIssue.jsp?punumber=5668968",
+   "pdf": "",
+   "pdfNom": "",
+   "pdfTaille": "",
+   "est_financee": false,
+   "date_depot": "2010-07-01T09:00:00Z",
+   "specialiteId": "spec-iac",
+   "deposantId": "ens-guisse",
+   "supportId": "sup-ictai",
+   "motsCles": [
+    "Règles métier",
+    "Politiques écrites",
+    "Environnement de gestion"
+   ],
+   "citationsCount": 0,
+   "lecturesCount": 0,
+   "auteurs": [
+    {
+     "id": "ap-32-1",
+     "auteurId": "aut-levy",
+     "ordre": 1,
+     "est_auteur_correspondant": true,
+     "auteur": {
+      "id": "aut-levy",
+      "nom": "Lévy",
+      "prenom": "François",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-32-2",
+     "auteurId": "aut-nazarenko",
+     "ordre": 2,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-nazarenko",
+      "nom": "Nazarenko",
+      "prenom": "Adeline",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-32-3",
+     "auteurId": "aut-ens-guisse",
+     "ordre": 3,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-ens-guisse",
+      "nom": "Guissé",
+      "prenom": "Abdoulaye",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "aguisse@ept.edu.sn",
+      "enseignantId": "ens-guisse"
+     }
+    },
+    {
+     "id": "ap-32-4",
+     "auteurId": "aut-omrane",
+     "ordre": 4,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-omrane",
+      "nom": "Omrane",
+      "prenom": "Nouha",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-32-5",
+     "auteurId": "aut-szulman",
+     "ordre": 5,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-szulman",
+      "nom": "Szulman",
+      "prenom": "Sylvie",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    }
+   ],
+   "financements": []
+  },
+  {
+   "id": "pub-33",
+   "titre": "Annotation, indexation et parcours de documents numériques",
+   "resume": "",
+   "type": "JOURNAL",
+   "annee": 2010,
+   "volume": "13",
+   "numero": "3",
+   "pages": "121-152",
+   "doi": "",
+   "lien": "https://www.cairn.info/resume.php?ID_ARTICLE=DN_133_0121",
+   "pdf": "",
+   "pdfNom": "",
+   "pdfTaille": "",
+   "est_financee": false,
+   "date_depot": "2010-07-01T09:00:00Z",
+   "specialiteId": "spec-iac",
+   "deposantId": "ens-guisse",
+   "supportId": "sup-doc-num",
+   "motsCles": [
+    "Annotation sémantique",
+    "Indexation",
+    "Documents numériques"
+   ],
+   "citationsCount": 0,
+   "lecturesCount": 0,
+   "auteurs": [
+    {
+     "id": "ap-33-1",
+     "auteurId": "aut-levy",
+     "ordre": 1,
+     "est_auteur_correspondant": true,
+     "auteur": {
+      "id": "aut-levy",
+      "nom": "Lévy",
+      "prenom": "François",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-33-2",
+     "auteurId": "aut-nazarenko",
+     "ordre": 2,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-nazarenko",
+      "nom": "Nazarenko",
+      "prenom": "Adeline",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-33-3",
+     "auteurId": "aut-ens-guisse",
+     "ordre": 3,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-ens-guisse",
+      "nom": "Guissé",
+      "prenom": "Abdoulaye",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "aguisse@ept.edu.sn",
+      "enseignantId": "ens-guisse"
+     }
+    }
+   ],
+   "financements": []
+  },
+  {
+   "id": "pub-34",
+   "titre": "Un moteur sémantique pour explorer des textes réglementaires",
+   "resume": "",
+   "type": "CONFERENCE",
+   "annee": 2011,
+   "volume": "",
+   "numero": "",
+   "pages": "",
+   "doi": "",
+   "lien": "",
+   "pdf": "",
+   "pdfNom": "",
+   "pdfTaille": "",
+   "est_financee": false,
+   "date_depot": "2011-07-01T09:00:00Z",
+   "specialiteId": "spec-iac",
+   "deposantId": "ens-guisse",
+   "supportId": "sup-ic",
+   "motsCles": [
+    "Moteur sémantique",
+    "Textes réglementaires"
+   ],
+   "citationsCount": 0,
+   "lecturesCount": 0,
+   "auteurs": [
+    {
+     "id": "ap-34-1",
+     "auteurId": "aut-ens-guisse",
+     "ordre": 1,
+     "est_auteur_correspondant": true,
+     "auteur": {
+      "id": "aut-ens-guisse",
+      "nom": "Guissé",
+      "prenom": "Abdoulaye",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "aguisse@ept.edu.sn",
+      "enseignantId": "ens-guisse"
+     }
+    },
+    {
+     "id": "ap-34-2",
+     "auteurId": "aut-levy",
+     "ordre": 2,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-levy",
+      "nom": "Lévy",
+      "prenom": "François",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-34-3",
+     "auteurId": "aut-nazarenko",
+     "ordre": 3,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-nazarenko",
+      "nom": "Nazarenko",
+      "prenom": "Adeline",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    }
+   ],
+   "financements": []
+  },
+  {
+   "id": "pub-35",
+   "titre": "Annotation sémantique pour l'indexation de règles métier",
+   "resume": "",
+   "type": "CONFERENCE",
+   "annee": 2009,
+   "volume": "",
+   "numero": "",
+   "pages": "",
+   "doi": "",
+   "lien": "",
+   "pdf": "",
+   "pdfNom": "",
+   "pdfTaille": "",
+   "est_financee": false,
+   "date_depot": "2009-07-01T09:00:00Z",
+   "specialiteId": "spec-iac",
+   "deposantId": "ens-guisse",
+   "supportId": "sup-tia",
+   "motsCles": [
+    "Annotation sémantique",
+    "Règles métier",
+    "Indexation"
+   ],
+   "citationsCount": 0,
+   "lecturesCount": 0,
+   "auteurs": [
+    {
+     "id": "ap-35-1",
+     "auteurId": "aut-ens-guisse",
+     "ordre": 1,
+     "est_auteur_correspondant": true,
+     "auteur": {
+      "id": "aut-ens-guisse",
+      "nom": "Guissé",
+      "prenom": "Abdoulaye",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "aguisse@ept.edu.sn",
+      "enseignantId": "ens-guisse"
+     }
+    },
+    {
+     "id": "ap-35-2",
+     "auteurId": "aut-levy",
+     "ordre": 2,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-levy",
+      "nom": "Lévy",
+      "prenom": "François",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-35-3",
+     "auteurId": "aut-nazarenko",
+     "ordre": 3,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-nazarenko",
+      "nom": "Nazarenko",
+      "prenom": "Adeline",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-35-4",
+     "auteurId": "aut-szulman",
+     "ordre": 4,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-szulman",
+      "nom": "Szulman",
+      "prenom": "Sylvie",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    }
+   ],
+   "financements": []
+  },
+  {
+   "id": "pub-36",
+   "titre": "PatClust : une plateforme pour la classification sémantique des brevets",
+   "resume": "",
+   "type": "CONFERENCE",
+   "annee": 2009,
+   "volume": "",
+   "numero": "",
+   "pages": "",
+   "doi": "",
+   "lien": "",
+   "pdf": "",
+   "pdfNom": "",
+   "pdfTaille": "",
+   "est_financee": false,
+   "date_depot": "2009-07-01T09:00:00Z",
+   "specialiteId": "spec-iac",
+   "deposantId": "ens-guisse",
+   "supportId": "sup-ic",
+   "motsCles": [
+    "Classification sémantique",
+    "Brevets",
+    "Web sémantique"
+   ],
+   "citationsCount": 0,
+   "lecturesCount": 0,
+   "auteurs": [
+    {
+     "id": "ap-36-1",
+     "auteurId": "aut-ens-guisse",
+     "ordre": 1,
+     "est_auteur_correspondant": true,
+     "auteur": {
+      "id": "aut-ens-guisse",
+      "nom": "Guissé",
+      "prenom": "Abdoulaye",
+      "institution": "École Polytechnique de Thiès (EPT)",
+      "email": "aguisse@ept.edu.sn",
+      "enseignantId": "ens-guisse"
+     }
+    },
+    {
+     "id": "ap-36-2",
+     "auteurId": "aut-khelif",
+     "ordre": 2,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-khelif",
+      "nom": "Khelif",
+      "prenom": "Khaled",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    },
+    {
+     "id": "ap-36-3",
+     "auteurId": "aut-collard",
+     "ordre": 3,
+     "est_auteur_correspondant": false,
+     "auteur": {
+      "id": "aut-collard",
+      "nom": "Collard",
+      "prenom": "Martine",
+      "institution": "Institution non renseignée",
+      "email": ""
+     }
+    }
+   ],
+   "financements": []
+  }
+ ],
+ "JOURNAL_ACTIVITE_INITIAL": []
+}

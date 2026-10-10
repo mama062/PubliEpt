@@ -1,0 +1,190 @@
+{% extends "base.html" %}
+{% load publiept %}
+
+{% block contenu %}
+<div class="space-y-6 pb-12">
+
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+    <div>
+      <div class="flex items-center gap-2">
+        <h1 class="text-2xl sm:text-3xl font-serif font-bold text-slate-950">Toutes les publications</h1>
+        <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-blue-100 text-blue-900">{{ total }}</span>
+      </div>
+      <p class="text-xs text-slate-500 mt-1">
+        Supervision globale, correction des métadonnées et fusion des doublons entre co-auteurs
+      </p>
+    </div>
+
+    <button type="button" onclick="ouvrirModale('fusion')"
+            class="inline-flex items-center gap-2 px-4 py-2 text-xs font-bold text-white bg-blue-950 hover:bg-blue-900 rounded-xl transition-colors shrink-0">
+      {% icone "git-merge" "w-4 h-4 text-amber-400" %}<span>Fusionner deux doublons</span>
+    </button>
+  </div>
+
+  {% if doublons %}
+    <div class="p-4 rounded-2xl bg-amber-50 border border-amber-300 text-xs text-amber-950 flex items-start justify-between gap-3">
+      <div class="flex items-start gap-2.5">
+        {% icone "triangle-alert" "w-5 h-5 text-amber-700 shrink-0 mt-0.5" %}
+        <div>
+          <strong class="font-bold block">
+            {{ doublons|length }} publication{{ doublons|length|pluriel }} suspectée{{ doublons|length|pluriel }} de doublon
+          </strong>
+          <span>
+            Des publications partagent le même DOI ou un titre identique. La fusion unifie les
+            métadonnées sans perdre les co-financements ni les auteurs.
+          </span>
+        </div>
+      </div>
+      <button type="button" onclick="ouvrirModale('fusion')"
+              class="px-3 py-1.5 text-xs font-bold bg-amber-600 text-white rounded-lg hover:bg-amber-700 shrink-0">
+        Résoudre
+      </button>
+    </div>
+  {% endif %}
+
+  <form method="get" id="filtres-catalogue"
+        class="bg-white p-4 rounded-2xl border border-slate-200 flex flex-col md:flex-row items-center justify-between gap-3">
+    <div class="relative flex-1 w-full">
+      <input type="text" name="q" value="{{ f.q|default:'' }}" placeholder="Rechercher par titre, auteur, DOI…"
+             class="w-full pl-9 pr-4 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:bg-white text-slate-800">
+      <span class="absolute left-3 top-2.5 text-slate-400">{% icone "search" "w-4 h-4" %}</span>
+    </div>
+
+    <select name="specialite" class="p-2 text-xs bg-slate-50 border border-slate-200 rounded-lg text-slate-700 w-full md:w-64">
+      <option value="">Toutes les spécialités</option>
+      {% for specialite in specialites %}
+        <option value="{{ specialite.pk }}" {% if f.specialite == specialite.pk|stringformat:"s" %}selected{% endif %}>
+          {{ specialite.code }} — {{ specialite.libelle }}
+        </option>
+      {% endfor %}
+    </select>
+  </form>
+
+  <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="tableau-publiept">
+        <thead>
+          <tr>
+            <th>Titre &amp; auteurs</th><th>Type</th><th>Spécialité</th>
+            <th>Année</th><th>Financement</th><th class="text-right">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for publication in publications %}
+            <tr>
+              <td class="max-w-md">
+                <a href="{% url 'publication_detail' publication.pk %}" class="font-bold text-slate-900 hover:text-blue-900 ligne-1 block">
+                  {{ publication.titre }}
+                </a>
+                <div class="text-[11px] text-slate-500 ligne-1 mt-0.5">
+                  <span>{{ publication.liste_auteurs }}</span>
+                  {% if publication.doi %}<span class="ml-2 font-mono text-blue-800">&bull; DOI : {{ publication.doi }}</span>{% endif %}
+                </div>
+              </td>
+              <td class="whitespace-nowrap">
+                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold border {{ publication.classe_type }}">
+                  {{ publication.libelle_type }}
+                </span>
+              </td>
+              <td class="whitespace-nowrap font-semibold text-slate-800">{{ publication.specialite.code }}</td>
+              <td class="whitespace-nowrap font-medium">{{ publication.annee }}</td>
+              <td class="whitespace-nowrap">
+                {% if publication.est_financee %}
+                  <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-500/15 text-amber-950 border border-amber-400">
+                    Financé
+                  </span>
+                {% else %}<span class="text-slate-400">—</span>{% endif %}
+              </td>
+              <td class="whitespace-nowrap text-right">
+                <a href="{% url 'publication_detail' publication.pk %}"
+                   class="p-1.5 hover:bg-slate-100 rounded text-slate-600 hover:text-blue-900 inline-block" title="Consulter">
+                  {% icone "external-link" "w-3.5 h-3.5" %}
+                </a>
+                <a href="{% url 'publication_modifier' publication.pk %}"
+                   class="p-1.5 hover:bg-blue-50 rounded text-blue-700 inline-block" title="Corriger les métadonnées">
+                  {% icone "pencil" "w-3.5 h-3.5" %}
+                </a>
+                <button type="button" onclick="preparerFusion('{{ publication.pk }}')"
+                        class="p-1.5 hover:bg-amber-50 rounded text-amber-700" title="Fusionner ce doublon">
+                  {% icone "git-merge" "w-3.5 h-3.5" %}
+                </button>
+                <button type="button" onclick="ouvrirModale('supprimer-{{ publication.pk }}')"
+                        class="p-1.5 hover:bg-rose-50 rounded text-rose-600" title="Supprimer">
+                  {% icone "trash-2" "w-3.5 h-3.5" %}
+                </button>
+              </td>
+            </tr>
+            {% include "partials/modale_suppression.html" %}
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div id="fusion" data-modale class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-xs">
+  <div class="bg-white rounded-2xl p-6 max-w-xl w-full shadow-2xl border border-slate-200 space-y-4">
+    <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+      <div class="flex items-center gap-2 text-blue-950 font-serif font-bold text-base">
+        {% icone "git-merge" "w-5 h-5 text-amber-500" %}<span>Fusion de doublons</span>
+      </div>
+      <button type="button" onclick="fermerModale('fusion')" class="text-slate-400 hover:text-slate-700">
+        {% icone "x" "w-5 h-5" %}
+      </button>
+    </div>
+
+    <p class="text-xs text-slate-600 leading-relaxed">
+      Sélectionnez la publication à absorber (source) et celle à conserver (cible). Les
+      co-financements, mots-clés et auteurs de la source rejoignent la cible ; la source est
+      ensuite retirée de la base.
+    </p>
+
+    <form method="post" action="{% url 'admin_fusionner_publications' %}" class="space-y-3">
+      {% csrf_token %}
+      <div>
+        <label class="block text-xs font-bold text-slate-700 mb-1">
+          1. Publication doublon à absorber (sera retirée)
+        </label>
+        <select name="source" id="fusion-source" required
+                class="w-full p-2.5 text-xs bg-slate-50 border border-slate-300 rounded-xl text-slate-900">
+          <option value="">Sélectionner la publication source…</option>
+          {% for publication in toutes_publications %}
+            <option value="{{ publication.pk }}">[{{ publication.annee }}] {{ publication.titre|truncatechars:70 }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-xs font-bold text-slate-700 mb-1">
+          2. Publication conservée (recevra les informations fusionnées)
+        </label>
+        <select name="cible" id="fusion-cible" required
+                class="w-full p-2.5 text-xs bg-slate-50 border border-slate-300 rounded-xl text-slate-900">
+          <option value="">Sélectionner la publication cible…</option>
+          {% for publication in toutes_publications %}
+            <option value="{{ publication.pk }}">[{{ publication.annee }}] {{ publication.titre|truncatechars:70 }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="flex items-center justify-end gap-2 pt-3 border-t border-slate-100">
+        <button type="button" onclick="fermerModale('fusion')"
+                class="px-3.5 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-100 rounded-lg">Annuler</button>
+        <button type="submit"
+                class="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold text-white bg-blue-950 hover:bg-blue-900 rounded-xl transition-colors">
+          {% icone "git-merge" "w-4 h-4 text-amber-400" %}<span>Confirmer la fusion</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  function preparerFusion(identifiant) {
+    document.getElementById('fusion-source').value = identifiant;
+    ouvrirModale('fusion');
+  }
+</script>
+{% endblock %}

@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% load publiept %}
+
+{% block contenu %}
+<div class="space-y-6 pb-12">
+
+  <div class="border-b border-slate-200 pb-5">
+    <h1 class="text-2xl sm:text-3xl font-serif font-bold text-slate-950">Annuaire des enseignants-chercheurs</h1>
+    <p class="text-xs text-slate-500 mt-1">
+      Profils académiques, expertises d'ingénierie et production scientifique des enseignants de l'EPT
+    </p>
+  </div>
+
+  <form method="get" id="filtres-catalogue"
+        class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 flex flex-col md:flex-row items-center justify-between gap-3">
+    <div class="relative flex-1 w-full">
+      <input type="text" name="q" value="{{ f.q|default:'' }}"
+             placeholder="Rechercher par nom, prénom ou expertise scientifique…"
+             class="w-full pl-9 pr-4 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-900/20 text-slate-800">
+      <span class="absolute left-3 top-2.5 text-slate-400">{% icone "search" "w-4 h-4" %}</span>
+    </div>
+
+    <div class="flex flex-wrap items-center gap-2 w-full md:w-auto">
+      <select name="specialite" class="p-2 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:bg-white focus:outline-none text-slate-700">
+        <option value="">Toutes les spécialités</option>
+        {% for specialite in specialites %}
+          <option value="{{ specialite.pk }}" {% if f.specialite == specialite.pk|stringformat:"s" %}selected{% endif %}>
+            {{ specialite.code }} — {{ specialite.libelle }}
+          </option>
+        {% endfor %}
+      </select>
+
+      <select name="grade" class="p-2 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:bg-white focus:outline-none text-slate-700">
+        <option value="">Tous les grades</option>
+        {% for grade in grades %}
+          <option value="{{ grade }}" {% if f.grade == grade %}selected{% endif %}>{{ grade }}</option>
+        {% endfor %}
+      </select>
+
+      {% if f.q or f.specialite or f.grade %}
+        <a href="{% url 'annuaire' %}" class="text-[11px] font-semibold text-rose-600 hover:text-rose-700 px-2">Réinitialiser</a>
+      {% endif %}
+    </div>
+  </form>
+
+  <div class="text-xs text-slate-500 font-medium">
+    {{ enseignants|length }} enseignant-chercheur{{ enseignants|length|pluriel }} trouvé{{ enseignants|length|pluriel }}
+  </div>
+
+  {% if not enseignants %}
+    <div class="bg-white p-12 text-center rounded-2xl border border-slate-200 space-y-2">
+      <p class="text-sm font-bold text-slate-800">Aucun enseignant ne correspond à ces critères</p>
+      <p class="text-xs text-slate-500">Essayez de réinitialiser la recherche.</p>
+    </div>
+  {% else %}
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+      {% for enseignant in enseignants %}
+        <div class="bg-white rounded-2xl border border-slate-200 hover:shadow-md transition-all p-5 flex flex-col justify-between group">
+          <div class="space-y-3">
+            <div class="flex items-start gap-3.5">
+              {% if enseignant.photo %}
+                <img src="{{ enseignant.photo_url }}" alt="" class="w-14 h-14 rounded-2xl object-cover border border-slate-200 shrink-0 ring-2 ring-white">
+              {% else %}
+                <span class="w-14 h-14 rounded-2xl bg-blue-950 flex items-center justify-center text-sm font-serif font-bold text-amber-300 shrink-0">{{ enseignant.initiales }}</span>
+              {% endif %}
+              <div class="flex-1 min-w-0">
+                <span class="text-[10px] font-bold text-amber-700 block truncate">{{ enseignant.grade }}</span>
+                <h3 class="text-sm font-bold text-slate-950 group-hover:text-blue-900 transition-colors truncate">
+                  {{ enseignant.nom_complet }}
+                </h3>
+                <span class="inline-block mt-0.5 text-[10px] font-semibold px-2 py-0.5 rounded bg-blue-50 text-blue-900 border border-blue-200 truncate max-w-full">
+                  {{ enseignant.specialite.code }} &bull; {{ enseignant.specialite.libelle }}
+                </span>
+              </div>
+            </div>
+
+            <p class="text-xs text-slate-600 ligne-2 leading-relaxed">
+              {{ enseignant.biographie|default:"Enseignant-chercheur à l'École Polytechnique de Thiès." }}
+            </p>
+
+            <div class="grid grid-cols-2 gap-2 py-2 px-3 bg-slate-50 rounded-xl text-center text-xs">
+              <div>
+                <span class="text-[10px] text-slate-400 block">Publications</span>
+                <strong class="text-xs font-bold text-slate-900">{{ enseignant.nb_publications }}</strong>
+              </div>
+              <div>
+                <span class="text-[10px] text-slate-400 block">Citations totales</span>
+                <strong class="text-xs font-bold text-emerald-700">{{ enseignant.citations_total }}</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+            <span class="text-[11px] text-slate-400 truncate max-w-[140px]">{{ enseignant.email }}</span>
+            <a href="{% url 'profil_enseignant' enseignant.pk %}"
+               class="inline-flex items-center gap-1 text-xs font-bold text-blue-900 hover:text-amber-600 transition-colors">
+              <span>Voir le profil</span>{% icone "chevron-right" "w-3.5 h-3.5" %}
+            </a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,621 @@
+{% extends "base.html" %}
+{% load publiept %}
+
+{% block contenu %}
+<div class="space-y-8 pb-16 max-w-4xl mx-auto">
+
+  <div class="border-b border-slate-200 pb-5">
+    <div class="flex items-center gap-2">
+      <h1 class="text-2xl sm:text-3xl font-serif font-bold text-slate-950">
+        {% if modification %}Modifier la publication{% else %}Dépôt d'une nouvelle publication{% endif %}
+      </h1>
+      <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-900 border border-emerald-300">
+        Visible immédiatement
+      </span>
+    </div>
+    <p class="text-xs text-slate-500 mt-1">
+      Aucun circuit de validation requis &bull; les travaux déposés enrichissent en temps réel le catalogue de l'EPT
+    </p>
+  </div>
+
+  {% if form.errors %}
+    <div class="p-4 rounded-2xl bg-rose-50 border border-rose-200 text-xs text-rose-900 space-y-1">
+      <strong class="block font-bold">Le formulaire comporte des erreurs :</strong>
+      {% for champ, erreurs in form.errors.items %}
+        {% for erreur in erreurs %}
+          <div>&bull; {% if champ != '__all__' %}<strong>{{ champ }}</strong> : {% endif %}{{ erreur }}</div>
+        {% endfor %}
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <div class="bg-white p-3 rounded-2xl border border-slate-200">
+    <div class="grid grid-cols-5 gap-1 text-center">
+      <button type="button" onclick="allerEtape(1)" data-onglet-etape="1" class="onglet-etape">
+        <span class="pastille">1</span><span class="hidden sm:inline text-[11px]">Informations</span>
+      </button>
+      <button type="button" onclick="allerEtape(2)" data-onglet-etape="2" class="onglet-etape">
+        <span class="pastille">2</span><span class="hidden sm:inline text-[11px]">Auteurs</span>
+      </button>
+      <button type="button" onclick="allerEtape(3)" data-onglet-etape="3" class="onglet-etape">
+        <span class="pastille">3</span><span class="hidden sm:inline text-[11px]">Financement</span>
+      </button>
+      <button type="button" onclick="allerEtape(4)" data-onglet-etape="4" class="onglet-etape">
+        <span class="pastille">4</span><span class="hidden sm:inline text-[11px]">Fichier PDF</span>
+      </button>
+      <button type="button" onclick="allerEtape(5)" data-onglet-etape="5" class="onglet-etape">
+        <span class="pastille">5</span><span class="hidden sm:inline text-[11px]">Récapitulatif</span>
+      </button>
+    </div>
+  </div>
+
+  <form method="post" id="formulaire-publication">
+    {% csrf_token %}
+    <input type="hidden" name="auteurs_json" id="auteurs_json" value="">
+
+    <!-- ÉTAPE 1 : INFORMATIONS -->
+    <div class="etape" data-etape="1">
+      <div class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 space-y-6">
+        <div>
+          <span class="text-xs font-bold text-amber-700 uppercase tracking-wide">Étape 1 — Informations générales</span>
+          <h2 class="text-xl font-serif font-bold text-slate-900 mt-1">Métadonnées de la publication</h2>
+        </div>
+
+        <div class="space-y-4">
+          <div>
+            <label for="{{ form.titre.id_for_label }}" class="block text-xs font-bold text-slate-800 mb-1">
+              Titre complet <span class="text-rose-500">*</span>
+            </label>
+            {{ form.titre }}
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label for="{{ form.type_publication.id_for_label }}" class="block text-xs font-bold text-slate-800 mb-1">
+                Type de publication <span class="text-rose-500">*</span>
+              </label>
+              {{ form.type_publication }}
+              <p id="note-support" class="hidden text-[11px] text-purple-700 mt-1 italic">
+                Règle métier : ce type n'a ni revue ni journal, son support reste donc vide.
+              </p>
+            </div>
+
+            <div>
+              <label for="{{ form.specialite.id_for_label }}" class="block text-xs font-bold text-slate-800 mb-1">
+                Spécialité rattachée <span class="text-rose-500">*</span>
+              </label>
+              {{ form.specialite }}
+            </div>
+          </div>
+
+          <div id="bloc-support">
+            <label for="{{ form.support.id_for_label }}" class="block text-xs font-bold text-slate-800 mb-1">
+              Support de publication (revue ou conférence)
+            </label>
+            {{ form.support }}
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div>
+              <label for="{{ form.annee.id_for_label }}" class="block text-xs font-bold text-slate-800 mb-1">
+                Année <span class="text-rose-500">*</span>
+              </label>
+              {{ form.annee }}
+            </div>
+            <div>
+              <label for="{{ form.volume.id_for_label }}" class="block text-xs font-bold text-slate-800 mb-1">Volume</label>
+              {{ form.volume }}
+            </div>
+            <div>
+              <label for="{{ form.numero.id_for_label }}" class="block text-xs font-bold text-slate-800 mb-1">Numéro</label>
+              {{ form.numero }}
+            </div>
+            <div>
+              <label for="{{ form.pages.id_for_label }}" class="block text-xs font-bold text-slate-800 mb-1">Pages</label>
+              {{ form.pages }}
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <label for="{{ form.doi.id_for_label }}" class="text-xs font-bold text-slate-800">
+                  Identifiant DOI (unique)
+                </label>
+                <button type="button" onclick="verifierDoi(this)" class="text-[11px] text-blue-900 hover:underline font-semibold">
+                  Vérifier l'unicité
+                </button>
+              </div>
+              {{ form.doi }}
+              <p id="resultat-doi" class="hidden text-[11px] mt-1"></p>
+            </div>
+
+            <div>
+              <label for="{{ form.lien.id_for_label }}" class="block text-xs font-bold text-slate-800 mb-1">
+                Lien officiel ou URL
+              </label>
+              {{ form.lien }}
+            </div>
+          </div>
+
+          <div>
+            <label for="{{ form.resume.id_for_label }}" class="block text-xs font-bold text-slate-800 mb-1">
+              Résumé de la publication
+            </label>
+            {{ form.resume }}
+          </div>
+
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2.5">
+            <label class="block text-xs font-bold text-slate-800">
+              Mots-clés scientifiques (<span id="compteur-mots">0</span>)
+            </label>
+            {{ form.mots_cles_texte }}
+            <p class="text-[11px] text-slate-500">Séparez les mots-clés par des virgules.</p>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-end pt-4 border-t border-slate-100">
+          <button type="button" onclick="allerEtape(2)" class="bouton-suivant">
+            <span>Suivant : auteurs</span>{% icone "arrow-right" "w-3.5 h-3.5" %}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ÉTAPE 2 : AUTEURS ORDONNÉS -->
+    <div class="etape" data-etape="2">
+      <div class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 space-y-6">
+        <div>
+          <span class="text-xs font-bold text-amber-700 uppercase tracking-wide">Étape 2 — Auteurs et ordre de contribution</span>
+          <h2 class="text-xl font-serif font-bold text-slate-900 mt-1">Liste ordonnée des auteurs</h2>
+          <p class="text-xs text-slate-600 mt-1">
+            L'ordre des auteurs est significatif et s'ajuste à l'aide des flèches. Désignez l'auteur
+            correspondant pour les échanges scientifiques.
+          </p>
+        </div>
+
+        <div id="liste-auteurs" class="space-y-2.5"></div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4 border-t border-slate-100">
+          <div class="p-4 rounded-xl bg-blue-50/50 border border-blue-200 space-y-3">
+            <h3 class="text-xs font-bold text-blue-950 uppercase tracking-wide">+ Ajouter un enseignant de l'EPT</h3>
+            <select id="choix-enseignant" onchange="ajouterEnseignant(this)"
+                    class="w-full p-2 text-xs bg-white border border-blue-300 rounded-lg text-slate-900">
+              <option value="">Sélectionner un collègue…</option>
+              {% for enseignant in enseignants %}
+                <option value="{{ enseignant.pk }}"
+                        data-nom="{{ enseignant.nom }}" data-prenom="{{ enseignant.prenom }}"
+                        data-email="{{ enseignant.email }}">
+                  {{ enseignant.grade }} {{ enseignant.nom_complet }}
+                </option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2.5">
+            <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wide">+ Ajouter un co-auteur externe</h3>
+            <div class="grid grid-cols-2 gap-2">
+              <input type="text" id="ext-prenom" placeholder="Prénom" class="p-1.5 text-xs bg-white border border-slate-300 rounded-lg">
+              <input type="text" id="ext-nom" placeholder="Nom" class="p-1.5 text-xs bg-white border border-slate-300 rounded-lg">
+            </div>
+            <input type="text" id="ext-institution" placeholder="Institution (UCAD Dakar, UGB Saint-Louis, CNRS…)"
+                   class="w-full p-1.5 text-xs bg-white border border-slate-300 rounded-lg">
+            <button type="button" onclick="ajouterExterne()"
+                    class="w-full py-1.5 text-xs font-bold text-blue-950 bg-amber-400 hover:bg-amber-300 rounded-lg transition-colors">
+              Ajouter l'auteur externe
+            </button>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between pt-4 border-t border-slate-100">
+          <button type="button" onclick="allerEtape(1)" class="bouton-precedent">
+            {% icone "arrow-left" "w-3.5 h-3.5" %}<span>Précédent</span>
+          </button>
+          <button type="button" onclick="allerEtape(3)" class="bouton-suivant">
+            <span>Suivant : financement</span>{% icone "arrow-right" "w-3.5 h-3.5" %}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ÉTAPE 3 : FINANCEMENT -->
+    <div class="etape" data-etape="3">
+      <div class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 space-y-6">
+        <div>
+          <span class="text-xs font-bold text-amber-700 uppercase tracking-wide">Étape 3 — Financement de la recherche</span>
+          <h2 class="text-xl font-serif font-bold text-slate-900 mt-1">Bailleurs de fonds et projets</h2>
+          <p class="text-xs text-slate-600 mt-1">
+            Indiquez si les travaux présentés ont bénéficié de subventions de recherche.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 space-y-3">
+          <label class="flex items-center gap-3 cursor-pointer">
+            {{ form.est_financee }}
+            <span class="text-xs font-bold text-slate-900">
+              Cette publication a bénéficié d'un financement de recherche
+            </span>
+          </label>
+
+          <div id="bloc-organismes" class="hidden pt-3 border-t border-slate-200 space-y-3">
+            <span class="text-xs font-bold text-slate-700 block">Sélectionnez les organismes co-financeurs :</span>
+            {{ form.organismes }}
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between pt-4 border-t border-slate-100">
+          <button type="button" onclick="allerEtape(2)" class="bouton-precedent">
+            {% icone "arrow-left" "w-3.5 h-3.5" %}<span>Précédent</span>
+          </button>
+          <button type="button" onclick="allerEtape(4)" class="bouton-suivant">
+            <span>Suivant : fichier PDF</span>{% icone "arrow-right" "w-3.5 h-3.5" %}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ÉTAPE 4 : FICHIER PDF -->
+    <div class="etape" data-etape="4">
+      <div class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 space-y-6">
+        <div>
+          <span class="text-xs font-bold text-amber-700 uppercase tracking-wide">Étape 4 — Dépôt du document</span>
+          <h2 class="text-xl font-serif font-bold text-slate-900 mt-1">Fichier de la publication</h2>
+          <p class="text-xs text-slate-600 mt-1">
+            Renseignez le fichier PDF associé à votre article pour permettre sa consultation.
+          </p>
+        </div>
+
+        <div class="border-2 border-dashed border-slate-300 hover:border-blue-900 rounded-2xl p-8 text-center space-y-3 bg-slate-50/50 transition-colors">
+          <div class="w-12 h-12 rounded-full bg-blue-50 text-blue-900 flex items-center justify-center mx-auto">
+            {% icone "cloud-upload" "w-6 h-6" %}
+          </div>
+          <div>
+            <p class="text-xs font-bold text-slate-900">Sélectionnez votre fichier PDF</p>
+            <p class="text-[11px] text-slate-400 mt-0.5">Format PDF &bull; version auteur acceptée</p>
+          </div>
+          <div class="pt-3">
+            <label class="inline-flex items-center gap-2 px-4 py-2 bg-white border border-slate-300 rounded-xl text-xs font-bold text-slate-700 hover:bg-slate-50 cursor-pointer">
+              <span>Parcourir mes fichiers</span>
+              <input type="file" accept="application/pdf" onchange="associerFichier(this)" class="hidden">
+            </label>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label for="{{ form.pdf_nom.id_for_label }}" class="block text-xs font-bold text-slate-800 mb-1">Nom du fichier</label>
+            {{ form.pdf_nom }}
+          </div>
+          <div>
+            <label for="{{ form.pdf_taille.id_for_label }}" class="block text-xs font-bold text-slate-800 mb-1">Taille</label>
+            {{ form.pdf_taille }}
+          </div>
+        </div>
+
+        <div id="fichier-associe" class="hidden p-4 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-between text-xs text-emerald-950">
+          <div class="flex items-center gap-2.5">
+            {% icone "file-text" "w-5 h-5 text-emerald-700" %}
+            <div>
+              <strong class="block" id="apercu-nom"></strong>
+              <span class="text-[11px] text-emerald-800" id="apercu-taille"></span>
+            </div>
+          </div>
+          <span class="text-emerald-700 font-bold text-xs">Fichier associé</span>
+        </div>
+
+        <div class="flex items-center justify-between pt-4 border-t border-slate-100">
+          <button type="button" onclick="allerEtape(3)" class="bouton-precedent">
+            {% icone "arrow-left" "w-3.5 h-3.5" %}<span>Précédent</span>
+          </button>
+          <button type="button" onclick="allerEtape(5)" class="bouton-suivant">
+            <span>Suivant : récapitulatif</span>{% icone "arrow-right" "w-3.5 h-3.5" %}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ÉTAPE 5 : RÉCAPITULATIF -->
+    <div class="etape" data-etape="5">
+      <div class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 space-y-6">
+        <div>
+          <span class="text-xs font-bold text-amber-700 uppercase tracking-wide">Étape 5 — Récapitulatif</span>
+          <h2 class="text-xl font-serif font-bold text-slate-900 mt-1">Vérification avant publication</h2>
+          <p class="text-xs text-slate-600 mt-1">
+            Relisez les métadonnées ci-dessous. Dès confirmation, la publication est visible par
+            toute la communauté dans le catalogue public.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-4 text-xs">
+          <div>
+            <span class="text-slate-400 block font-medium">Titre</span>
+            <h3 class="text-sm font-bold text-slate-900 font-serif" id="recap-titre">—</h3>
+          </div>
+          <div>
+            <span class="text-slate-400 block font-medium">Auteurs (<span id="recap-nb-auteurs">0</span>)</span>
+            <p class="text-slate-800 font-semibold" id="recap-auteurs">—</p>
+          </div>
+          <div>
+            <span class="text-slate-400 block font-medium">Résumé</span>
+            <p class="text-slate-600 ligne-2 leading-relaxed" id="recap-resume">—</p>
+          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2 border-t border-slate-200">
+            <div><span class="text-slate-400 block">Type</span><strong class="text-slate-800" id="recap-type">—</strong></div>
+            <div><span class="text-slate-400 block">Année</span><strong class="text-slate-800" id="recap-annee">—</strong></div>
+            <div><span class="text-slate-400 block">DOI</span><strong class="text-slate-800 font-mono" id="recap-doi">—</strong></div>
+            <div><span class="text-slate-400 block">Financement</span><strong class="text-slate-800" id="recap-financement">—</strong></div>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-950 flex items-start gap-3">
+          {% icone "circle-check-big" "w-5 h-5 text-amber-700 shrink-0 mt-0.5" %}
+          <div>
+            <strong class="block font-bold">Politique de dépôt de PubliEPT :</strong>
+            <span>Il n'y a aucun circuit de validation ni délai d'attente : votre travail est rendu
+            public et indexé dès l'enregistrement.</span>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between pt-4 border-t border-slate-100">
+          <button type="button" onclick="allerEtape(4)" class="bouton-precedent">
+            {% icone "arrow-left" "w-3.5 h-3.5" %}<span>Précédent</span>
+          </button>
+          <button type="submit"
+                  class="inline-flex items-center gap-2 px-6 py-3 text-xs font-bold text-white bg-blue-950 hover:bg-blue-900 rounded-xl shadow-md transition-colors">
+            {% icone "save" "w-4 h-4 text-amber-400" %}
+            <span>{% if modification %}Enregistrer les modifications{% else %}Enregistrer et publier{% endif %}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<style>
+  .onglet-etape {
+    padding: 0.5rem 0.25rem; border-radius: 0.75rem; font-size: 0.75rem; font-weight: 700;
+    display: flex; flex-direction: column; align-items: center; gap: 0.25rem;
+    color: #94a3b8; transition: background-color .15s, color .15s;
+  }
+  .onglet-etape:hover { background: #f8fafc; }
+  .onglet-etape.actif { background: #172554; color: #fff; }
+  .onglet-etape.fait { background: #eff6ff; color: #1e3a8a; }
+  .pastille {
+    width: 1.25rem; height: 1.25rem; border-radius: 9999px; display: flex;
+    align-items: center; justify-content: center; font-size: 0.625rem; font-weight: 700;
+    background: #e2e8f0; color: #475569;
+  }
+  .onglet-etape.actif .pastille { background: #fbbf24; color: #172554; }
+  .onglet-etape.fait .pastille { background: #bfdbfe; color: #1e3a8a; }
+  .bouton-precedent {
+    display: inline-flex; align-items: center; gap: 0.375rem; padding: 0.5rem 1rem;
+    font-size: 0.75rem; font-weight: 600; color: #334155; border-radius: 0.5rem;
+  }
+  .bouton-precedent:hover { background: #f1f5f9; }
+  .bouton-suivant {
+    display: inline-flex; align-items: center; gap: 0.375rem; padding: 0.625rem 1.25rem;
+    font-size: 0.75rem; font-weight: 700; color: #fff; background: #172554; border-radius: 0.75rem;
+  }
+  .bouton-suivant:hover { background: #1e3a8a; }
+</style>
+
+<script>
+  /* ---- Données initiales ------------------------------------------- */
+  let auteurs = {{ lignes_auteurs_json|safe }};
+  let etapeCourante = 1;
+
+  /* ---- Navigation entre les étapes --------------------------------- */
+  function allerEtape(numero) {
+    etapeCourante = numero;
+    document.querySelectorAll('[data-etape]').forEach(function (bloc) {
+      bloc.classList.toggle('active', bloc.dataset.etape === String(numero));
+    });
+    document.querySelectorAll('[data-onglet-etape]').forEach(function (onglet) {
+      const n = parseInt(onglet.dataset.ongletEtape, 10);
+      onglet.classList.toggle('actif', n === numero);
+      onglet.classList.toggle('fait', n < numero);
+    });
+    if (numero === 5) majRecapitulatif();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  /* ---- Gestion des auteurs ordonnés -------------------------------- */
+  function dessinerAuteurs() {
+    const conteneur = document.getElementById('liste-auteurs');
+    conteneur.innerHTML = '';
+
+    auteurs.forEach(function (ligne, index) {
+      const bloc = document.createElement('div');
+      bloc.className = 'p-3.5 rounded-xl border border-slate-200 bg-slate-50/80 flex items-center justify-between gap-3 hover:bg-white transition-all';
+      bloc.innerHTML =
+        '<div class="flex items-center gap-3">' +
+          '<div class="w-6 h-6 rounded-full bg-blue-950 text-white flex items-center justify-center font-bold text-xs">' + (index + 1) + '</div>' +
+          '<div>' +
+            '<div class="flex items-center gap-2">' +
+              '<strong class="text-xs font-bold text-slate-900">' + echapper(ligne.prenom + ' ' + ligne.nom) + '</strong>' +
+              (ligne.enseignant_id
+                ? '<span class="text-[10px] bg-blue-100 text-blue-900 font-bold px-1.5 py-0.5 rounded">Interne EPT</span>'
+                : '<span class="text-[10px] bg-slate-200 text-slate-700 font-medium px-1.5 py-0.5 rounded">Externe</span>') +
+            '</div>' +
+            '<span class="text-[11px] text-slate-500 block">' + echapper(ligne.institution) + '</span>' +
+          '</div>' +
+        '</div>' +
+        '<div class="flex items-center gap-2">' +
+          '<button type="button" onclick="definirCorrespondant(' + index + ')" class="px-2.5 py-1 rounded-lg text-[11px] font-bold border transition-colors ' +
+            (ligne.correspondant ? 'bg-blue-900 text-white border-blue-900' : 'bg-white text-slate-600 border-slate-300 hover:bg-slate-50') + '">' +
+            (ligne.correspondant ? '★ Auteur correspondant' : 'Correspondant ?') + '</button>' +
+          '<button type="button" onclick="deplacerAuteur(' + index + ', -1)" ' + (index === 0 ? 'disabled' : '') +
+            ' class="p-1.5 text-slate-500 hover:text-blue-900 hover:bg-slate-100 rounded disabled:opacity-30" title="Monter">&#9650;</button>' +
+          '<button type="button" onclick="deplacerAuteur(' + index + ', 1)" ' + (index === auteurs.length - 1 ? 'disabled' : '') +
+            ' class="p-1.5 text-slate-500 hover:text-blue-900 hover:bg-slate-100 rounded disabled:opacity-30" title="Descendre">&#9660;</button>' +
+          '<button type="button" onclick="retirerAuteur(' + index + ')" class="p-1.5 text-slate-400 hover:text-rose-600 rounded" title="Retirer">&times;</button>' +
+        '</div>';
+      conteneur.appendChild(bloc);
+    });
+
+    document.getElementById('auteurs_json').value = JSON.stringify(auteurs);
+  }
+
+  function echapper(texte) {
+    const noeud = document.createElement('span');
+    noeud.textContent = texte || '';
+    return noeud.innerHTML;
+  }
+
+  function deplacerAuteur(index, sens) {
+    const cible = index + sens;
+    if (cible < 0 || cible >= auteurs.length) return;
+    const temp = auteurs[index];
+    auteurs[index] = auteurs[cible];
+    auteurs[cible] = temp;
+    dessinerAuteurs();
+  }
+
+  function definirCorrespondant(index) {
+    auteurs = auteurs.map(function (ligne, i) {
+      return Object.assign({}, ligne, { correspondant: i === index });
+    });
+    dessinerAuteurs();
+  }
+
+  function retirerAuteur(index) {
+    if (auteurs.length <= 1) {
+      alert('Une publication doit comporter au moins un auteur.');
+      return;
+    }
+    auteurs.splice(index, 1);
+    if (!auteurs.some(function (l) { return l.correspondant; })) auteurs[0].correspondant = true;
+    dessinerAuteurs();
+  }
+
+  function ajouterEnseignant(select) {
+    const option = select.options[select.selectedIndex];
+    if (!option.value) return;
+    if (auteurs.some(function (l) { return String(l.enseignant_id) === option.value; })) {
+      alert('Cet enseignant figure déjà dans la liste des auteurs.');
+      select.value = '';
+      return;
+    }
+    auteurs.push({
+      nom: option.dataset.nom, prenom: option.dataset.prenom,
+      institution: "École Polytechnique de Thiès (EPT)",
+      email: option.dataset.email, enseignant_id: option.value, correspondant: false
+    });
+    select.value = '';
+    dessinerAuteurs();
+  }
+
+  function ajouterExterne() {
+    const prenom = document.getElementById('ext-prenom').value.trim();
+    const nom = document.getElementById('ext-nom').value.trim();
+    const institution = document.getElementById('ext-institution').value.trim();
+    if (!nom || !prenom) {
+      alert("Renseignez le nom et le prénom de l'auteur externe.");
+      return;
+    }
+    auteurs.push({
+      nom: nom, prenom: prenom,
+      institution: institution || 'Université partenaire',
+      email: '', enseignant_id: null, correspondant: false
+    });
+    document.getElementById('ext-prenom').value = '';
+    document.getElementById('ext-nom').value = '';
+    document.getElementById('ext-institution').value = '';
+    dessinerAuteurs();
+  }
+
+  /* ---- Règle métier : preprint et communication sans support -------- */
+  function majSupport() {
+    const type = document.getElementById('id_type_publication').value;
+    const sansSupport = (type === 'PREPRINT' || type === 'COMMUNICATION');
+    document.getElementById('bloc-support').classList.toggle('hidden', sansSupport);
+    document.getElementById('note-support').classList.toggle('hidden', !sansSupport);
+    if (sansSupport) document.getElementById('id_support').value = '';
+  }
+
+  /* ---- Financement -------------------------------------------------- */
+  function majFinancement() {
+    const coche = document.getElementById('id_est_financee').checked;
+    document.getElementById('bloc-organismes').classList.toggle('hidden', !coche);
+  }
+
+  function majCompteurMots() {
+    const champ = document.getElementById('id_mots_cles_texte');
+    const nombre = champ.value.split(',').map(function (m) { return m.trim(); }).filter(Boolean).length;
+    document.getElementById('compteur-mots').textContent = nombre;
+  }
+
+  /* ---- Vérification de l'unicité du DOI ----------------------------- */
+  function verifierDoi(bouton) {
+    const doi = document.getElementById('id_doi').value.trim();
+    const zone = document.getElementById('resultat-doi');
+    if (!doi) {
+      zone.classList.add('hidden');
+      return;
+    }
+    let url = '{% url "api_verifier_doi" %}?doi=' + encodeURIComponent(doi);
+    {% if publication %}url += '&exclure={{ publication.pk }}';{% endif %}
+
+    fetch(url)
+      .then(function (r) { return r.json(); })
+      .then(function (donnees) {
+        zone.classList.remove('hidden');
+        if (donnees.existe) {
+          zone.className = 'text-[11px] mt-1 text-rose-700 font-semibold';
+          zone.textContent = 'Attention : ce DOI est déjà enregistré (« ' + donnees.titre.slice(0, 50) + '… »).';
+        } else {
+          zone.className = 'text-[11px] mt-1 text-emerald-700 font-semibold';
+          zone.textContent = 'DOI vérifié : aucun doublon détecté.';
+        }
+      });
+  }
+
+  /* ---- Fichier PDF --------------------------------------------------- */
+  function associerFichier(champ) {
+    if (!champ.files || !champ.files[0]) return;
+    const fichier = champ.files[0];
+    const taille = (fichier.size / (1024 * 1024)).toFixed(1) + ' Mo';
+    document.getElementById('id_pdf_nom').value = fichier.name;
+    document.getElementById('id_pdf_taille').value = taille;
+    document.getElementById('apercu-nom').textContent = fichier.name;
+    document.getElementById('apercu-taille').textContent = taille + ' — prêt pour archivage';
+    document.getElementById('fichier-associe').classList.remove('hidden');
+  }
+
+  /* ---- Récapitulatif -------------------------------------------------- */
+  function majRecapitulatif() {
+    const typeSelect = document.getElementById('id_type_publication');
+    document.getElementById('recap-titre').textContent = document.getElementById('id_titre').value || '—';
+    document.getElementById('recap-resume').textContent = document.getElementById('id_resume').value || '—';
+    document.getElementById('recap-type').textContent = typeSelect.options[typeSelect.selectedIndex].text;
+    document.getElementById('recap-annee').textContent = document.getElementById('id_annee').value || '—';
+    document.getElementById('recap-doi').textContent = document.getElementById('id_doi').value || 'Non renseigné';
+    document.getElementById('recap-nb-auteurs').textContent = auteurs.length;
+    document.getElementById('recap-auteurs').textContent = auteurs.map(function (l) {
+      return l.prenom + ' ' + l.nom + ' (' + l.institution + ')';
+    }).join(' ; ') || '—';
+    document.getElementById('recap-financement').textContent =
+      document.getElementById('id_est_financee').checked ? 'Publication financée' : 'Non financée';
+  }
+
+  /* ---- Initialisation -------------------------------------------------- */
+  document.addEventListener('DOMContentLoaded', function () {
+    dessinerAuteurs();
+    majSupport();
+    majFinancement();
+    majCompteurMots();
+    allerEtape(etapeCourante);
+
+    document.getElementById('id_type_publication').addEventListener('change', majSupport);
+    document.getElementById('id_est_financee').addEventListener('change', majFinancement);
+    document.getElementById('id_mots_cles_texte').addEventListener('input', majCompteurMots);
+    document.getElementById('id_doi').addEventListener('blur', function () { verifierDoi(); });
+
+    document.getElementById('formulaire-publication').addEventListener('submit', function () {
+      document.getElementById('auteurs_json').value = JSON.stringify(auteurs);
+    });
+  });
+</script>
+{% endblock %}

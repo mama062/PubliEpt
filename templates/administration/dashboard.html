@@ -1,0 +1,352 @@
+{% extends "base.html" %}
+{% load publiept %}
+
+{% block contenu %}
+<div class="space-y-8 pb-16">
+
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+    <div>
+      <div class="flex items-center gap-2">
+        <h1 class="text-2xl sm:text-3xl font-serif font-bold text-slate-950">Tableau de bord statistique</h1>
+        <span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300">
+          Administration
+        </span>
+      </div>
+      <p class="text-xs text-slate-500 mt-1">
+        Indicateurs bibliométriques, part des travaux financés et analyse de la production scientifique de l'EPT
+      </p>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <a href="{% url 'export_csv' %}"
+         class="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 rounded-xl transition-colors">
+        {% icone "file-spreadsheet" "w-3.5 h-3.5 text-emerald-700" %}<span>Tableur CSV</span>
+      </a>
+      <a href="{% url 'export_bibtex' %}"
+         class="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 rounded-xl transition-colors">
+        {% icone "download" "w-3.5 h-3.5 text-blue-900" %}<span>Tout en BibTeX</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+    <div class="bg-white p-5 rounded-2xl border border-slate-200">
+      <div class="flex items-center justify-between">
+        <span class="text-xs font-bold text-slate-600 uppercase tracking-wider">Total publications</span>
+        <div class="p-2.5 bg-blue-50 text-blue-900 rounded-xl">{% icone "book-open" "w-4 h-4" %}</div>
+      </div>
+      <div class="mt-3">
+        <span class="text-3xl font-bold text-slate-900">{{ stats.total_publications }}</span>
+        <span class="text-xs text-slate-500 block mt-0.5">Consultables dès le dépôt</span>
+      </div>
+    </div>
+
+    <div class="bg-white p-5 rounded-2xl border border-slate-200">
+      <div class="flex items-center justify-between">
+        <span class="text-xs font-bold text-slate-600 uppercase tracking-wider">Part financée</span>
+        <div class="p-2.5 bg-amber-50 text-amber-800 rounded-xl">{% icone "circle-dollar-sign" "w-4 h-4" %}</div>
+      </div>
+      <div class="mt-3">
+        <span class="text-3xl font-bold text-amber-700">{{ stats.part_financees }}&nbsp;%</span>
+        <span class="text-xs text-slate-500 block mt-0.5">
+          {% if stats.nb_financees %}
+            {{ stats.nb_financees }} travaux subventionnés
+          {% else %}
+            Financements à renseigner par les auteurs
+          {% endif %}
+        </span>
+      </div>
+    </div>
+
+    <div class="bg-white p-5 rounded-2xl border border-slate-200">
+      <div class="flex items-center justify-between">
+        <span class="text-xs font-bold text-slate-600 uppercase tracking-wider">Enseignants-chercheurs</span>
+        <div class="p-2.5 bg-blue-50 text-blue-900 rounded-xl">{% icone "users" "w-4 h-4" %}</div>
+      </div>
+      <div class="mt-3">
+        <span class="text-3xl font-bold text-slate-900">{{ stats.total_enseignants }}</span>
+        <span class="text-xs text-slate-500 block mt-0.5">Sur {{ stats.total_specialites }} spécialités</span>
+      </div>
+    </div>
+
+    <div class="bg-white p-5 rounded-2xl border border-slate-200">
+      <div class="flex items-center justify-between">
+        <span class="text-xs font-bold text-slate-600 uppercase tracking-wider">Citations totales</span>
+        <div class="p-2.5 bg-emerald-50 text-emerald-800 rounded-xl">{% icone "trending-up" "w-4 h-4" %}</div>
+      </div>
+      <div class="mt-3">
+        <span class="text-3xl font-bold text-emerald-700">{{ stats.total_citations }}</span>
+        <span class="text-xs text-slate-500 block mt-0.5">
+          {% if stats.total_citations %}Rayonnement académique{% else %}Décomptes à renseigner{% endif %}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div class="bg-white p-6 rounded-2xl border border-slate-200 space-y-4">
+      <div>
+        <h3 class="text-base font-serif font-bold text-slate-950">Publications par année</h3>
+        <p class="text-xs text-slate-500">Comparaison entre production globale et travaux financés</p>
+      </div>
+      <div class="h-64 w-full pt-2"><canvas id="graphique-annees"></canvas></div>
+    </div>
+
+    <div class="bg-white p-6 rounded-2xl border border-slate-200 space-y-4">
+      <div>
+        <h3 class="text-base font-serif font-bold text-slate-950">Répartition par type de publication</h3>
+        <p class="text-xs text-slate-500">Articles de revue, conférences, communications et preprints</p>
+      </div>
+      <div class="h-64 w-full flex items-center justify-center"><canvas id="graphique-types"></canvas></div>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div class="bg-white p-6 rounded-2xl border border-slate-200 space-y-4">
+      <div>
+        <h3 class="text-base font-serif font-bold text-slate-950">Production par spécialité d'ingénieur</h3>
+        <p class="text-xs text-slate-500">Volume de travaux selon l'axe principal de classement</p>
+      </div>
+      <div class="h-64 w-full pt-2"><canvas id="graphique-specialites"></canvas></div>
+    </div>
+
+    <div class="bg-white p-6 rounded-2xl border border-slate-200 space-y-4">
+      <div>
+        <h3 class="text-base font-serif font-bold text-slate-950">Répartition par catégorie de bailleur</h3>
+        <p class="text-xs text-slate-500">Nomenclature de la direction de la recherche</p>
+      </div>
+      {% if stats.nb_financees %}
+        <div class="h-64 w-full pt-2"><canvas id="graphique-categories"></canvas></div>
+      {% else %}
+        <div class="h-64 w-full pt-2 flex flex-col justify-center gap-3">
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Les six catégories de la nomenclature sont en place, mais aucune publication
+            n'a encore été rattachée à un bailleur : ce sont les auteurs qui renseignent
+            le financement au moment du dépôt.
+          </p>
+          <ul class="space-y-1.5">
+            {% for categorie in categories_financement %}
+              <li class="flex items-center gap-2 text-[11px] text-slate-500">
+                <span class="w-1.5 h-1.5 rounded-full bg-slate-300"></span>
+                <span>{{ categorie.1 }}</span>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div class="bg-white p-6 rounded-2xl border border-slate-200 space-y-4">
+      <div>
+        <h3 class="text-base font-serif font-bold text-slate-950">Détail par organisme de financement</h3>
+        <p class="text-xs text-slate-500">Projets soutenus par les bailleurs nationaux et internationaux</p>
+      </div>
+      <div class="space-y-3 pt-2">
+        {% for organisme in stats.par_organisme %}
+          <div class="space-y-1">
+            <div class="flex justify-between items-start gap-2 text-xs font-semibold">
+              <div class="min-w-0">
+                <span class="text-slate-800 block truncate">{{ organisme.organisme }}</span>
+                <span class="text-[10px] text-slate-500 font-normal">{{ organisme.categorie }}</span>
+              </div>
+              <span class="text-amber-800 font-bold shrink-0">
+                {{ organisme.total }} publication{{ organisme.total|pluriel }}
+              </span>
+            </div>
+            <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+              <div class="h-full bg-amber-500 rounded-full"
+                   style="width: {{ organisme.total|barre:stats.nb_financees }}%"></div>
+            </div>
+          </div>
+        {% empty %}
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Aucune publication n'est encore rattachée à un bailleur. Les organismes
+            ci-dessous sont déjà enregistrés dans le référentiel et deviennent
+            sélectionnables dès le formulaire de dépôt :
+          </p>
+          <ul class="space-y-1.5 pt-1">
+            {% for organisme in organismes_referentiel %}
+              <li class="flex items-start justify-between gap-3 text-[11px] border-b border-slate-100 pb-1.5">
+                <span class="text-slate-700 font-semibold">{{ organisme.organisme }}</span>
+                <span class="text-slate-500 shrink-0">{{ organisme.libelle_categorie }}</span>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="bg-white rounded-2xl border border-slate-200 p-6 space-y-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <h3 class="text-base font-serif font-bold text-slate-950">Classement des supports</h3>
+          <p class="text-xs text-slate-500">« Dans quoi publient les collègues »</p>
+        </div>
+        <span class="text-xs font-bold text-slate-400">Top revues</span>
+      </div>
+
+      <div class="divide-y divide-slate-100">
+        {% for support in stats.classement_supports|slice:":7" %}
+          <div class="py-2.5 flex items-center justify-between text-xs">
+            <div class="flex items-center gap-2.5 max-w-sm">
+              <span class="w-5 h-5 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center font-bold text-[10px] shrink-0">
+                {{ forloop.counter }}
+              </span>
+              <div class="min-w-0">
+                <strong class="text-slate-900 block truncate">{{ support.nom }}</strong>
+                <span class="text-[10px] text-slate-500">
+                  {{ support.type }}{% if support.est_indexe %} &bull; Indexé Scopus/WoS{% endif %}
+                </span>
+              </div>
+            </div>
+            <span class="text-xs font-bold text-blue-900 bg-blue-50 px-2 py-0.5 rounded shrink-0">
+              {{ support.total }} article{{ support.total|pluriel }}
+            </span>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-white rounded-2xl border border-slate-200 p-6 space-y-4">
+    <div class="flex items-center justify-between">
+      <div>
+        <h3 class="text-base font-serif font-bold text-slate-950">Classement des enseignants par volume</h3>
+        <p class="text-xs text-slate-500">Chercheurs les plus productifs de l'établissement</p>
+      </div>
+      <a href="{% url 'annuaire' %}" class="text-xs font-bold text-blue-900 hover:underline">Annuaire complet</a>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 divide-y sm:divide-y-0 divide-slate-100">
+      {% for enseignant in stats.classement_enseignants|slice:":10" %}
+        <div class="py-2.5 flex items-center justify-between text-xs border-b border-slate-100">
+          <div class="flex items-center gap-2.5">
+            <span class="w-5 h-5 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center font-bold text-[10px] shrink-0">
+              {{ forloop.counter }}
+            </span>
+            <div>
+              <a href="{% url 'profil_enseignant' enseignant.id %}" class="text-slate-900 font-bold hover:text-blue-900 block">
+                {{ enseignant.nom_complet }}
+              </a>
+              <span class="text-[10px] text-slate-500">Spécialité {{ enseignant.specialite }}</span>
+            </div>
+          </div>
+          <span class="text-xs font-bold text-amber-900 bg-amber-50 px-2.5 py-0.5 rounded shrink-0">
+            {{ enseignant.total }} travaux
+          </span>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  const annees = {{ json_annees|safe }};
+  const types = {{ json_types|safe }};
+  const specialites = {{ json_specialites|safe }};
+
+  const optionsBase = {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { labels: { font: { size: 11 }, boxWidth: 12 } } }
+  };
+
+  const ctxAnnees = document.getElementById('graphique-annees');
+  if (ctxAnnees && window.Chart) {
+    new Chart(ctxAnnees, {
+      type: 'bar',
+      data: {
+        labels: annees.map(function (a) { return a.annee; }),
+        datasets: [
+          { label: 'Total publications', data: annees.map(function (a) { return a.total; }),
+            backgroundColor: '#1E3A8A', borderRadius: 4 },
+          { label: 'Dont financées', data: annees.map(function (a) { return a.financees; }),
+            backgroundColor: '#F59E0B', borderRadius: 4 }
+        ]
+      },
+      options: Object.assign({}, optionsBase, {
+        scales: {
+          y: { beginAtZero: true, ticks: { precision: 0, font: { size: 11 } }, grid: { color: '#E2E8F0' } },
+          x: { ticks: { font: { size: 11 } }, grid: { display: false } }
+        }
+      })
+    });
+  }
+
+  const ctxTypes = document.getElementById('graphique-types');
+  if (ctxTypes && window.Chart) {
+    new Chart(ctxTypes, {
+      type: 'doughnut',
+      data: {
+        labels: types.map(function (t) { return t.libelle; }),
+        datasets: [{
+          data: types.map(function (t) { return t.total; }),
+          backgroundColor: types.map(function (t) { return t.couleur; }),
+          borderWidth: 2, borderColor: '#fff'
+        }]
+      },
+      options: Object.assign({}, optionsBase, {
+        plugins: { legend: { position: 'bottom', labels: { font: { size: 11 }, boxWidth: 12, padding: 12 } } }
+      })
+    });
+  }
+
+  const categories = {{ json_categories|safe }};
+  const ctxCat = document.getElementById('graphique-categories');
+  if (ctxCat && window.Chart) {
+    new Chart(ctxCat, {
+      type: 'bar',
+      data: {
+        labels: categories.map(function (c) { return c.libelle; }),
+        datasets: [{
+          label: 'Publications', data: categories.map(function (c) { return c.total; }),
+          backgroundColor: categories.map(function (c) { return c.couleur; }), borderRadius: 6
+        }]
+      },
+      options: Object.assign({}, optionsBase, {
+        indexAxis: 'y',
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { beginAtZero: true, ticks: { precision: 0, font: { size: 11 } }, grid: { color: '#E2E8F0' } },
+          y: { ticks: { font: { size: 10 } }, grid: { display: false } }
+        }
+      })
+    });
+  }
+
+  const ctxSpec = document.getElementById('graphique-specialites');
+  if (ctxSpec && window.Chart) {
+    new Chart(ctxSpec, {
+      type: 'bar',
+      data: {
+        labels: specialites.map(function (s) { return s.code; }),
+        datasets: [{
+          label: 'Publications', data: specialites.map(function (s) { return s.total; }),
+          backgroundColor: '#0D9488', borderRadius: 6
+        }]
+      },
+      options: Object.assign({}, optionsBase, {
+        indexAxis: 'y',
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              title: function (elements) {
+                const index = elements[0].dataIndex;
+                return specialites[index].libelle;
+              }
+            }
+          }
+        },
+        scales: {
+          x: { beginAtZero: true, ticks: { precision: 0, font: { size: 11 } }, grid: { color: '#E2E8F0' } },
+          y: { ticks: { font: { size: 11, weight: 'bold' } }, grid: { display: false } }
+        }
+      })
+    });
+  }
+</script>
+{% endblock %}

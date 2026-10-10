@@ -1,0 +1,298 @@
+{% extends "base.html" %}
+{% load publiept %}
+
+{% block contenu %}
+<div class="space-y-6 pb-12">
+
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+    <div>
+      <div class="flex items-center gap-2">
+        <h1 class="text-2xl sm:text-3xl font-serif font-bold text-slate-950">Catalogue scientifique EPT</h1>
+        <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-blue-100 text-blue-900 border border-blue-200">
+          {{ total_resultats }} résultat{{ total_resultats|pluriel }}
+        </span>
+      </div>
+      <p class="text-xs text-slate-500 mt-1">
+        Recherche plein texte et filtres combinables &bull; Consultable dès le dépôt, sans compte
+      </p>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <a href="{% url 'export_bibtex' %}?{{ querystring }}"
+         class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 rounded-lg transition-colors"
+         title="Exporter les résultats filtrés en BibTeX">
+        {% icone "download" "w-3.5 h-3.5 text-blue-700" %}<span>BibTeX</span>
+      </a>
+      <a href="{% url 'export_csv' %}?{{ querystring }}"
+         class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 rounded-lg transition-colors"
+         title="Exporter les résultats filtrés en tableur">
+        {% icone "download" "w-3.5 h-3.5 text-emerald-700" %}<span>Tableur CSV</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">
+
+    <div class="lg:col-span-1">
+      <form method="get" id="filtres-catalogue" class="bg-white p-5 rounded-2xl border border-slate-200 space-y-5">
+        <input type="hidden" name="vue" value="{{ vue }}">
+        <input type="hidden" name="tri" value="{{ f.tri|default:'date_desc' }}" id="champ-tri">
+
+        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+          <div class="flex items-center gap-2 font-bold text-xs uppercase tracking-wider text-slate-900">
+            {% icone "sliders-horizontal" "w-4 h-4 text-blue-900" %}<span>Filtres combinés</span>
+          </div>
+          {% if filtres_actifs %}
+            <a href="{% url 'catalogue' %}" class="inline-flex items-center gap-1 text-[11px] font-semibold text-rose-600 hover:text-rose-700">
+              {% icone "rotate-ccw" "w-3 h-3" %}<span>Réinitialiser</span>
+            </a>
+          {% endif %}
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1.5">Recherche plein texte</label>
+          <div class="relative">
+            <input type="text" name="q" value="{{ f.q|default:'' }}" placeholder="Titre, résumé, mot-clé, DOI…"
+                   class="w-full pl-8 pr-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-900/20 text-slate-800">
+            <span class="absolute left-2.5 top-2.5 text-slate-400">{% icone "search" "w-3.5 h-3.5" %}</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="flex items-center justify-between text-xs font-bold text-slate-700 mb-1.5">
+            <span>Spécialité d'ingénieur</span><span class="text-[10px] text-slate-500 font-normal">Axe EPT</span>
+          </label>
+          <select name="specialite" class="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded-lg focus:bg-white focus:outline-none text-slate-800">
+            <option value="">Toutes les spécialités</option>
+            {% for specialite in specialites %}
+              <option value="{{ specialite.pk }}" {% if f.specialite == specialite.pk|stringformat:"s" %}selected{% endif %}>
+                {{ specialite.code }} — {{ specialite.libelle }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1.5">Type de publication</label>
+          <select name="type" class="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded-lg focus:bg-white focus:outline-none text-slate-800">
+            <option value="">Tous les types</option>
+            {% for code, libelle in types_publication %}
+              <option value="{{ code }}" {% if f.type == code %}selected{% endif %}>
+                {{ libelle }}{% if code == 'PREPRINT' %} (non soumis){% endif %}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1.5">Financement de recherche</label>
+          <div class="grid grid-cols-3 gap-1">
+            <label class="cursor-pointer">
+              <input type="radio" name="finance" value="tous" class="sr-only peer" {% if not f.finance or f.finance == 'tous' %}checked{% endif %} onchange="this.form.submit()">
+              <span class="block py-1.5 text-xs font-medium rounded-lg border text-center transition-all bg-slate-50 text-slate-700 border-slate-200 peer-checked:bg-blue-950 peer-checked:text-white peer-checked:border-blue-950 peer-checked:font-bold">Tous</span>
+            </label>
+            <label class="cursor-pointer">
+              <input type="radio" name="finance" value="true" class="sr-only peer" {% if f.finance == 'true' %}checked{% endif %} onchange="this.form.submit()">
+              <span class="block py-1.5 text-xs font-medium rounded-lg border text-center transition-all bg-slate-50 text-slate-700 border-slate-200 peer-checked:bg-amber-600 peer-checked:text-white peer-checked:border-amber-600 peer-checked:font-bold">Financées</span>
+            </label>
+            <label class="cursor-pointer">
+              <input type="radio" name="finance" value="false" class="sr-only peer" {% if f.finance == 'false' %}checked{% endif %} onchange="this.form.submit()">
+              <span class="block py-1.5 text-xs font-medium rounded-lg border text-center transition-all bg-slate-50 text-slate-700 border-slate-200 peer-checked:bg-slate-800 peer-checked:text-white peer-checked:border-slate-800 peer-checked:font-bold">Non fin.</span>
+            </label>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1.5">Catégorie de bailleur</label>
+          <select name="categorie" class="w-full text-xs p-2 bg-slate-50 border border-slate-200 rounded-lg focus:bg-white focus:outline-none text-slate-800">
+            <option value="">Toutes les catégories</option>
+            {% for code, libelle in categories_financement %}
+              <option value="{{ code }}" {% if f.categorie == code %}selected{% endif %}>{{ libelle }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1.5">Année de parution</label>
+          <div class="grid grid-cols-2 gap-2">
+            <input type="number" name="anneeMin" value="{{ f.anneeMin|default:'' }}" placeholder="Min (2020)"
+                   class="text-xs p-2 bg-slate-50 border border-slate-200 rounded-lg focus:bg-white focus:outline-none text-slate-800">
+            <input type="number" name="anneeMax" value="{{ f.anneeMax|default:'' }}" placeholder="Max (2026)"
+                   class="text-xs p-2 bg-slate-50 border border-slate-200 rounded-lg focus:bg-white focus:outline-none text-slate-800">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1.5">Nom d'auteur</label>
+          <div class="relative">
+            <input type="text" name="auteur" value="{{ f.auteur|default:'' }}" placeholder="Ex. Niang, Ngom, Guissé…"
+                   class="w-full pl-8 pr-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:bg-white focus:outline-none text-slate-800">
+            <span class="absolute left-2.5 top-2.5 text-slate-400">{% icone "user" "w-3.5 h-3.5" %}</span>
+          </div>
+        </div>
+
+        {% if f.motCle %}
+          <div class="flex items-center justify-between text-xs bg-blue-50 border border-blue-200 rounded-lg px-2.5 py-1.5">
+            <span class="text-blue-900 font-semibold">#{{ f.motCle }}</span>
+            <a href="{% url_avec motCle=None %}" class="text-blue-700 hover:text-rose-600">&times;</a>
+            <input type="hidden" name="motCle" value="{{ f.motCle }}">
+          </div>
+        {% endif %}
+
+        <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+          <span>Résultats filtrés :</span><strong class="text-slate-900">{{ total_resultats }}</strong>
+        </div>
+
+        <noscript>
+          <button type="submit" class="w-full py-2 text-xs font-bold text-white bg-blue-950 rounded-lg">Appliquer les filtres</button>
+        </noscript>
+      </form>
+    </div>
+
+    <div class="lg:col-span-3 space-y-4">
+
+      <div class="bg-white px-4 py-3 rounded-2xl border border-slate-200 flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-bold text-slate-900">
+            {{ total_resultats }} publication{{ total_resultats|pluriel }} trouvée{{ total_resultats|pluriel }}
+          </span>
+          {% if filtres_actifs %}
+            <span class="text-[11px] text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full font-medium">Filtres actifs</span>
+          {% endif %}
+        </div>
+
+        <div class="flex items-center gap-3">
+          <div class="flex items-center gap-1.5 text-xs text-slate-600">
+            {% icone "arrow-up-down" "w-3.5 h-3.5 text-slate-400" %}<span>Trier par :</span>
+            <select onchange="window.location.href = this.value"
+                    class="text-xs font-semibold bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1 text-slate-800 focus:outline-none">
+              <option value="{% url_avec tri='date_desc' %}" {% if f.tri == 'date_desc' or not f.tri %}selected{% endif %}>Année (plus récente)</option>
+              <option value="{% url_avec tri='date_asc' %}" {% if f.tri == 'date_asc' %}selected{% endif %}>Année (plus ancienne)</option>
+              <option value="{% url_avec tri='titre_asc' %}" {% if f.tri == 'titre_asc' %}selected{% endif %}>Titre (A à Z)</option>
+              <option value="{% url_avec tri='citations' %}" {% if f.tri == 'citations' %}selected{% endif %}>Nombre de citations</option>
+            </select>
+          </div>
+
+          <div class="flex items-center gap-1 border border-slate-200 rounded-lg p-0.5 bg-slate-50">
+            <a href="{% url_avec vue='grille' %}" title="Vue cartes"
+               class="p-1.5 rounded-md transition-colors {% if vue != 'tableau' %}bg-white text-blue-900 font-bold{% else %}text-slate-400 hover:text-slate-700{% endif %}">
+              {% icone "layout-grid" "w-4 h-4" %}
+            </a>
+            <a href="{% url_avec vue='tableau' %}" title="Vue liste"
+               class="p-1.5 rounded-md transition-colors {% if vue == 'tableau' %}bg-white text-blue-900 font-bold{% else %}text-slate-400 hover:text-slate-700{% endif %}">
+              {% icone "list" "w-4 h-4" %}
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {% if not publications %}
+        <div class="bg-white rounded-2xl p-16 text-center border border-slate-200 space-y-3">
+          <div class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center mx-auto text-slate-400">
+            {% icone "search" "w-6 h-6" %}
+          </div>
+          <h3 class="font-serif font-bold text-base text-slate-800">Aucune publication ne correspond à ces critères</h3>
+          <p class="text-xs text-slate-500 max-w-md mx-auto">
+            Modifiez les filtres ou réinitialisez-les pour afficher l'ensemble du corpus de l'EPT.
+          </p>
+          <a href="{% url 'catalogue' %}" class="inline-block mt-2 px-4 py-2 text-xs font-bold bg-blue-950 text-white rounded-lg hover:bg-blue-900 transition-colors">
+            Effacer tous les filtres
+          </a>
+        </div>
+
+      {% elif vue == 'tableau' %}
+        <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="tableau-publiept">
+              <thead>
+                <tr>
+                  <th>Titre de la publication</th><th>Type</th><th>Spécialité</th>
+                  <th>Année</th><th>Financement</th><th class="text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for publication in publications %}
+                  <tr>
+                    <td class="max-w-sm">
+                      <a href="{% url 'publication_detail' publication.pk %}" class="font-bold text-slate-900 hover:text-blue-900 ligne-1">
+                        {{ publication.titre }}
+                      </a>
+                      <span class="text-[11px] text-slate-600 ligne-1 mt-0.5 block">{{ publication.liste_auteurs }}</span>
+                    </td>
+                    <td class="whitespace-nowrap">
+                      <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold border {{ publication.classe_type }}">
+                        {{ publication.libelle_type }}
+                      </span>
+                    </td>
+                    <td class="whitespace-nowrap font-semibold text-slate-800">{{ publication.specialite.code }}</td>
+                    <td class="whitespace-nowrap font-medium text-slate-600">{{ publication.annee }}</td>
+                    <td class="whitespace-nowrap">
+                      {% if publication.est_financee %}
+                        <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-500/15 text-amber-950 border border-amber-400">
+                          Projet financé
+                        </span>
+                      {% else %}
+                        <span class="text-slate-400">—</span>
+                      {% endif %}
+                    </td>
+                    <td class="whitespace-nowrap text-right">
+                      <button type="button" onclick="ouvrirModale('citation-{{ publication.pk }}')"
+                              class="p-1.5 hover:bg-slate-100 rounded text-slate-600 hover:text-blue-900" title="Citer">
+                        {% icone "quote" "w-3.5 h-3.5" %}
+                      </button>
+                      <a href="{% url 'publication_detail' publication.pk %}"
+                         class="p-1.5 hover:bg-slate-100 rounded text-slate-600 hover:text-blue-900 inline-block" title="Consulter">
+                        {% icone "external-link" "w-3.5 h-3.5" %}
+                      </a>
+                    </td>
+                  </tr>
+                  {% include "partials/modale_citation.html" %}
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      {% else %}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {% for publication in publications %}
+            {% include "partials/carte_publication.html" with avec_mots_cles=True %}
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      {% if page_obj.paginator.num_pages > 1 %}
+        <div class="flex items-center justify-between bg-white px-4 py-3 rounded-2xl border border-slate-200 text-xs text-slate-600">
+          <div>
+            Page <strong>{{ page_obj.number }}</strong> sur <strong>{{ page_obj.paginator.num_pages }}</strong>
+            ({{ total_resultats }} travaux)
+          </div>
+          <div class="flex items-center gap-1">
+            {% if page_obj.has_previous %}
+              <a href="{% url_avec page=page_obj.previous_page_number %}"
+                 class="p-1.5 rounded-lg border border-slate-200 hover:bg-slate-100 inline-flex">{% icone "chevron-left" "w-4 h-4" %}</a>
+            {% else %}
+              <span class="p-1.5 rounded-lg border border-slate-200 opacity-40 inline-flex">{% icone "chevron-left" "w-4 h-4" %}</span>
+            {% endif %}
+
+            {% for numero in page_obj.paginator.page_range %}
+              <a href="{% url_avec page=numero %}"
+                 class="w-7 h-7 rounded-lg text-xs font-bold transition-colors inline-flex items-center justify-center
+                        {% if numero == page_obj.number %}bg-blue-950 text-white{% else %}hover:bg-slate-100 text-slate-700{% endif %}">
+                {{ numero }}
+              </a>
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+              <a href="{% url_avec page=page_obj.next_page_number %}"
+                 class="p-1.5 rounded-lg border border-slate-200 hover:bg-slate-100 inline-flex">{% icone "chevron-right" "w-4 h-4" %}</a>
+            {% else %}
+              <span class="p-1.5 rounded-lg border border-slate-200 opacity-40 inline-flex">{% icone "chevron-right" "w-4 h-4" %}</span>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

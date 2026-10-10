@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load publiept %}
+{% block titre %}Accès non autorisé — PubliEPT{% endblock %}
+
+{% block contenu %}
+<div class="min-h-[60vh] flex items-center justify-center p-4">
+  <div class="max-w-md w-full text-center bg-white rounded-3xl p-8 border border-slate-200 space-y-4">
+    <div class="w-16 h-16 rounded-2xl bg-rose-50 text-rose-600 flex items-center justify-center mx-auto">
+      {% icone "shield-alert" "w-8 h-8" %}
+    </div>
+
+    <h1 class="text-xl font-serif font-bold text-slate-950">Accès non autorisé</h1>
+    <p class="text-xs text-slate-500 leading-relaxed">
+      Votre profil actuel
+      (<strong>{% if user.is_authenticated %}{{ user.libelle_role }}{% else %}Visiteur public{% endif %}</strong>)
+      ne dispose pas des privilèges nécessaires pour afficher cet espace.
+    </p>
+
+    <div class="pt-2 p-3 rounded-xl bg-slate-50 text-xs text-slate-600">
+      La consultation du catalogue reste ouverte à tous, sans compte.
+      Le dépôt et l'administration nécessitent une connexion avec le rôle correspondant.
+    </div>
+
+    <div class="pt-3 flex flex-wrap items-center justify-center gap-2">
+      <a href="{% url 'connexion' %}"
+         class="px-3 py-1.5 text-xs font-bold text-blue-950 bg-amber-400 hover:bg-amber-300 rounded-lg transition-colors">
+        Changer de compte
+      </a>
+      <a href="{% url 'accueil' %}"
+         class="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors">
+        {% icone "house" "w-3.5 h-3.5" %}<span>Retour à l'accueil</span>
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

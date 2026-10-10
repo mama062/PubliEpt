@@ -1,0 +1,29 @@
+{% load publiept %}
+<div id="supprimer-{{ publication.pk }}" data-modale
+     class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-xs">
+  <div class="bg-white rounded-2xl p-6 max-w-md w-full shadow-2xl border border-slate-200 space-y-4">
+    <div class="flex items-center gap-3 text-rose-600">
+      <div class="p-2 bg-rose-50 rounded-xl">{% icone "triangle-alert" "w-6 h-6" %}</div>
+      <h3 class="font-serif font-bold text-base text-slate-900">Confirmer la suppression</h3>
+    </div>
+
+    <p class="text-xs text-slate-600 leading-relaxed">
+      Souhaitez-vous supprimer définitivement la publication :
+      <strong class="text-slate-900 mt-1 block">« {{ publication.titre }} »</strong>
+    </p>
+
+    <form method="post" action="{% url 'publication_supprimer' publication.pk %}"
+          class="flex items-center justify-end gap-2 pt-3 border-t border-slate-100">
+      {% csrf_token %}
+      <input type="hidden" name="suivant" value="{{ request.path }}">
+      <button type="button" onclick="fermerModale('supprimer-{{ publication.pk }}')"
+              class="px-3.5 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-100 rounded-lg transition-colors">
+        Annuler
+      </button>
+      <button type="submit"
+              class="px-4 py-2 text-xs font-bold text-white bg-rose-600 hover:bg-rose-700 rounded-lg transition-colors">
+        Supprimer
+      </button>
+    </form>
+  </div>
+</div>

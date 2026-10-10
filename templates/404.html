@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load publiept %}
+{% block titre %}Page introuvable — PubliEPT{% endblock %}
+
+{% block contenu %}
+<div class="min-h-[60vh] flex items-center justify-center p-4">
+  <div class="max-w-md w-full text-center bg-white rounded-3xl p-8 border border-slate-200 space-y-4">
+    <div class="w-16 h-16 rounded-2xl bg-blue-50 text-amber-600 flex items-center justify-center mx-auto">
+      {% icone "compass" "w-8 h-8" %}
+    </div>
+
+    <h1 class="text-4xl font-serif font-black text-slate-950">404</h1>
+    <h2 class="text-lg font-bold text-slate-900 font-serif">Page introuvable</h2>
+    <p class="text-xs text-slate-500 leading-relaxed">
+      La page que vous tentez de consulter n'existe pas ou a été déplacée dans l'arborescence
+      de la plateforme PubliEPT.
+    </p>
+
+    <div class="pt-4 flex items-center justify-center gap-2">
+      <a href="{% url 'accueil' %}"
+         class="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold text-white bg-blue-950 hover:bg-blue-900 rounded-xl transition-colors">
+        {% icone "house" "w-3.5 h-3.5" %}<span>Accueil</span>
+      </a>
+      <a href="{% url 'catalogue' %}"
+         class="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition-colors">
+        {% icone "book-open" "w-3.5 h-3.5" %}<span>Catalogue</span>
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

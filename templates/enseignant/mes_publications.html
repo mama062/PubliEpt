@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% load publiept %}
+
+{% block contenu %}
+<div class="space-y-6 pb-12">
+
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+    <div>
+      <div class="flex items-center gap-2">
+        <h1 class="text-2xl sm:text-3xl font-serif font-bold text-slate-950">Mes publications scientifiques</h1>
+        <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-blue-100 text-blue-900">{{ total }}</span>
+      </div>
+      <p class="text-xs text-slate-500 mt-1">
+        Vos publications sont immédiatement consultables dans le catalogue public, sans validation
+      </p>
+    </div>
+
+    <div class="flex items-center gap-2">
+      {% if publications %}
+        <a href="{% url 'export_bibtex' %}?enseignant={{ fiche.pk }}"
+           class="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 rounded-xl transition-colors">
+          {% icone "download" "w-3.5 h-3.5 text-blue-900" %}<span>Exporter BibTeX</span>
+        </a>
+      {% endif %}
+      <a href="{% url 'publication_nouvelle' %}"
+         class="inline-flex items-center gap-2 px-4 py-2 text-xs font-bold text-blue-950 bg-amber-500 hover:bg-amber-400 rounded-xl transition-colors">
+        {% icone "circle-plus" "w-4 h-4" %}<span>Déposer une publication</span>
+      </a>
+    </div>
+  </div>
+
+  <form method="get" id="filtres-catalogue"
+        class="bg-white p-4 rounded-2xl border border-slate-200 flex flex-col md:flex-row items-center justify-between gap-3">
+    <div class="relative flex-1 w-full">
+      <input type="text" name="q" value="{{ f.q|default:'' }}"
+             placeholder="Filtrer mes publications par titre, résumé, DOI…"
+             class="w-full pl-9 pr-4 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-900/20 text-slate-800">
+      <span class="absolute left-3 top-2.5 text-slate-400">{% icone "search" "w-4 h-4" %}</span>
+    </div>
+
+    <div class="flex flex-wrap items-center gap-2 w-full md:w-auto">
+      <select name="type" class="p-2 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:bg-white focus:outline-none text-slate-700">
+        <option value="">Tous les types</option>
+        {% for code, libelle in types_publication %}
+          <option value="{{ code }}" {% if f.type == code %}selected{% endif %}>{{ libelle }}</option>
+        {% endfor %}
+      </select>
+
+      <select name="finance" class="p-2 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:bg-white focus:outline-none text-slate-700">
+        <option value="">Financement : tous</option>
+        <option value="true" {% if f.finance == 'true' %}selected{% endif %}>Projets financés</option>
+        <option value="false" {% if f.finance == 'false' %}selected{% endif %}>Non financées</option>
+      </select>
+
+      {% if f.q or f.type or f.finance %}
+        <a href="{% url 'mes_publications' %}" class="text-[11px] font-semibold text-rose-600 hover:text-rose-700 px-2">Réinitialiser</a>
+      {% endif %}
+    </div>
+  </form>
+
+  <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+    {% if not publications %}
+      <div class="p-12 text-center space-y-3">
+        <p class="text-sm font-bold text-slate-800">Aucune publication trouvée</p>
+        <p class="text-xs text-slate-500">Ajustez vos filtres ou effectuez un nouveau dépôt.</p>
+      </div>
+    {% else %}
+      <div class="overflow-x-auto">
+        <table class="tableau-publiept">
+          <thead>
+            <tr>
+              <th>Titre &amp; détails</th><th>Type</th><th>Année</th>
+              <th>Financement</th><th>Auteurs</th><th class="text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for publication in publications %}
+              <tr>
+                <td class="max-w-md">
+                  <a href="{% url 'publication_detail' publication.pk %}"
+                     class="font-bold text-slate-900 hover:text-blue-900 ligne-1 text-sm block">
+                    {{ publication.titre }}
+                  </a>
+                  <div class="text-[11px] text-slate-500 mt-0.5 ligne-1">
+                    {% if publication.doi %}<span class="font-mono text-blue-800 mr-2">DOI : {{ publication.doi }}</span>{% endif %}
+                    <span>Déposé le {{ publication.date_depot|date:"d/m/Y" }}</span>
+                  </div>
+                </td>
+                <td class="whitespace-nowrap">
+                  <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold border {{ publication.classe_type }}">
+                    {{ publication.libelle_type }}
+                  </span>
+                </td>
+                <td class="whitespace-nowrap font-medium">{{ publication.annee }}</td>
+                <td class="whitespace-nowrap">
+                  {% if publication.est_financee %}
+                    <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-500/15 text-amber-950 border border-amber-400">
+                      Financé
+                    </span>
+                  {% else %}
+                    <span class="text-slate-400">—</span>
+                  {% endif %}
+                </td>
+                <td class="max-w-[180px] truncate text-[11px] text-slate-600">{{ publication.liste_auteurs }}</td>
+                <td class="whitespace-nowrap text-right">
+                  <a href="{% url 'publication_detail' publication.pk %}"
+                     class="p-1.5 hover:bg-slate-100 rounded text-slate-600 hover:text-blue-900 inline-block" title="Consulter">
+                    {% icone "external-link" "w-3.5 h-3.5" %}
+                  </a>
+                  <button type="button" onclick="ouvrirModale('citation-{{ publication.pk }}')"
+                          class="p-1.5 hover:bg-slate-100 rounded text-slate-600 hover:text-amber-700" title="Citer">
+                    {% icone "quote" "w-3.5 h-3.5" %}
+                  </button>
+                  <a href="{% url 'publication_modifier' publication.pk %}"
+                     class="p-1.5 hover:bg-blue-50 rounded text-blue-700 inline-block" title="Modifier">
+                    {% icone "pencil" "w-3.5 h-3.5" %}
+                  </a>
+                  <button type="button" onclick="ouvrirModale('supprimer-{{ publication.pk }}')"
+                          class="p-1.5 hover:bg-rose-50 rounded text-rose-600" title="Supprimer">
+                    {% icone "trash-2" "w-3.5 h-3.5" %}
+                  </button>
+                </td>
+              </tr>
+              {% include "partials/modale_citation.html" %}
+              {% include "partials/modale_suppression.html" %}
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

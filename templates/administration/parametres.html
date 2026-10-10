@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% load publiept %}
+
+{% block contenu %}
+<div class="max-w-3xl mx-auto space-y-6 pb-16">
+
+  <div class="border-b border-slate-200 pb-5">
+    <div class="flex items-center gap-2">
+      <h1 class="text-2xl sm:text-3xl font-serif font-bold text-slate-950">Paramètres de l'établissement</h1>
+      <span class="text-xs font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-900">Configuration</span>
+    </div>
+    <p class="text-xs text-slate-500 mt-1">
+      Identité institutionnelle et paramétrage de l'année universitaire en cours
+    </p>
+  </div>
+
+  <form method="post" class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 space-y-5">
+    {% csrf_token %}
+
+    <div class="space-y-4">
+      <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400">Identité de l'école</h2>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="sm:col-span-2">
+          <label for="{{ form.nom_etablissement.id_for_label }}" class="block text-xs font-bold text-slate-700 mb-1">
+            Nom complet de l'établissement
+          </label>
+          {{ form.nom_etablissement }}
+        </div>
+        <div>
+          <label for="{{ form.sigle.id_for_label }}" class="block text-xs font-bold text-slate-700 mb-1">Sigle usuel</label>
+          {{ form.sigle }}
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label for="{{ form.ville.id_for_label }}" class="block text-xs font-bold text-slate-700 mb-1">Ville</label>
+          {{ form.ville }}
+        </div>
+        <div>
+          <label for="{{ form.pays.id_for_label }}" class="block text-xs font-bold text-slate-700 mb-1">Pays</label>
+          {{ form.pays }}
+        </div>
+      </div>
+
+      <div>
+        <label for="{{ form.devise.id_for_label }}" class="block text-xs font-bold text-slate-700 mb-1">Devise de l'école</label>
+        {{ form.devise }}
+      </div>
+    </div>
+
+    <div class="space-y-4 pt-4 border-t border-slate-100">
+      <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400">
+        Année universitaire et gouvernance scientifique
+      </h2>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label for="{{ form.annee_universitaire.id_for_label }}" class="block text-xs font-bold text-slate-700 mb-1">
+            Année universitaire courante
+          </label>
+          {{ form.annee_universitaire }}
+        </div>
+        <div>
+          <label for="{{ form.directeur_recherche.id_for_label }}" class="block text-xs font-bold text-slate-700 mb-1">
+            Directeur de la recherche
+          </label>
+          {{ form.directeur_recherche }}
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label for="{{ form.contact_email.id_for_label }}" class="block text-xs font-bold text-slate-700 mb-1">
+            Email de la direction de la recherche
+          </label>
+          {{ form.contact_email }}
+        </div>
+        <div>
+          <label for="{{ form.site_web.id_for_label }}" class="block text-xs font-bold text-slate-700 mb-1">Site web officiel</label>
+          {{ form.site_web }}
+        </div>
+      </div>
+    </div>
+
+    {% if form.errors %}
+      <div class="p-3 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-900">
+        {% for champ, erreurs in form.errors.items %}
+          {% for erreur in erreurs %}<div>&bull; {{ erreur }}</div>{% endfor %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <div class="flex justify-end pt-4 border-t border-slate-100">
+      <button type="submit"
+              class="inline-flex items-center gap-2 px-6 py-2.5 text-xs font-bold text-white bg-blue-950 hover:bg-blue-900 rounded-xl transition-colors">
+        {% icone "save" "w-4 h-4 text-amber-400" %}<span>Enregistrer les paramètres</span>
+      </button>
+    </div>
+  </form>
+</div>
+{% endblock %}

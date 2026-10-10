@@ -1,0 +1,135 @@
+{% load publiept %}
+{% url 'accueil' as u_accueil %}
+{% url 'catalogue' as u_catalogue %}
+{% url 'specialites' as u_specialites %}
+{% url 'annuaire' as u_annuaire %}
+
+<header class="sticky top-0 z-30 bg-white border-b border-slate-200 print:hidden">
+  <div class="px-4 sm:px-6 lg:px-8">
+
+    <div class="flex items-center justify-between h-16 gap-4">
+
+      <div class="flex items-center gap-3">
+        <button type="button" onclick="basculerMenu()"
+                class="md:hidden p-2 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-100"
+                aria-label="Ouvrir la navigation">
+          {% icone "menu" "w-5 h-5" %}
+        </button>
+        <a href="{% url 'accueil' %}" class="md:hidden flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-blue-950 text-white flex items-center justify-center font-bold text-sm border border-blue-900">
+            <span class="text-amber-400 font-serif">P</span>
+          </div>
+          <span class="text-base font-bold tracking-tight text-blue-950 font-serif">
+            Publi<span class="text-amber-600">EPT</span>
+          </span>
+        </a>
+      </div>
+
+      <form action="{% url 'catalogue' %}" method="get" class="hidden md:flex flex-1 max-w-md mx-2">
+        <div class="relative w-full">
+          <input type="text" name="q" value="{{ request.GET.q|default:'' }}"
+                 placeholder="Recherche globale (titre, auteur, DOI, mots-clés)…"
+                 class="w-full pl-9 pr-4 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg
+                        focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900
+                        text-slate-800 placeholder-slate-400 transition-all">
+          <span class="absolute left-2.5 top-2.5 text-slate-400">{% icone "search" "w-4 h-4" %}</span>
+        </div>
+      </form>
+
+      <div class="flex items-center gap-2 sm:gap-3">
+        {% if user.is_authenticated and user.est_enseignant %}
+          <a href="{% url 'publication_nouvelle' %}"
+             class="hidden lg:inline-flex items-center gap-1.5 px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-blue-950 text-xs font-bold rounded-lg transition-colors">
+            {% icone "circle-plus" "w-4 h-4" %}<span>Déposer une publication</span>
+          </a>
+        {% endif %}
+
+        <span class="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs font-semibold
+              {% if user.is_authenticated %}{% if user.est_administrateur %}bg-amber-100 text-amber-900 border-amber-300{% else %}bg-blue-100 text-blue-900 border-blue-300{% endif %}{% else %}bg-slate-100 text-slate-800 border-slate-300{% endif %}">
+          <span class="text-slate-500 font-normal">Profil :</span>
+          <span>{% if user.is_authenticated %}{{ user.libelle_role }}{% else %}Visiteur public{% endif %}</span>
+        </span>
+
+        {% if user.is_authenticated %}
+          <div class="relative" data-menu>
+            <button type="button" onclick="basculerMenuProfil(this)"
+                    class="flex items-center gap-2 p-1.5 rounded-lg hover:bg-slate-100 text-slate-700">
+              {% if user.avatar %}
+                <img src="{{ user.avatar_url }}" alt="" class="w-7 h-7 rounded-full object-cover border border-slate-300">
+              {% else %}
+                <span class="w-7 h-7 rounded-full bg-slate-200 flex items-center justify-center">{% icone "user" "w-3.5 h-3.5" %}</span>
+              {% endif %}
+              <span class="hidden sm:inline text-xs font-semibold text-slate-800">{{ user.prenom }}</span>
+              {% icone "chevron-down" "w-3.5 h-3.5 text-slate-400 hidden sm:block" %}
+            </button>
+
+            <div class="hidden absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-slate-200 p-2 z-50" data-panneau>
+              <div class="px-3 py-2 border-b border-slate-100 mb-1">
+                <p class="text-xs font-bold text-slate-900 truncate">{{ user.prenom }} {{ user.nom }}</p>
+                <p class="text-[11px] text-slate-500 truncate">{{ user.email }}</p>
+              </div>
+              <div class="space-y-0.5">
+                {% if user.est_enseignant %}
+                  <a href="{% url 'mon_profil' %}" class="flex items-center gap-2 px-3 py-1.5 text-xs text-slate-700 hover:bg-slate-100 rounded-lg">
+                    {% icone "user" "w-4 h-4" %}<span>Mon profil chercheur</span>
+                  </a>
+                {% endif %}
+                {% if user.est_administrateur %}
+                  <a href="{% url 'admin_parametres' %}" class="flex items-center gap-2 px-3 py-1.5 text-xs text-slate-700 hover:bg-slate-100 rounded-lg">
+                    {% icone "shield" "w-4 h-4" %}<span>Paramètres établissement</span>
+                  </a>
+                {% endif %}
+                <a href="{% url 'deconnexion' %}" class="flex items-center gap-2 px-3 py-1.5 text-xs text-rose-600 hover:bg-rose-50 rounded-lg">
+                  {% icone "log-out" "w-4 h-4" %}<span>Passer en mode Visiteur</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        {% else %}
+          <a href="{% url 'connexion' %}"
+             class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-white bg-blue-950 hover:bg-blue-900 rounded-lg transition-colors">
+            {% icone "log-in" "w-3.5 h-3.5" %}<span class="hidden sm:inline">Connexion</span>
+          </a>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="flex items-center gap-1 overflow-x-auto py-2 border-t border-slate-100 text-xs font-medium text-slate-600 sans-barre">
+      <a href="{% url 'accueil' %}" class="onglet {% if request.path == u_accueil %}onglet-actif{% endif %}">
+        {% icone "house" "w-3.5 h-3.5" %}<span>Accueil</span>
+      </a>
+      <a href="{% url 'catalogue' %}" class="onglet {% if request.path == u_catalogue %}onglet-actif{% endif %}">
+        {% icone "book-open" "w-3.5 h-3.5" %}<span>Catalogue</span>
+      </a>
+      <a href="{% url 'specialites' %}" class="onglet {% if u_specialites in request.path %}onglet-actif{% endif %}">
+        {% icone "compass" "w-3.5 h-3.5" %}<span>Spécialités</span>
+      </a>
+      <a href="{% url 'annuaire' %}" class="onglet {% if u_annuaire in request.path %}onglet-actif{% endif %}">
+        {% icone "users" "w-3.5 h-3.5" %}<span>Annuaire chercheurs</span>
+      </a>
+
+      {% if user.is_authenticated and user.est_enseignant %}
+        <span class="text-slate-300 mx-1">|</span>
+        <a href="{% url 'enseignant_dashboard' %}" class="onglet text-blue-900 font-semibold">
+          {% icone "chart-column" "w-3.5 h-3.5" %}<span>Mon tableau de bord</span>
+        </a>
+        <a href="{% url 'mes_publications' %}" class="onglet text-blue-900">
+          {% icone "file-text" "w-3.5 h-3.5" %}<span>Mes publications</span>
+        </a>
+      {% endif %}
+
+      {% if user.is_authenticated and user.est_administrateur %}
+        <span class="text-slate-300 mx-1">|</span>
+        <a href="{% url 'admin_dashboard' %}" class="onglet text-amber-900 font-semibold">
+          {% icone "chart-column" "w-3.5 h-3.5" %}<span>Statistiques</span>
+        </a>
+        <a href="{% url 'admin_publications' %}" class="onglet text-amber-900">
+          {% icone "file-text" "w-3.5 h-3.5" %}<span>Publications &amp; doublons</span>
+        </a>
+        <a href="{% url 'admin_referentiels' %}" class="onglet text-amber-900">
+          {% icone "folder-kanban" "w-3.5 h-3.5" %}<span>Référentiels</span>
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</header>

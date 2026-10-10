@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+{% load static publiept %}
+
+{% block contenu %}
+<div class="space-y-12 pb-8">
+
+  <section class="relative overflow-hidden rounded-3xl text-white p-6 sm:p-10 lg:p-12 shadow-2xl border border-slate-800/50">
+    <img src="{% static 'img/fond.png' %}" alt=""
+         class="absolute inset-0 w-full h-full object-cover pointer-events-none select-none">
+
+    <div class="relative z-10 max-w-3xl space-y-5">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/10 border border-amber-400/30 text-amber-300 text-xs font-bold tracking-wide">
+        <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+        PORTAIL OFFICIEL DE LA RECHERCHE &bull; {{ parametres.nom_etablissement|upper }}
+      </div>
+
+      <h1 class="text-3xl sm:text-5xl font-serif font-bold text-white tracking-tight leading-tight">
+        Centralisation des publications scientifiques de l'EPT
+      </h1>
+
+      <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
+        Le catalogue ouvert et unifié des travaux de recherche des enseignants-chercheurs
+        de l'{{ parametres.nom_etablissement }}. Recherche instantanée sans compte, dépôt direct sans
+        circuit de validation, et pilotage statistique global.
+      </p>
+
+      <form action="{% url 'catalogue' %}" method="get" class="pt-2">
+        <div class="relative flex items-center bg-white rounded-xl shadow-md border-2 border-blue-900/10 focus-within:border-blue-900 focus-within:ring-4 focus-within:ring-blue-900/10 transition-all p-1.5">
+          <div class="p-2 text-slate-400">{% icone "search" "w-5 h-5" %}</div>
+          <input type="text" name="q" required
+                 placeholder="Rechercher un titre, un auteur, un mot-clé ou un DOI…"
+                 class="w-full text-xs sm:text-sm bg-transparent border-none focus:outline-none text-slate-800 placeholder-slate-400 px-2">
+          <button type="submit"
+                  class="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-950 hover:bg-blue-900 text-white rounded-lg text-xs font-semibold transition-colors shrink-0">
+            <span>Rechercher</span>
+          </button>
+        </div>
+      </form>
+
+      <div class="pt-2 flex flex-wrap items-center gap-2 text-xs text-slate-300">
+        <span class="text-slate-400">Recherches fréquentes :</span>
+        <a href="{% url 'catalogue' %}?q=signal" class="bg-white/10 hover:bg-white/20 text-white px-2.5 py-1 rounded-lg transition-colors">Traitement du signal</a>
+        <a href="{% url 'catalogue' %}?q=ontologie" class="bg-white/10 hover:bg-white/20 text-white px-2.5 py-1 rounded-lg transition-colors">Ontologies</a>
+        <a href="{% url 'catalogue' %}?q=cryptographie" class="bg-white/10 hover:bg-white/20 text-white px-2.5 py-1 rounded-lg transition-colors">Cryptographie</a>
+        <a href="{% url 'catalogue' %}?type=PREPRINT" class="bg-white/10 hover:bg-white/20 text-white px-2.5 py-1 rounded-lg transition-colors">Preprints</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+    <div class="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200 hover:shadow-sm transition-shadow">
+      <div class="flex items-center justify-between">
+        <span class="text-xs font-bold text-slate-600 uppercase tracking-wider">Publications</span>
+        <div class="p-2.5 bg-blue-50 text-blue-900 rounded-xl">{% icone "book-open" "w-5 h-5" %}</div>
+      </div>
+      <div class="mt-3">
+        <span class="text-2xl sm:text-3xl font-bold text-slate-900">{{ stats.total_publications }}</span>
+        <span class="text-xs text-slate-500 block mt-1">Articles, conférences, preprints</span>
+      </div>
+    </div>
+
+    <div class="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200 hover:shadow-sm transition-shadow">
+      <div class="flex items-center justify-between">
+        <span class="text-xs font-bold text-slate-600 uppercase tracking-wider">Chercheurs</span>
+        <div class="p-2.5 bg-blue-50 text-blue-900 rounded-xl">{% icone "users" "w-5 h-5" %}</div>
+      </div>
+      <div class="mt-3">
+        <span class="text-2xl sm:text-3xl font-bold text-slate-900">{{ stats.total_enseignants }}</span>
+        <span class="text-xs text-slate-500 block mt-1">Enseignants-chercheurs EPT</span>
+      </div>
+    </div>
+
+    <div class="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200 hover:shadow-sm transition-shadow">
+      <div class="flex items-center justify-between">
+        <span class="text-xs font-bold text-slate-600 uppercase tracking-wider">Spécialités</span>
+        <div class="p-2.5 bg-amber-50 text-amber-800 rounded-xl">{% icone "compass" "w-5 h-5" %}</div>
+      </div>
+      <div class="mt-3">
+        <span class="text-2xl sm:text-3xl font-bold text-slate-900">{{ stats.total_specialites }}</span>
+        <span class="text-xs text-slate-500 block mt-1">Axes majeurs d'ingénierie</span>
+      </div>
+    </div>
+
+    <div class="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200 hover:shadow-sm transition-shadow">
+      <div class="flex items-center justify-between">
+        <span class="text-xs font-bold text-slate-600 uppercase tracking-wider">Travaux financés</span>
+        <div class="p-2.5 bg-emerald-50 text-emerald-800 rounded-xl">{% icone "circle-dollar-sign" "w-5 h-5" %}</div>
+      </div>
+      <div class="mt-3">
+        <span class="text-2xl sm:text-3xl font-bold text-emerald-700">{{ stats.part_financees }}&nbsp;%</span>
+        <span class="text-xs text-slate-500 block mt-1">Bailleurs nationaux &amp; internationaux</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="space-y-4">
+    <div class="flex items-center justify-between">
+      <div>
+        <h2 class="text-xl font-serif font-bold text-slate-950">Spécialités d'ingénieurs de l'EPT</h2>
+        <p class="text-xs text-slate-500 mt-0.5">Axe principal de classement des travaux de l'école</p>
+      </div>
+      <a href="{% url 'specialites' %}" class="inline-flex items-center gap-1 text-xs font-bold text-blue-900 hover:text-amber-600 transition-colors">
+        <span>Voir toutes les spécialités</span>{% icone "chevron-right" "w-4 h-4" %}
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {% for specialite in specialites %}
+        <a href="{% url 'specialite_detail' specialite.pk %}"
+           class="group p-5 bg-white rounded-2xl border border-slate-200 hover:border-blue-900/40 hover:shadow-md transition-all flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-black px-2.5 py-1 rounded-lg bg-blue-950 text-white tracking-wider">{{ specialite.code }}</span>
+              <span class="text-[11px] font-semibold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full">
+                {{ specialite.nb_publications }} publication{{ specialite.nb_publications|pluriel }}
+              </span>
+            </div>
+            <h3 class="font-bold text-sm text-slate-900 group-hover:text-blue-900 transition-colors">{{ specialite.libelle }}</h3>
+            <p class="text-xs text-slate-600 mt-2 ligne-2 leading-relaxed">{{ specialite.description }}</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-blue-900 font-semibold">
+            <span>Explorer les travaux</span>{% icone "arrow-right" "w-3.5 h-3.5" %}
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="space-y-4">
+    <div class="flex items-center justify-between">
+      <div>
+        <h2 class="text-xl font-serif font-bold text-slate-950">Dernières publications déposées</h2>
+        <p class="text-xs text-slate-500 mt-0.5">Consultables dès leur dépôt par les enseignants-chercheurs</p>
+      </div>
+      <a href="{% url 'catalogue' %}" class="inline-flex items-center gap-1 text-xs font-bold text-blue-900 hover:text-amber-600 transition-colors">
+        <span>Consulter le catalogue complet</span>{% icone "chevron-right" "w-4 h-4" %}
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {% for publication in publications %}
+        {% include "partials/carte_publication.html" %}
+      {% empty %}
+        <p class="text-xs text-slate-500">Aucune publication déposée pour le moment.</p>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="bg-slate-100 rounded-2xl p-6 border border-slate-200">
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="space-y-1 text-center sm:text-left">
+        <span class="text-xs font-bold text-amber-800 uppercase tracking-wider">Trois profils d'utilisation</span>
+        <h3 class="text-base font-bold text-slate-900 font-serif">Une expérience adaptée à chaque acteur de l'école</h3>
+        <p class="text-xs text-slate-600 max-w-xl">
+          Les visiteurs recherchent librement et sans compte ; les enseignants déposent leurs travaux
+          en cinq étapes ; l'administration pilote les statistiques et les référentiels.
+        </p>
+      </div>
+      <div class="flex flex-wrap items-center gap-2">
+        <a href="{% url 'catalogue' %}" class="px-3.5 py-2 text-xs font-bold bg-white text-slate-800 border border-slate-300 rounded-xl hover:bg-slate-50 transition-all">Mode visiteur</a>
+        <a href="{% url 'connexion' %}" class="px-3.5 py-2 text-xs font-bold bg-blue-950 text-white rounded-xl hover:bg-blue-900 transition-all">Espace enseignant</a>
+        <a href="{% url 'connexion' %}" class="px-3.5 py-2 text-xs font-bold bg-amber-500 text-blue-950 rounded-xl hover:bg-amber-400 transition-all">Espace administration</a>
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock %}

@@ -1,0 +1,2 @@
+# Dépendances de PubliEPT
+Django>=5.0,<6.0

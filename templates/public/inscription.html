@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% load publiept %}
+
+{% block contenu %}
+<div class="max-w-4xl mx-auto py-6 sm:py-12">
+  <div class="grid grid-cols-1 md:grid-cols-2 bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden">
+
+    <div class="bg-gradient-to-br from-blue-950 via-slate-900 to-blue-900 text-white p-8 sm:p-10 flex flex-col justify-between">
+      <div class="space-y-4">
+        <div class="flex items-center gap-2">
+          <div class="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center font-serif text-amber-400 font-bold border border-white/20">P</div>
+          <span class="text-lg font-serif font-bold text-white tracking-tight">Publi<span class="text-amber-400">EPT</span></span>
+        </div>
+
+        <h2 class="text-xl sm:text-2xl font-serif font-bold leading-snug">
+          Un compte réservé aux chercheurs de l'école
+        </h2>
+
+        <p class="text-xs text-slate-300 leading-relaxed">
+          La plateforme est celle de l'{{ parametres.nom_etablissement }}. La création d'un compte
+          est donc réservée aux membres de l'établissement : seule une adresse se terminant
+          par <span class="font-mono text-amber-300">@{{ domaine }}</span> est acceptée.
+        </p>
+      </div>
+
+      <div class="pt-8 border-t border-white/10 text-xs text-slate-400 space-y-2">
+        <div class="flex items-center gap-2 text-amber-300 font-semibold">
+          {% icone "book-open" "w-4 h-4" %}<span>Consultation libre</span>
+        </div>
+        <p>
+          Un compte n'est nécessaire que pour déposer des travaux. La recherche et la
+          consultation du catalogue restent ouvertes à tous.
+        </p>
+        <a href="{% url 'connexion' %}" class="inline-flex items-center gap-1 text-amber-300 hover:text-amber-200 font-semibold pt-2">
+          <span>J'ai déjà un compte</span>{% icone "arrow-right" "w-3.5 h-3.5" %}
+        </a>
+      </div>
+    </div>
+
+    <div class="p-8 sm:p-10 space-y-5">
+      <div>
+        <h3 class="text-lg font-bold text-slate-900 font-serif">Créer un compte chercheur</h3>
+        <p class="text-xs text-slate-500 mt-0.5">Votre fiche d'enseignant-chercheur est créée en même temps</p>
+      </div>
+
+      {% if form.errors %}
+        <div class="p-3 rounded-xl bg-red-50 border border-red-200 text-xs text-red-800 space-y-1">
+          {% for champ, erreurs in form.errors.items %}
+            {% for erreur in erreurs %}
+              <div>&bull; {{ erreur }}</div>
+            {% endfor %}
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      <form method="post" class="space-y-3.5">
+        {% csrf_token %}
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label for="{{ form.prenom.id_for_label }}" class="block text-xs font-bold text-slate-700 mb-1">Prénom</label>
+            {{ form.prenom }}
+          </div>
+          <div>
+            <label for="{{ form.nom.id_for_label }}" class="block text-xs font-bold text-slate-700 mb-1">Nom</label>
+            {{ form.nom }}
+          </div>
+        </div>
+
+        <div>
+          <label for="{{ form.email.id_for_label }}" class="block text-xs font-bold text-slate-700 mb-1">
+            Adresse email institutionnelle
+          </label>
+          {{ form.email }}
+          <p class="text-[11px] text-slate-500 mt-1">
+            Obligatoirement une adresse <span class="font-mono font-semibold text-slate-700">@{{ domaine }}</span>.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label for="{{ form.specialite.id_for_label }}" class="block text-xs font-bold text-slate-700 mb-1">Spécialité</label>
+            {{ form.specialite }}
+          </div>
+          <div>
+            <label for="{{ form.grade.id_for_label }}" class="block text-xs font-bold text-slate-700 mb-1">Grade</label>
+            {{ form.grade }}
+          </div>
+        </div>
+
+        <div>
+          <label for="{{ form.telephone.id_for_label }}" class="block text-xs font-bold text-slate-700 mb-1">
+            Téléphone <span class="font-normal text-slate-400">(facultatif)</span>
+          </label>
+          {{ form.telephone }}
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label for="{{ form.mot_de_passe.id_for_label }}" class="block text-xs font-bold text-slate-700 mb-1">Mot de passe</label>
+            {{ form.mot_de_passe }}
+          </div>
+          <div>
+            <label for="{{ form.confirmation.id_for_label }}" class="block text-xs font-bold text-slate-700 mb-1">Confirmation</label>
+            {{ form.confirmation }}
+          </div>
+        </div>
+        <p class="text-[11px] text-slate-500">Huit caractères au minimum.</p>
+
+        <button type="submit" class="w-full py-2.5 px-4 text-xs font-bold text-white bg-blue-950 hover:bg-blue-900 rounded-xl transition-colors">
+          Créer mon compte
+        </button>
+
+        <p class="text-[11px] text-slate-400 text-center pt-1">
+          Déjà inscrit ?
+          <a href="{% url 'connexion' %}" class="text-blue-900 font-semibold hover:underline">Se connecter</a>
+        </p>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

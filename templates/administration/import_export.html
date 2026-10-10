@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% load publiept %}
+
+{% block contenu %}
+<div class="space-y-8 pb-16">
+
+  <div class="border-b border-slate-200 pb-5">
+    <h1 class="text-2xl sm:text-3xl font-serif font-bold text-slate-950">Import et export des données</h1>
+    <p class="text-xs text-slate-500 mt-1">
+      Extraction complète en BibTeX, tableur CSV ou PDF, et import de notices bibliographiques
+    </p>
+  </div>
+
+  <div>
+    <h2 class="text-base font-serif font-bold text-slate-900 mb-4">
+      Exporter le corpus ({{ total }} publication{{ total|pluriel }})
+    </h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 space-y-3 flex flex-col justify-between">
+        <div class="space-y-2">
+          <div class="p-3 bg-blue-50 text-blue-900 rounded-xl w-fit">{% icone "file-text" "w-6 h-6" %}</div>
+          <h3 class="font-bold text-sm text-slate-900">Format BibTeX (.bib)</h3>
+          <p class="text-xs text-slate-500 leading-relaxed">
+            Standard LaTeX et gestionnaires de références (Zotero, Mendeley, JabRef).
+            Exporte l'ensemble des notices typées.
+          </p>
+        </div>
+        <a href="{% url 'export_bibtex' %}"
+           class="w-full py-2.5 px-4 text-xs font-bold text-white bg-blue-950 hover:bg-blue-900 rounded-xl transition-colors flex items-center justify-center gap-2">
+          {% icone "download" "w-4 h-4 text-amber-400" %}<span>Télécharger .bib</span>
+        </a>
+      </div>
+
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 space-y-3 flex flex-col justify-between">
+        <div class="space-y-2">
+          <div class="p-3 bg-emerald-50 text-emerald-800 rounded-xl w-fit">{% icone "file-spreadsheet" "w-6 h-6" %}</div>
+          <h3 class="font-bold text-sm text-slate-900">Tableur Excel / CSV</h3>
+          <p class="text-xs text-slate-500 leading-relaxed">
+            Données tabulaires prêtes pour Excel, Google Sheets ou LibreOffice, en UTF-8
+            avec séparateur point-virgule.
+          </p>
+        </div>
+        <a href="{% url 'export_csv' %}"
+           class="w-full py-2.5 px-4 text-xs font-bold text-white bg-emerald-800 hover:bg-emerald-700 rounded-xl transition-colors flex items-center justify-center gap-2">
+          {% icone "download" "w-4 h-4 text-emerald-200" %}<span>Télécharger .csv</span>
+        </a>
+      </div>
+
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 space-y-3 flex flex-col justify-between">
+        <div class="space-y-2">
+          <div class="p-3 bg-amber-50 text-amber-800 rounded-xl w-fit">{% icone "printer" "w-6 h-6" %}</div>
+          <h3 class="font-bold text-sm text-slate-900">Impression et rapport PDF</h3>
+          <p class="text-xs text-slate-500 leading-relaxed">
+            Mise en page prête pour le conseil scientifique ou une évaluation institutionnelle
+            (CAMES, ANAQ-Sup).
+          </p>
+        </div>
+        <button type="button" onclick="window.print()"
+                class="w-full py-2.5 px-4 text-xs font-bold text-blue-950 bg-amber-500 hover:bg-amber-400 rounded-xl transition-colors flex items-center justify-center gap-2">
+          {% icone "printer" "w-4 h-4" %}<span>Imprimer / export PDF</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 space-y-4 print:hidden">
+    <div>
+      <h2 class="text-base font-serif font-bold text-slate-900">Importer des publications en masse</h2>
+      <p class="text-xs text-slate-500 mt-0.5">
+        Collez votre fichier tabulaire CSV pour intégrer automatiquement les travaux au catalogue
+      </p>
+    </div>
+
+    <form method="post" class="space-y-3">
+      {% csrf_token %}
+      <textarea name="contenu" id="contenu-import" rows="8"
+                placeholder="ID;Titre;Type;Année;Auteurs;Auteur Correspondant;DOI;Est Financée;Financements;Mots-clés&#10;101;Titre de la publication;JOURNAL;2024;Prénom Nom;Prénom Nom;10.0000/exemple;OUI;Nom du bailleur;Premier mot-clé, Second mot-clé"
+                class="w-full p-3 text-xs font-mono bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-900/20 text-slate-800"></textarea>
+
+      <div class="flex flex-wrap justify-between items-center gap-3 pt-2">
+        <button type="button" onclick="chargerExempleImport()" class="text-xs text-blue-900 hover:underline font-semibold">
+          + Charger un extrait de test CSV
+        </button>
+        <button type="submit"
+                class="inline-flex items-center gap-2 px-5 py-2.5 text-xs font-bold text-white bg-blue-950 hover:bg-blue-900 rounded-xl transition-colors">
+          {% icone "upload" "w-4 h-4 text-amber-400" %}<span>Lancer l'importation</span>
+        </button>
+      </div>
+
+      <p class="text-[11px] text-slate-500 bg-slate-50 border border-slate-200 rounded-lg p-2.5">
+        Les colonnes attendues sont celles de l'export CSV de la plateforme. Les publications dont
+        le titre existe déjà sont ignorées, afin d'éviter la création de doublons.
+      </p>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  function chargerExempleImport() {
+    document.getElementById('contenu-import').value =
+      'ID;Titre;Type;Année;Auteurs;Auteur Correspondant;DOI;Est Financée;Financements;Mots-clés\n' +
+      '101;Titre du premier article à importer;JOURNAL;2024;Prénom Nom, Prénom Nom;' +
+      'Prénom Nom;10.0000/exemple.2024.01;OUI;Nom du bailleur;Premier mot-clé, Second mot-clé\n' +
+      '102;Titre de la communication à importer;CONFERENCE;2024;' +
+      'Prénom Nom;Prénom Nom;;NON;;Premier mot-clé, Second mot-clé';
+  }
+</script>
+{% endblock %}
